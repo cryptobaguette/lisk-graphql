@@ -35,6 +35,26 @@ exports.typeDef = `
     multisignature: Int!
     dapp: String!
   }
+
+  extend type Query {
+    # Gets all blocks by provided filter(s).
+    blocks(
+      # Limit of blocks to add to response. Default to 100.
+      limit: Int
+    ): [Block!]!
+
+    # Gets block by provided id.
+    block(
+      # Id of block.
+      id: ID!
+    ): Block
+
+    # Get transaction fee for sending "normal" transactions.
+    getFee: Int!
+
+    # Get transaction fee for all types of transactions.
+    getFees: Fees!
+  }
 `;
 
 exports.monster = {
