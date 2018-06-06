@@ -1,4 +1,5 @@
 // https://github.com/LiskHQ/lisk/blob/0.9.15/helpers/constants.js
+/* eslint-disable */
 
 'use strict';
 

@@ -1,4 +1,5 @@
 // https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js#L53
+/* eslint-disable */
 
 const crypto = require('crypto');
 const bignum = require('./bignum.js');

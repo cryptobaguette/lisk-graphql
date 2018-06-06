@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "prettier": "prettier --write '**/*.{js,md}'"
+    "prettier": "prettier --write '**/*.{js,md}'",
+    "lint": "eslint src"
   },
   "prettier": {
     "singleQuote": true,
@@ -27,6 +28,13 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.9.1",
     "nodemon": "^1.17.5",
     "prettier": "^1.13.4"
   }

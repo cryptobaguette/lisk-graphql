@@ -2,7 +2,7 @@
 
 const joinMonster = require('join-monster').default;
 
-const bignum = require('../helpers/bignum');
+const Bignum = require('../helpers/bignum');
 const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
 const constants = require('../helpers/constants');
 const { knex } = require('../knex');
@@ -79,19 +79,17 @@ exports.monster = {
 
 exports.Query = {
   block(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => {
-      return knex.raw(sql);
-    });
+    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql));
   },
   getFee() {
     return constants.fees.send;
-  }
-}
+  },
+};
 
 exports.resolver = {
   Block: {
     generatorId: block => getAddressByPublicKey(block.generatorPublicKey),
     totalForged: block =>
-      new bignum(block.totalFee).plus(new bignum(block.reward)),
-  }
+      new Bignum(block.totalFee).plus(new Bignum(block.reward)),
+  },
 };

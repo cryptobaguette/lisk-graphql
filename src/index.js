@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
-const joinMonster = require('join-monster').default;
 const { merge } = require('lodash');
 
 // TODO nice error message if not found
 const config = require('../config.json');
 
+// TODO test connection
 const { knex } = require('./knex');
+
 const {
   typeDef: BlockTypeDef,
   monster: BlockMonster,
