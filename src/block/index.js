@@ -26,6 +26,15 @@ exports.typeDef = `
     confirmations: Int!
     totalForged: Int!
   }
+
+  type Fees {
+    send: Int!
+    vote: Int!
+    secondsignature: Int!
+    delegate: String!
+    multisignature: Int!
+    dapp: String!
+  }
 `;
 
 exports.monster = {
@@ -83,6 +92,9 @@ exports.Query = {
   },
   getFee() {
     return constants.fees.send;
+  },
+  getFees() {
+    return constants.fees;
   },
 };
 

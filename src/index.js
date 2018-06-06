@@ -33,6 +33,9 @@ const typeDefs = `
 
     # Get transaction fee for sending "normal" transactions.
     getFee: Int!
+
+    # Get transaction fee for all types of transactions.
+    getFees: Fees!
   }
 `;
 
