@@ -6,7 +6,16 @@ const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
 const { merge } = require('lodash');
 
 // TODO nice error message if not found
-const config = require('../config.json');
+try {
+  // eslint-disable-next-line
+  require('../config.json');
+} catch (error) {
+  console.error(`
+config.json file not found.
+Please copy config.example.json as config.json and edit it.
+  `);
+  process.exit(-1);
+}
 
 // TODO test connection
 const { knex } = require('./knex');
