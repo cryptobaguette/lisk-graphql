@@ -17,9 +17,6 @@ Please copy config.example.json as config.json and edit it.
   process.exit(-1);
 }
 
-// TODO test connection
-const { knex } = require('./knex');
-
 const {
   typeDef: BlockTypeDef,
   monster: BlockMonster,
