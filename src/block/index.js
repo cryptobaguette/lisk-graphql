@@ -51,7 +51,9 @@ exports.monster = {
           }
           return args.limit || 100;
         },
-        // TODO offset
+        // TODO args offset
+        // TODO args order by
+        // TODO other args filters
       },
       block: {
         where: (table, args) => `${table}.b_id = '${args.id}'`,

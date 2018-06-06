@@ -35,7 +35,10 @@ const typeDefs = `
     ): [Block!]!
 
     # Gets block by provided id.
-    block(id: ID!): Block
+    block(
+      # Id of block.
+      id: ID!
+    ): Block
 
     # Get transaction fee for sending "normal" transactions.
     getFee: Int!
