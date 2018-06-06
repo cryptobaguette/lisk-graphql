@@ -28,6 +28,12 @@ const {
 
 const typeDefs = `
   type Query {
+    # Gets all blocks by provided filter(s).
+    blocks(
+      # Limit of blocks to add to response. Default to 100.
+      limit: Int
+    ): [Block!]!
+
     # Gets block by provided id.
     block(id: ID!): Block
 
@@ -48,16 +54,7 @@ const schema = makeExecutableSchema({
   resolvers: merge(resolvers, BlockResolver),
 });
 
-joinMonsterAdapt(schema, {
-  Query: {
-    fields: {
-      block: {
-        where: (table, args) => `${table}.b_id = '${args.id}'`,
-      },
-    },
-  },
-  Block: BlockMonster,
-});
+joinMonsterAdapt(schema, merge(BlockMonster));
 
 const app = express();
 

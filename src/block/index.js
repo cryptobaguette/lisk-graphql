@@ -38,57 +38,86 @@ exports.typeDef = `
 `;
 
 exports.monster = {
-  sqlTable: 'blocks_list',
-  uniqueKey: 'b_id',
-  fields: {
-    id: {
-      sqlColumn: 'b_id',
+  Query: {
+    fields: {
+      blocks: {
+        orderBy: { b_height: 'desc' },
+        limit: args => {
+          if (args.limit <= 0) {
+            throw new Error('Invalid limit. Must be positive');
+          }
+          if (args.limit > 100) {
+            throw new Error('Invalid limit. Maximum is 100');
+          }
+          return args.limit || 100;
+        },
+        // TODO offset
+      },
+      block: {
+        where: (table, args) => `${table}.b_id = '${args.id}'`,
+      },
     },
-    version: {
-      sqlColumn: 'b_version',
-    },
-    timestamp: {
-      sqlColumn: 'b_timestamp',
-    },
-    height: {
-      sqlColumn: 'b_height',
-    },
-    previousBlock: {
-      sqlColumn: 'b_previousBlock',
-    },
-    numberOfTransactions: {
-      sqlColumn: 'b_numberOfTransactions',
-    },
-    totalAmount: {
-      sqlColumn: 'b_totalAmount',
-    },
-    totalFee: {
-      sqlColumn: 'b_totalFee',
-    },
-    reward: {
-      sqlColumn: 'b_reward',
-    },
-    payloadLength: {
-      sqlColumn: 'b_payloadLength',
-    },
-    payloadHash: {
-      sqlColumn: 'b_payloadHash',
-    },
-    generatorPublicKey: {
-      sqlColumn: 'b_generatorPublicKey',
-    },
-    blockSignature: {
-      sqlColumn: 'b_blockSignature',
-    },
-    confirmations: {
-      sqlColumn: 'b_confirmations',
+  },
+  Block: {
+    sqlTable: 'blocks_list',
+    uniqueKey: 'b_id',
+    fields: {
+      id: {
+        sqlColumn: 'b_id',
+      },
+      version: {
+        sqlColumn: 'b_version',
+      },
+      timestamp: {
+        sqlColumn: 'b_timestamp',
+      },
+      height: {
+        sqlColumn: 'b_height',
+      },
+      previousBlock: {
+        sqlColumn: 'b_previousBlock',
+      },
+      numberOfTransactions: {
+        sqlColumn: 'b_numberOfTransactions',
+      },
+      totalAmount: {
+        sqlColumn: 'b_totalAmount',
+      },
+      totalFee: {
+        sqlColumn: 'b_totalFee',
+      },
+      reward: {
+        sqlColumn: 'b_reward',
+      },
+      payloadLength: {
+        sqlColumn: 'b_payloadLength',
+      },
+      payloadHash: {
+        sqlColumn: 'b_payloadHash',
+      },
+      generatorPublicKey: {
+        sqlColumn: 'b_generatorPublicKey',
+      },
+      blockSignature: {
+        sqlColumn: 'b_blockSignature',
+      },
+      confirmations: {
+        sqlColumn: 'b_confirmations',
+      },
     },
   },
 };
 
 exports.Query = {
+  blocks(parent, args, ctx, resolveInfo) {
+    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+      dialect: 'pg',
+    });
+  },
   block(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql));
+    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+      dialect: 'pg',
+    });
   },
   getFee() {
     return constants.fees.send;
