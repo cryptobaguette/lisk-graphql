@@ -1,7 +1,11 @@
 // see https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js
 
-const bignum = require('../helpers/bignum.js');
+const joinMonster = require('join-monster').default;
+
+const bignum = require('../helpers/bignum');
 const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
+const constants = require('../helpers/constants');
+const { knex } = require('../knex');
 
 exports.typeDef = `
   type Block {
@@ -73,8 +77,21 @@ exports.monster = {
   },
 };
 
+exports.Query = {
+  block(parent, args, ctx, resolveInfo) {
+    return joinMonster(resolveInfo, ctx, sql => {
+      return knex.raw(sql);
+    });
+  },
+  getFee() {
+    return constants.fees.send;
+  }
+}
+
 exports.resolver = {
-  generatorId: block => getAddressByPublicKey(block.generatorPublicKey),
-  totalForged: block =>
-    new bignum(block.totalFee).plus(new bignum(block.reward)),
+  Block: {
+    generatorId: block => getAddressByPublicKey(block.generatorPublicKey),
+    totalForged: block =>
+      new bignum(block.totalFee).plus(new bignum(block.reward)),
+  }
 };

@@ -23,6 +23,7 @@
     "join-monster": "^2.0.16",
     "join-monster-graphql-tools-adapter": "^0.0.3",
     "knex": "^0.14.6",
+    "lodash": "^4.17.10",
     "pg": "^7.4.3"
   },
   "devDependencies": {

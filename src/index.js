@@ -4,44 +4,38 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
 const joinMonster = require('join-monster').default;
-const Knex = require('knex');
+const { merge } = require('lodash');
 
 // TODO nice error message if not found
 const config = require('../config.json');
 
+const { knex } = require('./knex');
 const {
   typeDef: BlockTypeDef,
   monster: BlockMonster,
+  Query: BlockQuery,
   resolver: BlockResolver,
 } = require('./block');
-
-const knex = Knex({
-  client: 'pg',
-  connection: config.connection,
-});
 
 // TODO sanityse sql queries inputs
 
 const typeDefs = `
   type Query {
+    # Gets block by provided id.
     block(id: ID!): Block
+
+    # Get transaction fee for sending "normal" transactions.
+    getFee: Int!
   }
 `;
 
 const resolvers = {
-  Query: {
-    block(parent, args, ctx, resolveInfo) {
-      return joinMonster(resolveInfo, ctx, sql => {
-        return knex.raw(sql);
-      });
-    },
-  },
-  Block: BlockResolver,
+  Query: merge(BlockQuery),
 };
 
 const schema = makeExecutableSchema({
   typeDefs: [typeDefs, BlockTypeDef],
-  resolvers,
+  resolvers: merge(resolvers, BlockResolver),
 });
 
 joinMonsterAdapt(schema, {
