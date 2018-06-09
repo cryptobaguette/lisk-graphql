@@ -53,6 +53,10 @@ exports.monster = {
       fee: {
         sqlColumn: 't_fee',
       },
+      sender: {
+        sqlJoin: (transactionTable, accountTable) =>
+          `${transactionTable}."t_senderId" = ${accountTable}.address`,
+      },
     },
   },
 };

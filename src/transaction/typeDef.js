@@ -24,6 +24,9 @@ exports.typeDef = `
     # Lisk Address of the Senders’ account.
     senderId: String
 
+    # Lisk Senders’ account.
+    sender: Account
+
     # Lisk Address of the Recipients’ account.
     recipientId: String
 
