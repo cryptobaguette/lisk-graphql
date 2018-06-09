@@ -60,6 +60,9 @@ exports.typeDef = `
     # Returns all votes received by a delegate.
     voters: [Account!]!
 
+    # Returns all votes placed by an account.
+    votes: [Account!]!
+
     # Number of votes that are already placed by the queried account.
     votesUsed: Int!
 
@@ -162,6 +165,23 @@ exports.monster = {
             // then the junction to the child
             (junctionTable, followeeTable) =>
               `${junctionTable}."accountId" = ${followeeTable}."address"`,
+          ],
+        },
+      },
+      votes: {
+        orderBy: {
+          vote: 'desc',
+          publicKey: 'asc',
+        },
+        junction: {
+          sqlTable: 'mem_accounts2delegates',
+          sqlJoins: [
+            // first the parent table to the junction
+            (followerTable, junctionTable) =>
+              `${followerTable}."address" = ${junctionTable}."accountId"`,
+            // then the junction to the child
+            (junctionTable, followeeTable) =>
+              `${junctionTable}."dependentId" = ENCODE(${followeeTable}."publicKey", 'hex')`,
           ],
         },
       },
