@@ -181,6 +181,7 @@ exports.resolver = {
     productivity: delegate =>
       calculateProductivity(delegate.producedBlocks, delegate.missedBlocks),
     votesUsed: async delegate => {
+      // See https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/db/sql/votes/get_votes_count.sql
       const res = await knex('mem_accounts2delegates')
         .where({ accountId: delegate.address })
         .count('*');
