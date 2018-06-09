@@ -2,6 +2,10 @@ const { typeDef } = require('./typeDef');
 
 exports.typeDef = typeDef;
 
+const { resolver } = require('./resolver');
+
+exports.resolver = resolver;
+
 // https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/account.js
 
 const joinMonster = require('join-monster').default;
@@ -64,8 +68,4 @@ exports.Query = {
       dialect: 'pg',
     });
   },
-};
-
-exports.resolver = {
-  Account: {},
 };

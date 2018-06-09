@@ -2,41 +2,18 @@ const { typeDef } = require('./typeDef');
 
 exports.typeDef = typeDef;
 
+const { resolver } = require('./resolver');
+
+exports.resolver = resolver;
+
 // https://github.com/LiskHQ/lisk/blob/0.9.15/logic/delegate.js
 
 const joinMonster = require('join-monster').default;
 
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
-const Bignum = require('../lisk/helpers/bignum');
-const constants = require('../lisk/helpers/constants');
 
-const {
-  monster: AccountMonster,
-  resolver: AccountResolver,
-} = require('../account');
-
-// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/account.js#L418
-const calculateProductivity = (producedBlocks, missedBlocks) => {
-  const producedBlocksBignum = new Bignum(producedBlocks || 0);
-  const missedBlocksBignum = new Bignum(missedBlocks || 0);
-  const percent = producedBlocksBignum
-    .dividedBy(producedBlocksBignum.plus(missedBlocksBignum))
-    .times(100)
-    .round(2);
-  return !percent.isNaN() ? percent.toNumber() : 0;
-};
-
-// TODO implement this function as a graphql loader
-// used in votesUsed && votesAvailable resolvers
-const getVotersCountForDelegates = async delegate => {
-  // See https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/db/sql/votes/get_votes_count.sql
-  const res = await knex('mem_accounts2delegates')
-    .where({ accountId: delegate.address })
-    .count('*');
-  const { count } = res[0];
-  return count;
-};
+const { monster: AccountMonster } = require('../account');
 
 exports.monster = {
   Query: {
@@ -135,18 +112,5 @@ exports.Query = {
     return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
       dialect: 'pg',
     });
-  },
-};
-
-exports.resolver = {
-  Delegate: {
-    ...AccountResolver.Account,
-    productivity: delegate =>
-      calculateProductivity(delegate.producedBlocks, delegate.missedBlocks),
-    votesUsed: getVotersCountForDelegates,
-    votesAvailable: async delegate => {
-      const votesCount = await getVotersCountForDelegates(delegate);
-      return constants.maxVotesPerAccount - votesCount;
-    },
   },
 };

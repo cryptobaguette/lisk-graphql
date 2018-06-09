@@ -2,12 +2,14 @@ const { typeDef } = require('./typeDef');
 
 exports.typeDef = typeDef;
 
+const { resolver } = require('./resolver');
+
+exports.resolver = resolver;
+
 // https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/block.js
 
 const joinMonster = require('join-monster').default;
 
-const Bignum = require('../lisk/helpers/bignum');
-const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
 
@@ -86,13 +88,5 @@ exports.Query = {
     return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
       dialect: 'pg',
     });
-  },
-};
-
-exports.resolver = {
-  Block: {
-    generatorId: block => getAddressByPublicKey(block.generatorPublicKey),
-    totalForged: block =>
-      new Bignum(block.totalFee).plus(new Bignum(block.reward)),
   },
 };
