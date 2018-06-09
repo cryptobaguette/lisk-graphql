@@ -26,7 +26,6 @@ exports.monster = {
         sqlColumn: 'b_height',
       },
       blockId: {
-        // TODO raw.b_id || raw.t_blockId
         sqlColumn: 't_blockId',
       },
       type: {
@@ -35,21 +34,12 @@ exports.monster = {
       timestamp: {
         sqlColumn: 't_timestamp',
       },
-      // senderPublicKey: {
-      //   sqlColumn: 't_senderPublicKey',
-      // },
-      // requesterPublicKey: {
-      //   sqlColumn: 't_requesterPublicKey',
-      // },
       senderId: {
         sqlColumn: 't_senderId',
       },
       recipientId: {
         sqlColumn: 't_recipientId',
       },
-      // recipientPublicKey: {
-      //   sqlColumn: 'm_recipientPublicKey',
-      // },
       amount: {
         sqlColumn: 't_amount',
       },
