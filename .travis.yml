@@ -3,4 +3,7 @@ language: node_js
 sudo: false
 node_js:
   - "9"
+install:
+  - yarn install
+  - cp config.example.json config.json
 script: "yarn test"
