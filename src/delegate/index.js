@@ -107,7 +107,6 @@ exports.typeDef = `
   }
 `;
 
-// TODO rank
 // TODO approval
 
 exports.monster = {

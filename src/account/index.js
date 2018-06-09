@@ -41,9 +41,6 @@ exports.typeDef = `
   }
 `;
 
-// TODO multisignatures
-// TODO u_multisignatures
-
 exports.monster = {
   Query: {
     fields: {
