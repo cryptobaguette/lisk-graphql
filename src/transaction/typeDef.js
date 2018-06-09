@@ -63,5 +63,11 @@ exports.typeDef = `
       # Limit of transactions to add to response. Default to 100.
       limit: Int
     ): [Transaction!]!
+
+    # Gets transaction by provided id.
+    transaction(
+      # Id of transaction.
+      id: ID!
+    ): Transaction
   }
 `;

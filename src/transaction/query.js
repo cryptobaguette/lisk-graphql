@@ -8,4 +8,9 @@ exports.Query = {
       dialect: 'pg',
     });
   },
+  block(parent, args, ctx, resolveInfo) {
+    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+      dialect: 'pg',
+    });
+  },
 };

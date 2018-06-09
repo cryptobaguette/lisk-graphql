@@ -10,6 +10,9 @@ exports.monster = {
         // TODO args order by enum
         // TODO other args filters
       },
+      transaction: {
+        where: (table, args) => `${table}.t_id = '${args.id}'`,
+      },
     },
   },
   Transaction: {
