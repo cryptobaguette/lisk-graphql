@@ -1,13 +1,17 @@
-# lisk-graphql
+<h1 align="center">lisk-graphql</h1>
 
-Graphql api for lisk
+<p align="center">
+  <img src="https://github.com/lucasbento/graphql-pokemon/raw/master/assets/logo.png">
+</p>
 
-# Setup
+Graphql api for lisk.
+
+# How to use
 
 - Clone the repo on your server: `git clone https://github.com/cryptobaguette/lisk-graphql`.
 - Install dependencies: `yarn install` or `npm install`.
 - Copy the example config file: `cp config.example.json config.json`.
-- Edit the file with your infos.
+- Edit the config file with your infos.
 - Start the app `yarn start` or `node src/index.js`.
 
 # Options
