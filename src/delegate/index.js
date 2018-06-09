@@ -109,13 +109,13 @@ exports.monster = {
         sqlColumn: 'vote',
       },
       producedBlocks: {
-        sqlColumn: 'producedblocks',
+        sqlColumn: 'producedBlocks',
       },
       missedBlocks: {
-        sqlColumn: 'missedblocks',
+        sqlColumn: 'missedBlocks',
       },
       productivity: {
-        sqlDeps: ['producedblocks', 'missedblocks'],
+        sqlDeps: ['producedBlocks', 'missedBlocks'],
       },
     },
   },
