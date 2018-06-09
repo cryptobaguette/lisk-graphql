@@ -56,6 +56,7 @@ exports.monster = {
       },
       account: {
         // TODO allow find by publicKey
+        // TODO allow find by secondPublicKey
         where: (table, args) => `${table}.address = '${args.address}'`,
       },
     },
