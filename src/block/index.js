@@ -1,4 +1,4 @@
-// https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js
+// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/block.js
 
 const joinMonster = require('join-monster').default;
 
