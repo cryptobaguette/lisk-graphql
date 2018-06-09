@@ -1,4 +1,4 @@
-// see https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js
+// https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js
 
 const joinMonster = require('join-monster').default;
 
@@ -6,6 +6,7 @@ const Bignum = require('../helpers/bignum');
 const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
 const constants = require('../helpers/constants');
 const { knex } = require('../knex');
+const { limitFromArgs } = require('../helpers/monster');
 
 exports.typeDef = `
   type Block {
@@ -28,12 +29,12 @@ exports.typeDef = `
   }
 
   type Fees {
-    send: Int!
-    vote: Int!
-    secondsignature: Int!
-    delegate: String!
-    multisignature: Int!
-    dapp: String!
+    send: Int! # TODO BigInt
+    vote: Int! # TODO BigInt
+    secondsignature: Int! # TODO BigInt
+    delegate: String! # TODO BigInt
+    multisignature: Int! # TODO BigInt
+    dapp: String! # TODO BigInt
   }
 
   extend type Query {
@@ -50,7 +51,7 @@ exports.typeDef = `
     ): Block
 
     # Get transaction fee for sending "normal" transactions.
-    getFee: Int!
+    getFee: Int! # TODO BigInt
 
     # Get transaction fee for all types of transactions.
     getFees: Fees!
@@ -62,17 +63,9 @@ exports.monster = {
     fields: {
       blocks: {
         orderBy: { b_height: 'desc' },
-        limit: args => {
-          if (args.limit <= 0) {
-            throw new Error('Invalid limit. Must be positive');
-          }
-          if (args.limit > 100) {
-            throw new Error('Invalid limit. Maximum is 100');
-          }
-          return args.limit || 100;
-        },
+        limit: limitFromArgs,
         // TODO args offset
-        // TODO args order by
+        // TODO args order by enum
         // TODO other args filters
       },
       block: {
