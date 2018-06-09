@@ -2,7 +2,7 @@
 
 const joinMonster = require('join-monster').default;
 
-const Bignum = require('../helpers/bignum');
+const Bignum = require('../lisk/helpers/bignum');
 const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');

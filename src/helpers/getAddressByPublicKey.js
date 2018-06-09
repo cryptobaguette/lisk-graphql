@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 const crypto = require('crypto');
-const bignum = require('./bignum.js');
+const bignum = require('../lisk/helpers/bignum.js');
 
 module.exports = publicKey => {
   var publicKeyHash = crypto

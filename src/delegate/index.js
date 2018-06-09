@@ -4,8 +4,8 @@ const joinMonster = require('join-monster').default;
 
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
-const Bignum = require('../helpers/bignum');
-const constants = require('../helpers/constants');
+const Bignum = require('../lisk/helpers/bignum');
+const constants = require('../lisk/helpers/constants');
 
 const {
   monster: AccountMonster,
