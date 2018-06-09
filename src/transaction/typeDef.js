@@ -18,6 +18,9 @@ exports.typeDef = `
     # The Id of the block, this transaction is included in.
     blockId: String
 
+    # The transaction block where the transaction is included.
+    block: Block
+
     # Time when the transaction was created. Unix Timestamp.
     timestamp: String!
 

@@ -53,13 +53,17 @@ exports.monster = {
       fee: {
         sqlColumn: 't_fee',
       },
+      block: {
+        sqlJoin: (transactionTable, accountTable) =>
+          `${transactionTable}."t_blockId" = ${accountTable}."b_id"`,
+      },
       sender: {
         sqlJoin: (transactionTable, accountTable) =>
-          `${transactionTable}."t_senderId" = ${accountTable}.address`,
+          `${transactionTable}."t_senderId" = ${accountTable}."address"`,
       },
       recipient: {
         sqlJoin: (transactionTable, accountTable) =>
-          `${transactionTable}."t_recipientId" = ${accountTable}.address`,
+          `${transactionTable}."t_recipientId" = ${accountTable}."address"`,
       },
     },
   },
