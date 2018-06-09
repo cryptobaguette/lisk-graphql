@@ -52,7 +52,7 @@ exports.typeDef = `
     missedBlocks: Int
 
     # Percentage of the voters weight, that the delegate owns in relation to the total supply of Lisk.
-    approval: Int
+    # TODO approval: Int
 
     # Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate.
     productivity: Float

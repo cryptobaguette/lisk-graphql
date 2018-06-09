@@ -1,8 +1,13 @@
 {
+  "graphiql": true,
   "connection": {
     "host": "127.0.0.1",
     "user": "your_database_user",
     "password": "your_database_password",
     "database": "lisk_test"
+  },
+  "access": {
+    "public": false,
+    "whiteList": ["127.0.0.1"]
   }
 }
