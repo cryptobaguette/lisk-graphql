@@ -2,15 +2,16 @@ const { typeDef } = require('./typeDef');
 
 exports.typeDef = typeDef;
 
+const { Query } = require('./query');
+
+exports.Query = Query;
+
 const { resolver } = require('./resolver');
 
 exports.resolver = resolver;
 
 // https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/block.js
 
-const joinMonster = require('join-monster').default;
-
-const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
 
 exports.monster = {
@@ -75,18 +76,5 @@ exports.monster = {
         sqlColumn: 'b_confirmations',
       },
     },
-  },
-};
-
-exports.Query = {
-  blocks(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
-      dialect: 'pg',
-    });
-  },
-  block(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
-      dialect: 'pg',
-    });
   },
 };
