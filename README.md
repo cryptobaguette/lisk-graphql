@@ -52,3 +52,11 @@ Open an issue on this repo :)
 
 Do you have an idea or want to contribute?
 Pull requests are very welcome!
+
+## Donations
+
+If you like this project and want to support the development please consider making a donation to:
+
+```
+2865185670348234304L
+```
