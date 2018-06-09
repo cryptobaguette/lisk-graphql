@@ -5,7 +5,6 @@ const { makeExecutableSchema } = require('graphql-tools');
 const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
 const { merge } = require('lodash');
 
-// TODO nice error message if not found
 try {
   // eslint-disable-next-line
   require('../config.json');
@@ -18,11 +17,23 @@ Please copy config.example.json as config.json and edit it.
 }
 
 const {
+  typeDef: AccountTypeDef,
+  monster: AccountMonster,
+  Query: AccountQuery,
+  resolver: AccountResolver,
+} = require('./account');
+const {
   typeDef: BlockTypeDef,
   monster: BlockMonster,
   Query: BlockQuery,
   resolver: BlockResolver,
 } = require('./block');
+const {
+  typeDef: DelegateTypeDef,
+  monster: DelegateMonster,
+  Query: DelegateQuery,
+  resolver: DelegateResolver,
+} = require('./delegate');
 
 // TODO sanityse sql queries inputs
 
@@ -33,15 +44,15 @@ const typeDefs = `
 `;
 
 const resolvers = {
-  Query: merge(BlockQuery),
+  Query: merge(AccountQuery, BlockQuery, DelegateQuery),
 };
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, BlockTypeDef],
-  resolvers: merge(resolvers, BlockResolver),
+  typeDefs: [typeDefs, AccountTypeDef, BlockTypeDef, DelegateTypeDef],
+  resolvers: merge(resolvers, AccountResolver, BlockResolver, DelegateResolver),
 });
 
-joinMonsterAdapt(schema, merge(BlockMonster));
+joinMonsterAdapt(schema, merge(AccountMonster, BlockMonster, DelegateMonster));
 
 const app = express();
 

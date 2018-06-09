@@ -1,39 +1,62 @@
-// see https://github.com/LiskHQ/lisk/blob/0.9.15/logic/block.js
+// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/block.js
 
 const joinMonster = require('join-monster').default;
 
 const Bignum = require('../helpers/bignum');
 const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
-const constants = require('../helpers/constants');
 const { knex } = require('../knex');
+const { limitFromArgs } = require('../helpers/monster');
 
 exports.typeDef = `
   type Block {
+    # Unique identifier of the block. Derived from the block signature.
     id: ID!
-    version: Int!
-    timestamp: Int!
-    height: Int!
-    previousBlock: String
-    numberOfTransactions: Int!
-    totalAmount: Int!
-    totalFee: Int!
-    reward: Int!
-    payloadLength: Int!
-    payloadHash: String!
-    generatorPublicKey: String!
-    generatorId: String!
-    blockSignature: String!
-    confirmations: Int!
-    totalForged: Int!
-  }
 
-  type Fees {
-    send: Int!
-    vote: Int!
-    secondsignature: Int!
-    delegate: String!
-    multisignature: Int!
-    dapp: String!
+    # Versioning for future upgrades of the lisk protocol.
+    version: Int
+
+    # Height of the network, when the block got forged. The height of the networks represents the number of blocks, that have been forged on the network since Genesis Block.
+    height: Int!
+
+    timestamp: Int!
+
+    # Lisk Address of the delegate who forged the block.
+    generatorAddress: String
+
+    # Public key of th edelagte who forged the block.
+    generatorPublicKey: String!
+
+    # Bytesize of the payload hash.
+    payloadLength: Int
+
+    # Hash of the payload of the block. The payload of a block is comprised of the transactions the block contains. For each type of transaction exists a different maximum size for the payload.
+    payloadHash: String
+
+    # Derived from a SHA-256 hash of the block header, that is signed by the private key of the delegate who forged the block.
+    blockSignature: String
+
+    # Number of times that this Block has been confirmed by the network. By forging a new block on a chain, all former blocks in the chain get confirmed by the forging delegate.
+    confirmations: Int
+
+    # The id of the previous block of the chain.
+    previousBlockId: String
+
+    # The number of transactions processed in the block.
+    numberOfTransactions: Int!
+
+    # The total amount of Lisk transferred.
+    totalAmount: Int!
+
+    # The total amount of fees associated with the block.
+    totalFee: Int!
+
+    # The Lisk reward for the delegate.
+    reward: Int!
+
+    # Total amount of LSK that have been forged in this Block. Consists of fees and the reward.
+    totalForged: String! # TODO BigInt
+
+    generatorId: String!
   }
 
   extend type Query {
@@ -48,12 +71,6 @@ exports.typeDef = `
       # Id of block.
       id: ID!
     ): Block
-
-    # Get transaction fee for sending "normal" transactions.
-    getFee: Int!
-
-    # Get transaction fee for all types of transactions.
-    getFees: Fees!
   }
 `;
 
@@ -62,17 +79,9 @@ exports.monster = {
     fields: {
       blocks: {
         orderBy: { b_height: 'desc' },
-        limit: args => {
-          if (args.limit <= 0) {
-            throw new Error('Invalid limit. Must be positive');
-          }
-          if (args.limit > 100) {
-            throw new Error('Invalid limit. Maximum is 100');
-          }
-          return args.limit || 100;
-        },
+        limit: limitFromArgs,
         // TODO args offset
-        // TODO args order by
+        // TODO args order by enum
         // TODO other args filters
       },
       block: {
@@ -96,7 +105,7 @@ exports.monster = {
       height: {
         sqlColumn: 'b_height',
       },
-      previousBlock: {
+      previousBlockId: {
         sqlColumn: 'b_previousBlock',
       },
       numberOfTransactions: {
@@ -140,12 +149,6 @@ exports.Query = {
     return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
       dialect: 'pg',
     });
-  },
-  getFee() {
-    return constants.fees.send;
-  },
-  getFees() {
-    return constants.fees;
   },
 };
 
