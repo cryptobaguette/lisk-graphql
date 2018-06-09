@@ -4,6 +4,8 @@
   <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png">
 </p>
 
+[![Build Status](https://travis-ci.org/cryptobaguette/lisk-graphql.svg?branch=master)](https://travis-ci.org/cryptobaguette/lisk-graphql)
+
 Graphql api for lisk.
 
 The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
