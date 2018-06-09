@@ -1,7 +1,7 @@
 <h1 align="center">lisk-graphql</h1>
 
 <p align="center">
-  <img src="https://github.com/lucasbento/graphql-pokemon/raw/master/assets/logo.png">
+  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png">
 </p>
 
 Graphql api for lisk.
