@@ -5,6 +5,7 @@ const joinMonster = require('join-monster').default;
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
 const Bignum = require('../helpers/bignum');
+const constants = require('../helpers/constants');
 
 const {
   monster: AccountMonster,
@@ -20,6 +21,17 @@ const calculateProductivity = (producedBlocks, missedBlocks) => {
     .times(100)
     .round(2);
   return !percent.isNaN() ? percent.toNumber() : 0;
+};
+
+// TODO implement this function as a graphql loader
+// used in votesUsed && votesAvailable resolvers
+const getVotersCountForDelegates = async delegate => {
+  // See https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/db/sql/votes/get_votes_count.sql
+  const res = await knex('mem_accounts2delegates')
+    .where({ accountId: delegate.address })
+    .count('*');
+  const { count } = res[0];
+  return count;
 };
 
 exports.typeDef = `
@@ -49,7 +61,10 @@ exports.typeDef = `
     voters: [Account!]!
 
     # Number of votes that are already placed by the queried account.
-    votesUsed: Int
+    votesUsed: Int!
+
+    # Number of votes that are available for the queried account. Derives from 101(max possible votes) - votesUsed(already used votes)
+    votesAvailable: Int!
 
     # ---- Copy paste from accounts schema ----
 
@@ -180,12 +195,10 @@ exports.resolver = {
     ...AccountResolver.Account,
     productivity: delegate =>
       calculateProductivity(delegate.producedBlocks, delegate.missedBlocks),
-    votesUsed: async delegate => {
-      // See https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/db/sql/votes/get_votes_count.sql
-      const res = await knex('mem_accounts2delegates')
-        .where({ accountId: delegate.address })
-        .count('*');
-      return res[0].count;
+    votesUsed: getVotersCountForDelegates,
+    votesAvailable: async delegate => {
+      const votesCount = await getVotersCountForDelegates(delegate);
+      return constants.maxVotesPerAccount - votesCount;
     },
   },
 };
