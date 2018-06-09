@@ -48,6 +48,9 @@ exports.typeDef = `
     # Returns all votes received by a delegate.
     voters: [Account!]!
 
+    # Number of votes that are already placed by the queried account.
+    votesUsed: Int
+
     # ---- Copy paste from accounts schema ----
 
     # The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end.
@@ -77,6 +80,12 @@ exports.typeDef = `
       # Limit of delegates to add to response. Default to 100.
       limit: Int
     ): [Delegate!]!
+
+    # Returns account information of a delegate.
+    delegate(
+      # Address of delegate.
+      address: String!
+    ): Delegate
   }
 `;
 
@@ -97,7 +106,11 @@ exports.monster = {
         // TODO args order by enum
         // TODO other args filters
       },
-      // TODO delegate query
+      delegate: {
+        // TODO allow find by publicKey
+        // TODO allow find by secondPublicKey
+        where: (table, args) => `${table}.address = '${args.address}'`,
+      },
     },
   },
   Delegate: {
@@ -152,13 +165,26 @@ exports.Query = {
       }
     );
   },
+  delegate(parent, args, ctx, resolveInfo) {
+    if (!args.address && !args.publicKey) {
+      throw new Error('Missing required property: address or publicKey');
+    }
+    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+      dialect: 'pg',
+    });
+  },
 };
 
 exports.resolver = {
   Delegate: {
     ...AccountResolver.Account,
-    publicKey: account => account.publicKey.toString('hex'),
     productivity: delegate =>
       calculateProductivity(delegate.producedBlocks, delegate.missedBlocks),
+    votesUsed: async delegate => {
+      const res = await knex('mem_accounts2delegates')
+        .where({ accountId: delegate.address })
+        .count('*');
+      return res[0].count;
+    },
   },
 };
