@@ -8,7 +8,7 @@ Graphql api for lisk.
 
 The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
 
-**This project is based on the 1.0.0-beta.7 version and is not working with the 9.x version**
+**This project is based on the 1.0.0-beta.7 version and is not working with the 9.x version.**
 
 ## How to use
 
