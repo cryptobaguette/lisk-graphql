@@ -8,41 +8,26 @@ const slots = require('../helpers/slots');
 
 exports.typeDef = `
   type Delegate {
-    # Delegate username.
+    # The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later.
     username: String!
 
-    # Address of account.
-    address: String!
-
-    # Unconfirmed balance of account.
-    unconfirmedBalance: String! # TODO BigInt
-
-    # Balance of account.
-    balance: String! # TODO BigInt
-
-    # Public key of account.
-    publicKey: String!
-
-    # Total votes.
+    # The voters weight of the delegate. Represents the total amount of Lisk (in Beddows) that the delegates’ voters own. The voters weight decides which rank the delegate gets in relation to the other delegates and their voters weights.
     vote: String! # TODO BigInt
 
-    # If account enabled second signature, but it's still not confirmed.
-    unconfirmedSignature: Boolean!
+    # Total sum of block rewards that the delegate has forged.
+    rewards: String
 
-    # If account enabled second signature.
-    secondSignature: Boolean!
+    # Total number of blocks the delegate has forged.
+    producedBlocks: Int
 
-    # Produced blocks.
-    producedBlocks: Int!
+    # Total number of blocks the delegate has missed.
+    missedBlocks: Int
 
-    # Missed blocks.
-    missedBlocks: Int!
+    # Percentage of the voters weight, that the delegate owns in relation to the total supply of Lisk.
+    approval: Int
 
-    # Ranking.
-    rank: Int!
-
-    # Productivity percentage.
-    productivity: Float!
+    # Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate.
+    productivity: Float
   }
 
   extend type Query {
@@ -71,6 +56,7 @@ exports.monster = {
         // TODO args order by enum
         // TODO other args filters
       },
+      // TODO delegate query
     },
   },
   Delegate: {
