@@ -76,6 +76,7 @@ exports.monster = {
       },
       publicKey: {
         sqlColumn: 'publicKey',
+        sqlExpr: table => `ENCODE(${table}."publicKey", 'hex')`,
       },
       secondPublicKey: {
         sqlColumn: 'secondPublicKey',
@@ -101,7 +102,5 @@ exports.Query = {
 };
 
 exports.resolver = {
-  Account: {
-    publicKey: account => account.publicKey.toString('hex'),
-  },
+  Account: {},
 };

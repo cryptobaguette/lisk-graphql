@@ -45,6 +45,9 @@ exports.typeDef = `
     # Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate.
     productivity: Float
 
+    # Returns all votes received by a delegate.
+    voters: [Account!]!
+
     # ---- Copy paste from accounts schema ----
 
     # The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end.
@@ -117,15 +120,37 @@ exports.monster = {
       productivity: {
         sqlDeps: ['producedBlocks', 'missedBlocks'],
       },
+      voters: {
+        orderBy: {
+          vote: 'desc',
+          publicKey: 'asc',
+        },
+        junction: {
+          sqlTable: 'mem_accounts2delegates',
+          sqlJoins: [
+            // first the parent table to the junction
+            (followerTable, junctionTable) =>
+              `ENCODE(${followerTable}."publicKey", 'hex') = ${junctionTable}."dependentId"`,
+            // then the junction to the child
+            (junctionTable, followeeTable) =>
+              `${junctionTable}."accountId" = ${followeeTable}."address"`,
+          ],
+        },
+      },
     },
   },
 };
 
 exports.Query = {
   delegates(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
-      dialect: 'pg',
-    });
+    return joinMonster(
+      resolveInfo,
+      ctx,
+      sql => console.log(sql) || knex.raw(sql),
+      {
+        dialect: 'pg',
+      }
+    );
   },
 };
 
