@@ -57,6 +57,10 @@ exports.monster = {
         sqlJoin: (transactionTable, accountTable) =>
           `${transactionTable}."t_senderId" = ${accountTable}.address`,
       },
+      recipient: {
+        sqlJoin: (transactionTable, accountTable) =>
+          `${transactionTable}."t_recipientId" = ${accountTable}.address`,
+      },
     },
   },
 };

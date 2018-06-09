@@ -30,6 +30,9 @@ exports.typeDef = `
     # Lisk Address of the Recipients’ account.
     recipientId: String
 
+    # Lisk Recipients’ account.
+    recipient: Account
+
     # Derived from a SHA-256 hash of the transaction object, that is signed by the private key of the account who created the transaction.
     # TODO signature: String!
 
