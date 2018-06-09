@@ -54,7 +54,9 @@ exports.typeDef = `
     reward: Int!
 
     # Total amount of LSK that have been forged in this Block. Consists of fees and the reward.
-    totalForged: Int!
+    totalForged: String! # TODO BigInt
+
+    generatorId: String!
   }
 
   extend type Query {
