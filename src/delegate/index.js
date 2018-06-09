@@ -4,12 +4,23 @@ const joinMonster = require('join-monster').default;
 
 const { knex } = require('../knex');
 const { limitFromArgs } = require('../helpers/monster');
-const slots = require('../helpers/slots');
+const Bignum = require('../helpers/bignum');
 
 const {
   monster: AccountMonster,
   resolver: AccountResolver,
 } = require('../account');
+
+// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/account.js#L418
+const calculateProductivity = (producedBlocks, missedBlocks) => {
+  const producedBlocksBignum = new Bignum(producedBlocks || 0);
+  const missedBlocksBignum = new Bignum(missedBlocks || 0);
+  const percent = producedBlocksBignum
+    .dividedBy(producedBlocksBignum.plus(missedBlocksBignum))
+    .times(100)
+    .round(2);
+  return !percent.isNaN() ? percent.toNumber() : 0;
+};
 
 exports.typeDef = `
   type Delegate {
@@ -114,13 +125,6 @@ exports.Query = {
   delegates(parent, args, ctx, resolveInfo) {
     return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
       dialect: 'pg',
-    }).then(delegates => {
-      i = 1;
-      delegates.forEach(delegate => {
-        delegate.rank = i;
-        i++;
-      });
-      return delegates;
     });
   },
 };
@@ -129,16 +133,7 @@ exports.resolver = {
   Delegate: {
     ...AccountResolver.Account,
     publicKey: account => account.publicKey.toString('hex'),
-    // https://github.com/LiskHQ/lisk/blob/0.9.15/modules/delegates.js#L478
-    productivity: delegate => {
-      let percent =
-        100 -
-        delegate.missedblocks /
-          ((delegate.producedblocks + delegate.missedblocks) / 100);
-      percent = Math.abs(percent) || 0;
-      const outsider = delegate.rank + 1 > slots.delegates;
-      return !outsider ? Math.round(percent * 1e2) / 1e2 : 0;
-    },
-    // rank: delegate => delegate.rank,
+    productivity: delegate =>
+      calculateProductivity(delegate.producedBlocks, delegate.missedBlocks),
   },
 };
