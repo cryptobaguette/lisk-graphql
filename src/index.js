@@ -38,6 +38,12 @@ const {
   Query: DelegateQuery,
   resolver: DelegateResolver,
 } = require('./delegate');
+const {
+  typeDef: TransactionTypeDef,
+  monster: TransactionMonster,
+  Query: TransactionQuery,
+  resolver: TransactionResolver,
+} = require('./transaction');
 
 // TODO sanityse sql queries inputs
 
@@ -48,15 +54,30 @@ const typeDefs = `
 `;
 
 const resolvers = {
-  Query: merge(AccountQuery, BlockQuery, DelegateQuery),
+  Query: merge(AccountQuery, BlockQuery, DelegateQuery, TransactionQuery),
 };
 
 const schema = makeExecutableSchema({
-  typeDefs: [typeDefs, AccountTypeDef, BlockTypeDef, DelegateTypeDef],
-  resolvers: merge(resolvers, AccountResolver, BlockResolver, DelegateResolver),
+  typeDefs: [
+    typeDefs,
+    AccountTypeDef,
+    BlockTypeDef,
+    DelegateTypeDef,
+    TransactionTypeDef,
+  ],
+  resolvers: merge(
+    resolvers,
+    AccountResolver,
+    BlockResolver,
+    DelegateResolver,
+    TransactionResolver
+  ),
 });
 
-joinMonsterAdapt(schema, merge(AccountMonster, BlockMonster, DelegateMonster));
+joinMonsterAdapt(
+  schema,
+  merge(AccountMonster, BlockMonster, DelegateMonster, TransactionMonster)
+);
 
 const app = express();
 
