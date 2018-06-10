@@ -7,10 +7,10 @@ exports.typeDef = `
     publicKey: String!
 
     # The current balance of the account in Beddows.
-    balance: String! # TODO BigInt
+    balance: BigInt!
 
     # The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions.
-    unconfirmedBalance: String! # TODO BigInt
+    unconfirmedBalance: BigInt!
 
     # If account enabled second signature, but it's still not confirmed.
     unconfirmedSignature: Boolean!
