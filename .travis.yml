@@ -7,3 +7,5 @@ install:
   - yarn install
   - cp config.example.json config.json
 script: "yarn test"
+notifications:
+  email: false
