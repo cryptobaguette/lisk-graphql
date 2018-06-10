@@ -61,6 +61,8 @@ exports.typeDef = `
     delegates(
       # Limit of delegates to add to response. Default to 100.
       limit: Int
+      # Offset of delegates.
+      offset: Int
     ): [Delegate!]!
 
     # Returns account information of a delegate.

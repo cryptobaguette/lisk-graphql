@@ -1,4 +1,4 @@
-const { limitFromArgs } = require('../helpers/monster');
+const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
 exports.monster = {
   Query: {
@@ -6,7 +6,7 @@ exports.monster = {
       accounts: {
         orderBy: { balance: 'asc' },
         limit: limitFromArgs,
-        // TODO args offset
+        offset: offsetFromArgs,
         // TODO args order by enum
         // TODO other args filters
       },

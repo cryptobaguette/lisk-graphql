@@ -62,6 +62,8 @@ exports.typeDef = `
     transactions(
       # Limit of transactions to add to response. Default to 100.
       limit: Int
+      # Offset of transactions.
+      offset: Int
     ): [Transaction!]!
 
     # Gets transaction by provided id.

@@ -55,6 +55,8 @@ exports.typeDef = `
     blocks(
       # Limit of blocks to add to response. Default to 100.
       limit: Int
+      # Offset of blocks.
+      offset: Int
     ): [Block!]!
 
     # Gets block by provided id.
