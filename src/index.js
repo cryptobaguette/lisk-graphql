@@ -4,6 +4,7 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
 const { merge } = require('lodash');
+const RateLimit = require('express-rate-limit');
 
 let config;
 try {
@@ -81,7 +82,17 @@ joinMonsterAdapt(
 
 const app = express();
 
-// TODO convert config to standart lisk one
+const defaultsRateLimit = {
+  max: 0, // Disabled
+  delayMs: 0, // Disabled
+  delayAfter: 0, // Disabled
+  windowMs: 60000, // 1 minute window
+};
+
+const limiter = new RateLimit(config.limits || defaultsRateLimit);
+
+app.use(limiter);
+
 app.use(
   middleware.applyAPIAccessRules.bind(null, convertConfigToLiskConfig(config))
 );
