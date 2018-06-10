@@ -1,4 +1,4 @@
-const { limitFromArgs } = require('../helpers/monster');
+const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
 const { monster: AccountMonster } = require('../account');
 
@@ -12,7 +12,7 @@ exports.monster = {
           publicKey: 'asc',
         },
         limit: limitFromArgs,
-        // TODO args offset
+        offset: offsetFromArgs,
         // TODO args order by enum
         // TODO other args filters
       },
