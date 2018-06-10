@@ -9,7 +9,7 @@ exports.limitFromArgs = args => {
 };
 
 exports.offsetFromArgs = args => {
-  if (args.offset <= 0) {
+  if (args.offset < 0) {
     throw new Error('Invalid offset. Must be positive');
   }
   return args.offset || 0;
