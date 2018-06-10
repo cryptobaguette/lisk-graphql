@@ -20,6 +20,7 @@ Please copy config.example.json as config.json and edit it.
 
 const { middleware } = require('./lisk/helpers/http_api');
 const convertConfigToLiskConfig = require('./helpers/convertConfigToLiskConfig');
+const { GraphQLBigInt } = require('./helpers/graphqlBigInt');
 
 const {
   typeDef: AccountTypeDef,
@@ -49,6 +50,8 @@ const {
 // TODO sanityse sql queries inputs
 
 const typeDefs = `
+  scalar BigInt
+  
   type Query {
     _: String
   }
@@ -71,7 +74,10 @@ const schema = makeExecutableSchema({
     AccountResolver,
     BlockResolver,
     DelegateResolver,
-    TransactionResolver
+    TransactionResolver,
+    {
+      BigInt: GraphQLBigInt,
+    }
   ),
 });
 
