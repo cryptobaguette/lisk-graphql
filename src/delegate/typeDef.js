@@ -4,7 +4,7 @@ exports.typeDef = `
     username: String!
 
     # The voters weight of the delegate. Represents the total amount of Lisk (in Beddows) that the delegates’ voters own. The voters weight decides which rank the delegate gets in relation to the other delegates and their voters weights.
-    vote: String! # TODO BigInt
+    vote: BigInt!
 
     # Total sum of block rewards that the delegate has forged.
     rewards: String
@@ -42,10 +42,10 @@ exports.typeDef = `
     publicKey: String!
 
     # The current balance of the account in Beddows.
-    balance: String! # TODO BigInt
+    balance: BigInt!
 
     # The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions.
-    unconfirmedBalance: String! # TODO BigInt
+    unconfirmedBalance: BigInt!
 
     # If account enabled second signature, but it's still not confirmed.
     unconfirmedSignature: Boolean!

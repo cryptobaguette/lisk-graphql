@@ -45,7 +45,7 @@ exports.typeDef = `
     reward: Int!
 
     # Total amount of LSK that have been forged in this Block. Consists of fees and the reward.
-    totalForged: String! # TODO BigInt
+    totalForged: BigInt!
 
     generatorId: String!
   }
