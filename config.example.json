@@ -9,5 +9,11 @@
   "access": {
     "public": false,
     "whiteList": ["127.0.0.1"]
+  },
+  "limits": {
+    "max": 0,
+    "delayMs": 0,
+    "delayAfter": 0,
+    "windowMs": 60000
   }
 }

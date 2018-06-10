@@ -43,6 +43,15 @@ The aim of this project is to provide a graphql api on top of the lisk database 
     "public": false,
     "whiteList": ["127.0.0.1"]
   },
+
+  # Rate limit config
+  # See https://www.npmjs.com/package/express-rate-limit
+  "limits": {
+    "max": 0,
+    "delayMs": 0,
+    "delayAfter": 0,
+    "windowMs": 60000
+  }
 }
 ```
 
