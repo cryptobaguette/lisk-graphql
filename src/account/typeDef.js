@@ -24,6 +24,8 @@ exports.typeDef = `
     accounts(
       # Limit of accounts to add to response. Default to 100.
       limit: Int
+      # Offset of accounts.
+      offset: Int
     ): [Account!]!
 
     # Returns account information of an address.
