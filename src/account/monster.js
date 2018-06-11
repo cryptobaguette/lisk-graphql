@@ -13,10 +13,17 @@ exports.monster = {
         // TODO other args filters
       },
       account: {
-        // TODO allow find by publicKey
-        // TODO allow find by secondPublicKey
-        where: (table, args) =>
-          `${table}.address = ${SqlString.escape(args.address)}`,
+        where: (table, args) => {
+          if (args.address) {
+            return `${table}."address" = ${SqlString.escape(args.address)}`;
+          }
+          if (args.publicKey) {
+            return `${table}."publicKey" = DECODE(${SqlString.escape(
+              args.publicKey
+            )}, 'hex')`;
+          }
+          throw new Error('Invalid params');
+        },
       },
     },
   },

@@ -67,8 +67,10 @@ exports.typeDef = `
 
     # Returns account information of a delegate.
     delegate(
-      # Address of delegate.
-      address: String!
+      # Address of account.
+      address: String
+      # Public key of account.
+      publicKey: String
     ): Delegate
   }
 `;

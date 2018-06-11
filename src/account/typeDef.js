@@ -31,7 +31,9 @@ exports.typeDef = `
     # Returns account information of an address.
     account(
       # Address of account.
-      address: String!
+      address: String
+      # Public key of account.
+      publicKey: String
     ): Account
   }
 `;
