@@ -1,5 +1,6 @@
-const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
+const SqlString = require('sqlstring');
 
+const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 const { monster: AccountMonster } = require('../account');
 
 exports.monster = {
@@ -19,7 +20,8 @@ exports.monster = {
       delegate: {
         // TODO allow find by publicKey
         // TODO allow find by secondPublicKey
-        where: (table, args) => `${table}.address = '${args.address}'`,
+        where: (table, args) =>
+          `${table}.address = ${SqlString.escape(args.address)}`,
       },
     },
   },

@@ -1,3 +1,5 @@
+const SqlString = require('sqlstring');
+
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
 exports.monster = {
@@ -13,7 +15,8 @@ exports.monster = {
       account: {
         // TODO allow find by publicKey
         // TODO allow find by secondPublicKey
-        where: (table, args) => `${table}.address = '${args.address}'`,
+        where: (table, args) =>
+          `${table}.address = ${SqlString.escape(args.address)}`,
       },
     },
   },

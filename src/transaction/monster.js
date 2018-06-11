@@ -1,3 +1,5 @@
+const SqlString = require('sqlstring');
+
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
 exports.monster = {
@@ -11,7 +13,7 @@ exports.monster = {
         // TODO other args filters
       },
       transaction: {
-        where: (table, args) => `${table}.t_id = '${args.id}'`,
+        where: (table, args) => `${table}.t_id = ${SqlString.escape(args.id)}`,
       },
     },
   },
