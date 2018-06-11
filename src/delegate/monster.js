@@ -19,6 +19,9 @@ exports.monster = {
       },
       delegate: {
         where: (table, args) => {
+          if (args.username) {
+            return `${table}."username" = ${SqlString.escape(args.username)}`;
+          }
           if (args.address) {
             return `${table}."address" = ${SqlString.escape(args.address)}`;
           }

@@ -71,6 +71,8 @@ exports.typeDef = `
       address: String
       # Public key of account.
       publicKey: String
+      # Username of account.
+      username: String
     ): Delegate
   }
 `;
