@@ -47,8 +47,6 @@ const {
   resolver: TransactionResolver,
 } = require('./transaction');
 
-// TODO sanityse sql queries inputs
-
 const typeDefs = `
   scalar BigInt
   
