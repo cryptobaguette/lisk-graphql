@@ -26,6 +26,8 @@ exports.typeDef = `
       limit: Int
       # Offset of accounts.
       offset: Int
+      # Fields to sort results by, default to BALANCE_DESC
+      sort: SortAccounts = BALANCE_DESC
     ): [Account!]!
 
     # Returns account information of an address.
@@ -35,5 +37,10 @@ exports.typeDef = `
       # Public key of account.
       publicKey: String
     ): Account
+  }
+
+  enum SortAccounts {
+    BALANCE_ASC
+    BALANCE_DESC
   }
 `;
