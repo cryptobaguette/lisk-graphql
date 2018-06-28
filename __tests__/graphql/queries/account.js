@@ -7,6 +7,10 @@ describe('account', () => {
       query account {
         account(address: "16009998050678037905L") {
           address
+          balance
+          unconfirmedBalance
+          publicKey
+          secondPublicKey
         }
       }
     `;
