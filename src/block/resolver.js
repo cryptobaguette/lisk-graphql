@@ -1,9 +1,10 @@
+const lisk = require('lisk-elements');
 const Bignum = require('../lisk/helpers/bignum');
-const getAddressByPublicKey = require('../helpers/getAddressByPublicKey');
 
 exports.resolver = {
   Block: {
-    generatorId: block => getAddressByPublicKey(block.generatorPublicKey),
+    generatorId: block =>
+      lisk.cryptography.getAddressFromPublicKey(block.generatorPublicKey),
     totalForged: block =>
       new Bignum(block.totalFee).plus(new Bignum(block.reward)),
   },
