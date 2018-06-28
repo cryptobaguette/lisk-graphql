@@ -9,7 +9,8 @@
     "dev": "nodemon src/index.js",
     "prettier": "prettier --write '**/*.{js,md}'",
     "lint": "eslint src",
-    "test": "yarn lint",
+    "test": "yarn lint && yarn testonly",
+    "testonly": "jest --forceExit",
     "postinstall": "patch-package"
   },
   "prettier": {
