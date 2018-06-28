@@ -7,6 +7,10 @@ describe('accounts', () => {
       query accounts {
         accounts {
           address
+          balance
+          unconfirmedBalance
+          publicKey
+          secondPublicKey
         }
       }
     `;
@@ -21,6 +25,10 @@ describe('accounts', () => {
         query accounts {
           accounts(limit: 10) {
             address
+            balance
+            unconfirmedBalance
+            publicKey
+            secondPublicKey
           }
         }
       `;

@@ -16,7 +16,7 @@ exports.typeDef = `
     unconfirmedSignature: Boolean!
 
     # The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account.
-    secondPublicKey: Boolean!
+    secondPublicKey: Boolean
   }
 
   extend type Query {
