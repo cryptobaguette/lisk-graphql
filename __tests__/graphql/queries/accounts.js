@@ -1,7 +1,7 @@
 const { graphql } = require('graphql');
-const { schema } = require('../../src/graphql');
+const { schema } = require('../../../src/graphql');
 
-describe('query accounts', () => {
+describe('accounts', () => {
   it('should fetch accounts', async () => {
     const query = `
       query accounts {
