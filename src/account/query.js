@@ -10,6 +10,7 @@ exports.Query = {
   },
   account(parent, args, ctx, resolveInfo) {
     // TODO allow find one by secondPublicKey
+    // TODO validate publicKey format
     if (!args.address && !args.publicKey) {
       throw new Error('Missing required property: address or publicKey');
     }

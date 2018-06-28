@@ -1,4 +1,4 @@
-const lisk = require('lisk-elements');
+const lisk = require('lisk-elements').default;
 const Bignum = require('../lisk/helpers/bignum');
 
 exports.resolver = {

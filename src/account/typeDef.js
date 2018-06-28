@@ -26,8 +26,8 @@ exports.typeDef = `
       limit: Int
       # Offset of accounts.
       offset: Int
-      # Fields to sort results by, default to BALANCE_DESC
-      sort: SortAccounts = BALANCE_DESC
+      # Fields to sort results by, default to BALANCE_ASC
+      sort: SortAccounts = BALANCE_ASC
     ): [Account!]!
 
     # Returns account information of an address.
