@@ -9,7 +9,9 @@ services:
   - docker
 
 before_install:
-  - docker-compose -v
+  - docker-compose -f ci/docker-compose.yml up -d
+  - docker ps -a
+  - sleep 30
 
 install:
   - yarn install
