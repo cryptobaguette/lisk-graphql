@@ -22,7 +22,7 @@ exports.typeDef = `
   extend type Query {
     # Gets all accounts by provided filter(s).
     accounts(
-      # Limit of accounts to add to response. Default to 100.
+      # Limit of accounts to add to response. Default to 10.
       limit: Int
       # Offset of accounts.
       offset: Int
