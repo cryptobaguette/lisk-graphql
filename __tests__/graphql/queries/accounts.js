@@ -73,6 +73,27 @@ describe('accounts', () => {
     });
 
     describe('sort', () => {
+      it('should sort by BALANCE_ASC', async () => {
+        const apiResponse = await testnetClient.accounts.get({
+          sort: 'balance:asc',
+        });
+        const query = `
+            query accounts {
+              accounts(sort: BALANCE_ASC) {
+                address
+                balance
+                unconfirmedBalance
+                publicKey
+                secondPublicKey
+              }
+            }
+          `;
+        const { data, errors } = await graphql(schema, query, {}, {});
+        expect(errors).toBeUndefined();
+        expect(data.accounts.length).toBe(10);
+        expect(data.accounts).toEqual(apiResponse.data.map(apiFormatAccount));
+      });
+
       it('should sort by BALANCE_DESC', async () => {
         const apiResponse = await testnetClient.accounts.get({
           sort: 'balance:desc',
