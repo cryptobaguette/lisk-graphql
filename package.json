@@ -8,7 +8,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "prettier": "prettier --write '**/*.{js,md}'",
-    "lint": "eslint src",
+    "lint": "eslint 'src' '__tests__'",
     "test": "yarn lint && yarn testonly",
     "testonly": "jest --forceExit",
     "postinstall": "patch-package"

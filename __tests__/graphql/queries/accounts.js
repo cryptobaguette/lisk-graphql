@@ -7,6 +7,7 @@ const testnetClient = lisk.APIClient.createTestnetAPIClient();
 
 describe('accounts', () => {
   it('should fetch 10 accounts', async () => {
+    const apiResponse = await testnetClient.accounts.get();
     const query = `
       query accounts {
         accounts {
@@ -21,11 +22,15 @@ describe('accounts', () => {
     const { data, errors } = await graphql(schema, query, {}, {});
     expect(errors).toBeUndefined();
     expect(data.accounts.length).toBe(10);
+    expect(data.accounts).toEqual(apiResponse.data.map(apiFormatAccount));
   });
 
   describe('args', () => {
     describe('limit', () => {
       it('should limit', async () => {
+        const apiResponse = await testnetClient.accounts.get({
+          limit: 50,
+        });
         const query = `
           query accounts {
             accounts(limit: 50) {
@@ -40,6 +45,7 @@ describe('accounts', () => {
         const { data, errors } = await graphql(schema, query, {}, {});
         expect(errors).toBeUndefined();
         expect(data.accounts.length).toBe(50);
+        expect(data.accounts).toEqual(apiResponse.data.map(apiFormatAccount));
       });
 
       // TODO test offset
