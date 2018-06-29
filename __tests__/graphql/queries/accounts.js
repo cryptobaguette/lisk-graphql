@@ -1,13 +1,10 @@
-const lisk = require('lisk-elements').default;
 const { graphql } = require('graphql');
 const { schema } = require('../../../src/graphql');
-const { apiFormatAccount } = require('../../testUtils');
-
-const testnetClient = lisk.APIClient.createTestnetAPIClient();
+const { apiFormatAccount, liskApiCLient } = require('../../testUtils');
 
 describe('accounts', () => {
   it('should fetch 10 accounts', async () => {
-    const apiResponse = await testnetClient.accounts.get();
+    const apiResponse = await liskApiCLient.accounts.get();
     const query = `
       query accounts {
         accounts {
@@ -28,7 +25,7 @@ describe('accounts', () => {
   describe('args', () => {
     describe('limit', () => {
       it('should limit', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           limit: 50,
         });
         const query = `
@@ -51,7 +48,7 @@ describe('accounts', () => {
 
     describe('offset', () => {
       it('should offset', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           offset: 10,
         });
         const query = `
@@ -74,7 +71,7 @@ describe('accounts', () => {
 
     describe('sort', () => {
       it('should sort by BALANCE_ASC', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           sort: 'balance:asc',
         });
         const query = `
@@ -95,7 +92,7 @@ describe('accounts', () => {
       });
 
       it('should sort by BALANCE_DESC', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           sort: 'balance:desc',
         });
         const query = `

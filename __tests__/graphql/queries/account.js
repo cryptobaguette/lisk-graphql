@@ -1,9 +1,6 @@
-const lisk = require('lisk-elements').default;
 const { graphql } = require('graphql');
 const { schema } = require('../../../src/graphql');
-const { apiFormatAccount } = require('../../testUtils');
-
-const testnetClient = lisk.APIClient.createTestnetAPIClient();
+const { apiFormatAccount, liskApiCLient } = require('../../testUtils');
 
 const address = '16009998050678037905L';
 const publicKey =
@@ -13,7 +10,7 @@ describe('account', () => {
   describe('args', () => {
     describe('address', () => {
       it('should fetch account with address', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           address,
         });
         const query = `
@@ -36,7 +33,7 @@ describe('account', () => {
 
     describe('publicKey', () => {
       it('should fetch account with publicKey', async () => {
-        const apiResponse = await testnetClient.accounts.get({
+        const apiResponse = await liskApiCLient.accounts.get({
           publicKey,
         });
         const query = `
