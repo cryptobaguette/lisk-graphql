@@ -9,9 +9,11 @@ services:
   - docker
 
 before_install:
-  - docker-compose -f ci/docker-compose.yml up -d
+  - cd ci
+  - wget https://github.com/LiskHQ/lisk-docker/raw/2.1.0/examples/testnet/Makefile
+  - make coldstart
   - docker ps -a
-  - sleep 30
+  - sleep 60
 
 install:
   - yarn install
@@ -20,7 +22,8 @@ install:
 script: "yarn test"
 
 after_script:
-  - docker-compose -f ci/docker-compose.yml down
+  - cd ci
+  - make mrproper
 
 notifications:
   email: false
