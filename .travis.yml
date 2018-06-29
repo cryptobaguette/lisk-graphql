@@ -17,6 +17,7 @@ before_install:
   - make coldstart
   - docker ps -a
   - sleep 60
+  - cd ../
 
 install:
   - yarn install
