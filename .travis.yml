@@ -19,5 +19,8 @@ install:
 
 script: "yarn test"
 
+after_script:
+  - docker-compose -f ci/docker-compose.yml down
+
 notifications:
   email: false
