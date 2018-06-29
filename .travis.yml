@@ -15,7 +15,7 @@ before_install:
 
 install:
   - yarn install
-  - cp config.example.json config.json
+  - cp ci/config.json config.json
 
 script: "yarn test"
 
