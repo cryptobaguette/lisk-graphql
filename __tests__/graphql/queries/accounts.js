@@ -1,6 +1,7 @@
 const lisk = require('lisk-elements').default;
 const { graphql } = require('graphql');
 const { schema } = require('../../../src/graphql');
+const { apiFormatAccount } = require('../../testUtils');
 
 const testnetClient = lisk.APIClient.createTestnetAPIClient();
 
@@ -62,15 +63,7 @@ describe('accounts', () => {
           const { data, errors } = await graphql(schema, query, {}, {});
           expect(errors).toBeUndefined();
           expect(data.accounts.length).toBe(10);
-          expect(data.accounts).toEqual(
-            apiResponse.data.map(account => ({
-              address: account.address,
-              balance: account.balance,
-              unconfirmedBalance: account.unconfirmedBalance,
-              publicKey: account.publicKey,
-              secondPublicKey: account.secondPublicKey || null,
-            }))
-          );
+          expect(data.accounts).toEqual(apiResponse.data.map(apiFormatAccount));
         });
       });
     });
