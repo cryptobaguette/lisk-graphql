@@ -16,7 +16,6 @@ services:
     command: ["/home/lisk/wait-for-it.sh", "db:5432", "--", "/home/lisk/run.sh"]
     environment:
       - LISK_DB_HOST=db
-      - LISK_CONSOLELOGLEVEL=debug
       - LISK_API_ACCESS_PUBLIC=true
 
   db:
