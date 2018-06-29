@@ -11,6 +11,8 @@ services:
 before_install:
   - cd ci
   - wget https://github.com/LiskHQ/lisk-docker/raw/2.1.0/examples/testnet/Makefile
+  - docker-compose start db
+  - sleep 10
   - make coldstart
   - docker ps -a
   - sleep 60
