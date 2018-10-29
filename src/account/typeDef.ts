@@ -1,4 +1,4 @@
-exports.typeDef = `
+export const typeDef = `
   type Account {
     # The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end.
     address: String!
