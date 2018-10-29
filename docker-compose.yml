@@ -47,6 +47,22 @@ services:
       - PGHOST=db
     command: /bin/true
 
+  graphql:
+    build: .
+    ports:
+      - '3000:3000'
+    networks:
+      - lisk
+    depends_on:
+      - db
+    environment:
+      - LISK_DB_HOST=db
+      - LISK_DB_USER=${ENV_LISK_DB_USER}
+      - LISK_DB_PASSWORD=${ENV_LISK_DB_PASSWORD}
+      - LISK_DB_DATABASE=${ENV_LISK_DB_DATABASE}
+    volumes:
+      - .:/app/
+
 networks:
   lisk:
 

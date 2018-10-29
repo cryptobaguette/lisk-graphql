@@ -1,8 +1,11 @@
 const Knex = require('knex');
 
-const config = require('../config.json');
-
 exports.knex = Knex({
   client: 'pg',
-  connection: config.connection,
+  connection: {
+    host: process.env.LISK_DB_HOST,
+    user: process.env.LISK_DB_USER,
+    password: process.env.LISK_DB_PASSWORD,
+    database: process.env.LISK_DB_DATABASE,
+  },
 });
