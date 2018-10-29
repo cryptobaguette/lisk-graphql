@@ -1,4 +1,4 @@
-// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/transaction.js
+// https://github.com/LiskHQ/lisk/blob/v1.0.0-beta.7/logic/account.js
 
 export { typeDef } from './typeDef';
 export { monster } from './monster';
