@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const RateLimit = require('express-rate-limit');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import { graphqlExpress, graphiqlExpress }  from 'apollo-server-express';
+import * as RateLimit from 'express-rate-limit';
 
 let config;
 try {
