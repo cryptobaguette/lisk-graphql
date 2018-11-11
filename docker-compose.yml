@@ -11,6 +11,7 @@ services:
       - ${ENV_LISK_WS_PORT}:${ENV_LISK_WS_PORT}
     networks:
       - lisk
+      - no-internet
     depends_on:
       - db
     restart: on-failure
@@ -65,6 +66,9 @@ services:
 
 networks:
   lisk:
+  no-internet:
+    driver: bridge
+    internal: true
 
 volumes:
   db-data:

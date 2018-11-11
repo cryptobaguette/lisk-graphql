@@ -12,6 +12,9 @@
     "sourceMap": true,
     "strict": true,
     "baseUrl": ".",
-    "lib": ["es2015", "es2016", "esnext.asynciterable"]
+    "lib": ["es2015", "es2016", "esnext.asynciterable"],
+    "paths": {
+      "@app/*": ["src/*"]
+    }
   }
 }
