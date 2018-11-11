@@ -7,10 +7,7 @@ exports.monster = {
     fields: {
       transactions: {
         orderBy: {
-          t_amount: 'asc',
-          // This one needs to be set and never change
-          // see: https://github.com/LiskHQ/lisk/blob/development/db/repos/transactions/index.js#L342
-          t_rowId: 'asc',
+          t_rowId: 'desc',
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
