@@ -6,7 +6,7 @@ exports.monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: { b_height: 'desc' },
+        orderBy: { t_amount: 'asc' },
         limit: limitFromArgs,
         offset: offsetFromArgs,
         // TODO args order by enum
