@@ -10,7 +10,7 @@
     "prettier": "prettier --write '**/*.{js,md}'",
     "lint": "eslint 'src' '__tests__'",
     "test": "yarn lint && yarn testonly",
-    "testonly": "jest --forceExit",
+    "testonly": "jest",
     "postinstall": "patch-package"
   },
   "prettier": {
