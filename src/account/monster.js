@@ -6,11 +6,17 @@ exports.monster = {
   Query: {
     fields: {
       accounts: {
-        orderBy: { balance: 'asc' },
+        orderBy: args => {
+          if (args.sort === 'BALANCE_DESC') {
+            return { balance: 'desc' };
+          }
+          if (args.sort === 'BALANCE_ASC') {
+            return { balance: 'asc' };
+          }
+          throw new Error('Invalid orderBy params');
+        },
         limit: limitFromArgs,
         offset: offsetFromArgs,
-        // TODO args order by enum
-        // TODO other args filters
       },
       account: {
         where: (table, args) => {
@@ -22,7 +28,7 @@ exports.monster = {
               args.publicKey
             )}, 'hex')`;
           }
-          throw new Error('Invalid params');
+          throw new Error('Invalid where params');
         },
       },
     },

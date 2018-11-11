@@ -6,7 +6,12 @@ exports.monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: { b_height: 'desc' },
+        orderBy: {
+          t_amount: 'asc',
+          // This one needs to be set and never change
+          // see: https://github.com/LiskHQ/lisk/blob/development/db/repos/transactions/index.js#L342
+          t_rowId: 'asc',
+        },
         limit: limitFromArgs,
         offset: offsetFromArgs,
         // TODO args order by enum

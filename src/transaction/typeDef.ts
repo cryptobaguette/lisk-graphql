@@ -1,4 +1,4 @@
-exports.typeDef = `
+export const typeDef = `
   type Transaction {
     # Unique identifier of the transaction. Derived from the transaction signature.
     id: String!

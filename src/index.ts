@@ -1,10 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-const joinMonsterAdapt = require('join-monster-graphql-tools-adapter');
-const { merge } = require('lodash');
-const RateLimit = require('express-rate-limit');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import { graphqlExpress, graphiqlExpress }  from 'apollo-server-express';
+import * as RateLimit from 'express-rate-limit';
 
 let config;
 try {
@@ -20,69 +17,7 @@ Please copy config.example.json as config.json and edit it.
 
 const { middleware } = require('./lisk/helpers/http_api');
 const convertConfigToLiskConfig = require('./helpers/convertConfigToLiskConfig');
-const { GraphQLBigInt } = require('./helpers/graphqlBigInt');
-
-const {
-  typeDef: AccountTypeDef,
-  monster: AccountMonster,
-  Query: AccountQuery,
-  resolver: AccountResolver,
-} = require('./account');
-const {
-  typeDef: BlockTypeDef,
-  monster: BlockMonster,
-  Query: BlockQuery,
-  resolver: BlockResolver,
-} = require('./block');
-const {
-  typeDef: DelegateTypeDef,
-  monster: DelegateMonster,
-  Query: DelegateQuery,
-  resolver: DelegateResolver,
-} = require('./delegate');
-const {
-  typeDef: TransactionTypeDef,
-  monster: TransactionMonster,
-  Query: TransactionQuery,
-  resolver: TransactionResolver,
-} = require('./transaction');
-
-const typeDefs = `
-  scalar BigInt
-  
-  type Query {
-    _: String
-  }
-`;
-
-const resolvers = {
-  Query: merge(AccountQuery, BlockQuery, DelegateQuery, TransactionQuery),
-};
-
-const schema = makeExecutableSchema({
-  typeDefs: [
-    typeDefs,
-    AccountTypeDef,
-    BlockTypeDef,
-    DelegateTypeDef,
-    TransactionTypeDef,
-  ],
-  resolvers: merge(
-    resolvers,
-    AccountResolver,
-    BlockResolver,
-    DelegateResolver,
-    TransactionResolver,
-    {
-      BigInt: GraphQLBigInt,
-    }
-  ),
-});
-
-joinMonsterAdapt(
-  schema,
-  merge(AccountMonster, BlockMonster, DelegateMonster, TransactionMonster)
-);
+const { schema } = require('./graphql');
 
 const app = express();
 

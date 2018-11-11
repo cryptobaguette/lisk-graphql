@@ -1,0 +1,19 @@
+{
+  "graphiql": true,
+  "connection": {
+    "host": "127.0.0.1",
+    "user": "lisk",
+    "password": "password",
+    "database": "lisk_test"
+  },
+  "access": {
+    "public": true,
+    "whiteList": []
+  },
+  "limits": {
+    "max": 0,
+    "delayMs": 0,
+    "delayAfter": 0,
+    "windowMs": 60000
+  }
+}

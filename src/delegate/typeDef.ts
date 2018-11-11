@@ -1,4 +1,4 @@
-exports.typeDef = `
+export const typeDef = `
   type Delegate {
     # The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later.
     username: String!

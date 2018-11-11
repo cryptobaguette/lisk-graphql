@@ -1,4 +1,4 @@
-exports.typeDef = `
+export const typeDef = `
   type Block {
     # Unique identifier of the block. Derived from the block signature.
     id: ID!
