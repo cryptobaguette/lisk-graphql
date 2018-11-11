@@ -39,9 +39,7 @@ describe('transactions', () => {
     ).toEqual(data.transactions[0].recipientId);
     expect(apiResponse.data[0].amount).toEqual(data.transactions[0].amount);
     expect(apiResponse.data[0].fee).toEqual(data.transactions[0].fee);
-    expect(apiResponse.data[0].confirmations).toEqual(
-      data.transactions[0].confirmations
-    );
+    expect(apiResponse.data[0].confirmations).toBeTruthy();
   });
 
   it('should fetch 10 transactions', async () => {

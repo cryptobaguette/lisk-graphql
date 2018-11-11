@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "build",
     "target": "esnext",
     "module": "commonjs",
     "allowJs": true,
@@ -16,5 +17,7 @@
     "paths": {
       "@app/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["build"]
 }
