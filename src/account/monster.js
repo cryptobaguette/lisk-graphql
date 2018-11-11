@@ -1,8 +1,8 @@
 const SqlString = require('sqlstring');
-
+import { fromRawLsk } from '../helpers/lisk';
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
-exports.monster = {
+export const monster = {
   Query: {
     fields: {
       accounts: {
@@ -40,11 +40,15 @@ exports.monster = {
       address: {
         sqlColumn: 'address',
       },
+      name: {
+        sqlColumn: 'username',
+      },
       unconfirmedBalance: {
         sqlColumn: 'u_balance',
       },
       balance: {
         sqlColumn: 'balance',
+        resolve: row => fromRawLsk(row.balance),
       },
       publicKey: {
         sqlColumn: 'publicKey',
@@ -52,6 +56,9 @@ exports.monster = {
       },
       secondPublicKey: {
         sqlColumn: 'secondPublicKey',
+      },
+      voteWeight: {
+        sqlColumn: 'vote',
       },
     },
   },
