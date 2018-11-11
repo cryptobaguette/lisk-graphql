@@ -5,8 +5,9 @@
   "repository": "https://github.com/cryptobaguette/lisk-graphql.git",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
+    "build": "tsc",
     "prettier": "prettier --write '**/*.{js,md}'",
     "lint": "eslint 'src' '__tests__'",
     "test": "yarn lint && yarn testonly",

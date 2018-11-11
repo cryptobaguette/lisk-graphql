@@ -47,7 +47,9 @@ services:
     command: /bin/true
 
   graphql:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
     ports:
       - '3000:3000'
     networks:
