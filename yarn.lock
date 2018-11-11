@@ -3626,12 +3626,12 @@ jest@^23.6.0:
     import-local "^1.0.0"
     jest-cli "^23.6.0"
 
-join-monster-graphql-tools-adapter@^0.0.3:
+join-monster-graphql-tools-adapter@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/join-monster-graphql-tools-adapter/-/join-monster-graphql-tools-adapter-0.0.3.tgz#033f976ed9f39c9c0c10b8fe6cf47c67f2a78a5b"
   integrity sha512-YnUmp6iJR6CCJX3N+FVu98lcn4U/nhvk9gxAFzbXhHgODt78gkuveiiJ6JEyYzVi8UImfEJY6tznpVkIE5VTCg==
 
-join-monster@^2.0.16:
+join-monster@2.0.16:
   version "2.0.16"
   resolved "https://registry.yarnpkg.com/join-monster/-/join-monster-2.0.16.tgz#53fac1ef1d5518bc163774a885d0d163e5b2919b"
   integrity sha512-DR8Rmp+VSnq0SuOOGM8bDU0cRuk8TyJMpmM2tHi1sy0K3GJTiK6idqLDv/U3N2GdL2JvzVRPB5SXWrjekE8hRQ==
