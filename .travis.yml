@@ -13,7 +13,7 @@ before_install:
   - cp ci/config.json config.json
   - docker-compose up -d
   - docker ps -a
-  - sleep 60
+  - sleep 240
   - docker-compose logs
 
 install:
