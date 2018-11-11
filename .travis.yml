@@ -9,27 +9,19 @@ services:
   - docker
 
 before_install:
-  # - cd ci
-  # - git clone https://github.com/LiskHQ/lisk.git
-  # - docker-compose up --no-start
-  # - docker-compose start db
-  # - sleep 10
   - cp ci/docker-compose.yml docker-compose.yml
   - cp ci/config.json config.json
   - docker-compose up -d
   - docker ps -a
   - sleep 60
   - docker-compose logs
-  # - cd ../
 
 install:
-  - yarn install
-  # - cp ci/config.json config.json
+  - yarn install --pure-lockfile
 
 script: "yarn testonly"
 
 after_script:
-  # - cd ci
   - make mrproper
 
 notifications:
