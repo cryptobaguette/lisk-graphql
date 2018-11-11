@@ -1,3 +1,6 @@
 export const resolver = {
-  Transaction: {},
+  Transaction: {
+    timestampRaw: (row: any) => row.timestamp,
+    amountRaw: (row: any) => row.amount,
+  },
 };

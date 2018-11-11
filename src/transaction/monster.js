@@ -1,6 +1,8 @@
 const SqlString = require('sqlstring');
 
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
+import { epochTime } from '../lisk/helpers/constants';
+import { fromRawLsk } from '../helpers/lisk';
 
 exports.monster = {
   Query: {
@@ -37,6 +39,8 @@ exports.monster = {
       },
       timestamp: {
         sqlColumn: 't_timestamp',
+        resolve: row =>
+          new Date(row.timestamp * 1000 + epochTime.getTime()).getTime(),
       },
       senderId: {
         sqlColumn: 't_senderId',
@@ -46,6 +50,7 @@ exports.monster = {
       },
       amount: {
         sqlColumn: 't_amount',
+        resolve: row => fromRawLsk(row.amount),
       },
       fee: {
         sqlColumn: 't_fee',
