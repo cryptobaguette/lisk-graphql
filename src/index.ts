@@ -1,22 +1,11 @@
+require('dotenv').config();
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { graphqlExpress, graphiqlExpress }  from 'apollo-server-express';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import * as RateLimit from 'express-rate-limit';
 
-let config;
-try {
-  // eslint-disable-next-line
-  config = require('../config.json');
-} catch (error) {
-  console.error(`
-config.json file not found.
-Please copy config.example.json as config.json and edit it.
-  `);
-  process.exit(-1);
-}
-
 const { middleware } = require('./lisk/helpers/http_api');
-const convertConfigToLiskConfig = require('./helpers/convertConfigToLiskConfig');
 const { schema } = require('./graphql');
 
 const app = express();
@@ -28,13 +17,9 @@ const defaultsRateLimit = {
   windowMs: 60000, // 1 minute window
 };
 
-const limiter = new RateLimit(config.limits || defaultsRateLimit);
+const limiter = new RateLimit(defaultsRateLimit);
 
 app.use(limiter);
-
-app.use(
-  middleware.applyAPIAccessRules.bind(null, convertConfigToLiskConfig(config))
-);
 
 // Maximum 2mb body size for json type requests
 app.use(bodyParser.json({ limit: '2mb' }));
@@ -63,7 +48,7 @@ app.use(
 
 app.use('/graphql', graphqlExpress({ schema }));
 
-if (config.graphiql) {
+if (process.env.GRAPHIQL) {
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
