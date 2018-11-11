@@ -23,7 +23,7 @@ install:
   - yarn install
   # - cp ci/config.json config.json
 
-script: "yarn test"
+script: "yarn testonly"
 
 after_script:
   # - cd ci
