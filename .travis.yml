@@ -9,11 +9,11 @@ services:
   - docker
 
 before_install:
-  - cd ci
-  - wget https://github.com/LiskHQ/lisk-docker/raw/2.1.0/examples/testnet/Makefile
-  - docker-compose up --no-start
-  - docker-compose start db
-  - sleep 10
+  # - cd ci
+  # - git clone https://github.com/LiskHQ/lisk.git
+  # - docker-compose up --no-start
+  # - docker-compose start db
+  # - sleep 10
   - make coldstart
   - docker ps -a
   - sleep 60
@@ -26,7 +26,7 @@ install:
 script: "yarn test"
 
 after_script:
-  - cd ci
+  # - cd ci
   - make mrproper
 
 notifications:
