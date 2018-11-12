@@ -1,3 +1,5 @@
 export const resolver = {
-  Account: {},
+  Account: {
+    balanceRaw: (row: any) => row.balance,
+  },
 };
