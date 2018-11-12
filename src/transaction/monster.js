@@ -1,16 +1,15 @@
 const SqlString = require('sqlstring');
 
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
+import { epochTime } from '../lisk/helpers/constants';
+import { fromRawLsk } from '../helpers/lisk';
 
 exports.monster = {
   Query: {
     fields: {
       transactions: {
         orderBy: {
-          t_amount: 'asc',
-          // This one needs to be set and never change
-          // see: https://github.com/LiskHQ/lisk/blob/development/db/repos/transactions/index.js#L342
-          t_rowId: 'asc',
+          t_rowId: 'desc',
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
@@ -40,6 +39,8 @@ exports.monster = {
       },
       timestamp: {
         sqlColumn: 't_timestamp',
+        resolve: row =>
+          new Date(row.timestamp * 1000 + epochTime.getTime()).getTime(),
       },
       senderId: {
         sqlColumn: 't_senderId',
@@ -49,6 +50,7 @@ exports.monster = {
       },
       amount: {
         sqlColumn: 't_amount',
+        resolve: row => fromRawLsk(row.amount),
       },
       fee: {
         sqlColumn: 't_fee',

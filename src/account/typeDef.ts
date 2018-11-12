@@ -3,11 +3,17 @@ export const typeDef = `
     # The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end.
     address: String!
 
+    # The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later.
+    name: String
+
     # The public key is derived from the private key of the owner of the account. It can be used to validate that the private key belongs to the owner, but does not provide access to the owners private key.
     publicKey: String!
 
-    # The current balance of the account in Beddows.
+    # The current balance of the account in readable format.
     balance: BigInt!
+
+    # The current balance of the account in Beddows.
+    balanceRaw: BigInt!
 
     # The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions.
     unconfirmedBalance: BigInt!

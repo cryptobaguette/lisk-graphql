@@ -3,8 +3,11 @@ export const typeDef = `
     # Unique identifier of the transaction. Derived from the transaction signature.
     id: String!
 
-    # Amount of Lisk to be transferred in this transaction.
+    # Amount of Lisk to be transferred in this transaction in readable format.
     amount: String!
+
+    # Amount of Lisk to be transferred in this transaction in Beddows.
+    amountRaw: BigInt!
 
     # Transaction fee associated with this transaction.
     fee: String!
@@ -23,6 +26,9 @@ export const typeDef = `
 
     # Time when the transaction was created. Unix Timestamp.
     timestamp: String!
+
+    # Time when the transaction was created. Lisk Unix Timestamp.
+    timestampRaw: String!
 
     # Lisk Address of the Senders’ account.
     senderId: String
