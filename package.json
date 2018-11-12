@@ -60,6 +60,7 @@
     "@types/jest": "23.3.9",
     "@types/knex": "0.15.0",
     "@types/lodash": "4.14.118",
+    "@types/node": "10.12.5",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-prettier": "2.9.0",
