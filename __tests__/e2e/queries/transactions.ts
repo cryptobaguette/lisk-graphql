@@ -27,7 +27,7 @@ describe('transactions', () => {
     expect(transaction.id).toBeTruthy();
     expect(transaction.height).toBeTruthy();
     expect(transaction.blockId).toBeTruthy();
-    expect(transaction.type).toBeTruthy();
+    expect(transaction.type >= 0 && transaction.type <= 7).toBeTruthy();
     expect(transaction.timestamp).toBeTruthy();
     expect(transaction.senderId).toBeTruthy();
     expect(transaction.recipientId).toBeTruthy();
