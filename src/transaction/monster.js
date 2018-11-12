@@ -1,8 +1,8 @@
 const SqlString = require('sqlstring');
 
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
-import { epochTime } from '../lisk/helpers/constants';
-import { fromRawLsk } from '../helpers/lisk';
+const { epochTime } = require('../lisk/helpers/constants');
+const { fromRawLsk } = require('../helpers/lisk');
 
 exports.monster = {
   Query: {
