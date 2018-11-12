@@ -1,6 +1,10 @@
 import * as lisk from 'lisk-elements';
+import * as isCi from 'is-ci';
 import { GraphQLClient } from 'graphql-request';
 
-export const liskClient = new lisk.APIClient(['http://localhost:8000']);
+// Tests are running on testnet
+export const liskClient = isCi
+  ? lisk.APIClient.createTestnetAPIClient()
+  : new lisk.APIClient(['http://localhost:8000']);
 
 export const graphqlClient = new GraphQLClient('http://localhost:3000/graphql');
