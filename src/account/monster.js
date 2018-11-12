@@ -57,9 +57,6 @@ export const monster = {
       secondPublicKey: {
         sqlColumn: 'secondPublicKey',
       },
-      voteWeight: {
-        sqlColumn: 'vote',
-      },
     },
   },
 };
