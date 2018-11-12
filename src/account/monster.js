@@ -2,7 +2,7 @@ const SqlString = require('sqlstring');
 import { fromRawLsk } from '../helpers/lisk';
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
-export const monster = {
+exports.monster = {
   Query: {
     fields: {
       accounts: {
