@@ -1,5 +1,5 @@
 const SqlString = require('sqlstring');
-import { fromRawLsk } from '../helpers/lisk';
+const { fromRawLsk } = require('../helpers/lisk');
 const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
 
 exports.monster = {
