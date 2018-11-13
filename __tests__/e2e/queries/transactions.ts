@@ -33,7 +33,10 @@ describe('transactions', () => {
     expect(transaction.recipientId).toBeTruthy();
     expect(transaction.amount).toBeTruthy();
     expect(transaction.fee).toBeTruthy();
-    expect(transaction.confirmations).toBeTruthy();
+    expect(
+      typeof transaction.confirmations === 'number' ||
+        transaction.confirmations === null
+    ).toBeTruthy();
   });
 
   it('should fetch 10 transactions', async () => {
