@@ -70,6 +70,8 @@ export const typeDef = `
       limit: Int
       # Offset of transactions.
       offset: Int
+      # Fields to sort results by, default to BALANCE_ASC
+      sort: SortTransactions
     ): [Transaction!]!
 
     # Gets transaction by provided id.
@@ -77,5 +79,10 @@ export const typeDef = `
       # Id of transaction.
       id: ID!
     ): Transaction
+  }
+
+  enum SortTransactions {
+    AMOUNT_ASC
+    AMOUNT_DESC
   }
 `;
