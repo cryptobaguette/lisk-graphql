@@ -11,9 +11,6 @@ services:
 before_install:
   - cp ci/docker-compose.yml docker-compose.yml
   - docker-compose up -d
-  - docker ps -a
-  - sleep 20
-  - docker-compose logs
 
 install:
   - yarn install --pure-lockfile

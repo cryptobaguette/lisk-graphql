@@ -8,8 +8,14 @@ exports.monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: {
-          t_rowId: 'desc',
+        orderBy: args => {
+          if (args.sort === 'AMOUNT_DESC') {
+            return { t_amount: 'desc', t_rowId: 'desc' };
+          }
+          if (args.sort === 'AMOUNT_ASC') {
+            return { t_amount: 'asc', t_rowId: 'desc' };
+          }
+          return { t_rowId: 'desc' };
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
@@ -47,6 +53,9 @@ exports.monster = {
       },
       recipientId: {
         sqlColumn: 't_recipientId',
+      },
+      confirmations: {
+        sqlColumn: 'confirmations',
       },
       amount: {
         sqlColumn: 't_amount',
