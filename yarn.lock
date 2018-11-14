@@ -292,6 +292,11 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
+"@types/sqlstring@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/sqlstring/-/sqlstring-2.2.0.tgz#53d1a815506b2a468ba3117f57be09d3640a0de2"
+  integrity sha512-oY+8JmClxdupcyRnGFgMC3Q6nSP6nOD1DNuItP73ajN/MB1D6ex4BnTAv+4Q5xqW4qqBBew1owAwCppG/g9U/g==
+
 "@types/valid-url@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/valid-url/-/valid-url-1.0.2.tgz#60fa435ce24bfd5ba107b8d2a80796aeaf3a8f45"

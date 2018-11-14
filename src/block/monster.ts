@@ -1,8 +1,8 @@
-const SqlString = require('sqlstring');
+import * as SqlString from 'sqlstring';
+import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
+import { BlockQueryArgs } from '@app/types/graphql';
 
-const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
-
-exports.monster = {
+export const monster = {
   Query: {
     fields: {
       blocks: {
@@ -13,7 +13,8 @@ exports.monster = {
         // TODO other args filters
       },
       block: {
-        where: (table, args) => `${table}.b_id = ${SqlString.escape(args.id)}`,
+        where: (table: string, args: BlockQueryArgs) =>
+          `${table}.b_id = ${SqlString.escape(args.id)}`,
       },
     },
   },

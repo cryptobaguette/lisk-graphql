@@ -1,12 +1,13 @@
-const SqlString = require('sqlstring');
-const { fromRawLsk } = require('../helpers/lisk');
-const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
+import * as SqlString from 'sqlstring';
+import { fromRawLsk } from '@app/helpers/lisk';
+import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
+import { AccountQueryArgs, AccountsQueryArgs } from '@app/types/graphql';
 
-exports.monster = {
+export const monster = {
   Query: {
     fields: {
       accounts: {
-        orderBy: args => {
+        orderBy: (args: AccountsQueryArgs) => {
           if (args.sort === 'BALANCE_DESC') {
             return { balance: 'desc' };
           }
@@ -19,7 +20,7 @@ exports.monster = {
         offset: offsetFromArgs,
       },
       account: {
-        where: (table, args) => {
+        where: (table: string, args: AccountQueryArgs) => {
           if (args.address) {
             return `${table}."address" = ${SqlString.escape(args.address)}`;
           }
@@ -48,11 +49,11 @@ exports.monster = {
       },
       balance: {
         sqlColumn: 'balance',
-        resolve: row => fromRawLsk(row.balance),
+        resolve: (row: any) => fromRawLsk(row.balance),
       },
       publicKey: {
         sqlColumn: 'publicKey',
-        sqlExpr: table => `ENCODE(${table}."publicKey", 'hex')`,
+        sqlExpr: (table: string) => `ENCODE(${table}."publicKey", 'hex')`,
       },
       secondPublicKey: {
         sqlColumn: 'secondPublicKey',
