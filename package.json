@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
     "prettier": "prettier --write '**/*.{js,ts,md}'",
     "generate-typings": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-resolvers-template --out ./src/types/graphql.ts",
     "lint": "eslint 'src' '__tests__'",
@@ -81,6 +81,8 @@
     "prettier": "1.15.2",
     "ts-jest": "23.10.4",
     "ts-node": "7.0.1",
+    "tsconfig-paths": "3.7.0",
+    "tscpaths": "0.0.6",
     "typescript": "3.1.6"
   }
 }
