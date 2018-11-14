@@ -11,3 +11,4 @@ services:
       - LISK_DB_USER=${LISK_DB_USER}
       - LISK_DB_PASSWORD=${LISK_DB_PASSWORD}
       - LISK_DB_DATABASE=${LISK_DB_DATABASE}
+      - NODE_ENV=production
