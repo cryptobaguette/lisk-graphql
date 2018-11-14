@@ -1,14 +1,14 @@
-const joinMonster = require('join-monster').default;
+import joinMonster from 'join-monster';
+import { knex } from '@app/knex';
+import { QueryResolvers } from '@app/types/graphql';
 
-const { knex } = require('../knex');
-
-exports.Query = {
-  accounts(parent, args, ctx, resolveInfo) {
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+export const Query: QueryResolvers.Resolvers = {
+  accounts(_, __, ctx, resolveInfo) {
+    return joinMonster(resolveInfo, ctx, (sql: string) => knex.raw(sql), {
       dialect: 'pg',
     });
   },
-  account(parent, args, ctx, resolveInfo) {
+  account(_, args, ctx, resolveInfo) {
     // TODO allow find one by secondPublicKey
     if (!args.address && !args.publicKey) {
       throw new Error('Missing required property: address or publicKey');
@@ -20,7 +20,7 @@ exports.Query = {
       }
       // TODO verify hex formating
     }
-    return joinMonster(resolveInfo, ctx, sql => knex.raw(sql), {
+    return joinMonster(resolveInfo, ctx, (sql: string) => knex.raw(sql), {
       dialect: 'pg',
     });
   },
