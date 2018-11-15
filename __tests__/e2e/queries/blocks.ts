@@ -1,6 +1,49 @@
 import { graphqlClient } from '../../testUtils';
 
 describe('blocks', () => {
+  it('should expose the blocks fields', async () => {
+    const query = `
+      query blocks {
+        blocks {
+          id
+          version
+          timestamp
+          height
+          numberOfTransactions
+          totalAmount
+          totalFee
+          reward
+          payloadLength
+          payloadHash
+          generatorPublicKey
+          blockSignature
+          confirmations
+          totalForged
+          generatorAddress
+          previousBlockId
+        }
+      }
+    `;
+    const data = await graphqlClient.request<{ blocks: any[] }>(query);
+    const block = data.blocks[0];
+    expect(block.id).toBeTruthy();
+    expect(block.version).toBe(1);
+    expect(block.timestamp).toBeTruthy();
+    expect(block.height).toBeTruthy();
+    expect(block.numberOfTransactions >= 0).toBeTruthy();
+    expect(block.totalAmount).toBeTruthy();
+    expect(block.totalFee).toBeTruthy();
+    expect(block.reward).toBeTruthy();
+    expect(block.payloadLength >= 0).toBeTruthy();
+    expect(block.payloadHash).toBeTruthy();
+    expect(block.generatorPublicKey).toBeTruthy();
+    expect(block.blockSignature).toBeTruthy();
+    expect(block.confirmations).toBeTruthy();
+    expect(block.totalForged).toBeTruthy();
+    expect(block.generatorAddress).toBeTruthy();
+    expect(block.previousBlockId).toBeTruthy();
+  });
+
   it('should fetch 10 blocks', async () => {
     const query = `
       query blocks {

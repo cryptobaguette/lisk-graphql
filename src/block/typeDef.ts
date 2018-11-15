@@ -36,18 +36,16 @@ export const typeDef = `
     numberOfTransactions: Int!
 
     # The total amount of Lisk transferred.
-    totalAmount: Int!
+    totalAmount: BigInt!
 
     # The total amount of fees associated with the block.
-    totalFee: Int!
+    totalFee: BigInt!
 
     # The Lisk reward for the delegate.
-    reward: Int!
+    reward: BigInt!
 
     # Total amount of LSK that have been forged in this Block. Consists of fees and the reward.
     totalForged: BigInt!
-
-    generatorId: String!
   }
 
   extend type Query {
