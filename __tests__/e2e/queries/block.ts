@@ -4,7 +4,7 @@ const blockId = '7669527049214991477';
 
 describe('block', () => {
   describe('args', () => {
-    describe('address', () => {
+    describe('id', () => {
       it('should return null if block not found', async () => {
         const query = `
           query block {
