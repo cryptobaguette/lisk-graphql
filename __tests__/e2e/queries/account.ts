@@ -33,7 +33,7 @@ describe('account', () => {
     });
 
     describe('publicKey', () => {
-      it('should throw an error if publicKey is malformated', async () => {
+      it('should throw an error if publicKey is malformed', async () => {
         const query = `
           query account {
             account(publicKey: "test") {
