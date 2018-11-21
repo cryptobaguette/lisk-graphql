@@ -20,7 +20,7 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 - Start the app: `yarn start` or `node build/index.js`.
 - Open your browser and go to `http://your-server:3000` to open the graphql playground.
 
-![Graphiql](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/graphiql.png 'Graphiql')
+![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png 'Playground')
 
 ## Options
 
