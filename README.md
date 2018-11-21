@@ -10,49 +10,25 @@ Graphql api for lisk.
 
 The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
 
-**This project is based on the 1.0.0-beta.7 version and is not working with the 9.x version.**
+**This project is based on the version 1.x and is not working with the 9.x version.**
 
 ## How to use
 
 - Clone the repo on your server: `git clone https://github.com/cryptobaguette/lisk-graphql`.
 - Install dependencies: `yarn install` or `npm install`.
 - Set environment variables in `.env` file.
-- Start the app: `yarn start` or `node src/index.js`.
-- Open your browser and go to `http://your-server:3000/graphiql` to open the graphiql client.
+- Start the app: `yarn start` or `node build/index.js`.
+- Open your browser and go to `http://your-server:3000` to open the graphql playground.
 
-![Graphiql](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/graphiql.png 'Graphiql')
+![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png 'Playground')
 
 ## Options
 
-```
-{
-  # Should activate graphiql or not
-  "graphiql": true,
-
-  # Connection infos to the lisk database
-  "connection": {
-    "host": "127.0.0.1",
-    "user": "your_database_user",
-    "password": "your_database_password",
-    "database": "lisk_test"
-  },
-
-  # See lisk api.access config
-  "access": {
-    "public": false,
-    "whiteList": ["127.0.0.1"]
-  },
-
-  # Rate limit config
-  # See https://www.npmjs.com/package/express-rate-limit
-  "limits": {
-    "max": 0,
-    "delayMs": 0,
-    "delayAfter": 0,
-    "windowMs": 60000
-  }
-}
-```
+- `LISK_DB_DATABASE`- PostgreSQL database name to connect to
+- `LISK_DB_HOST` - PostgreSQL database host name
+- `LISK_DB_USER` - PostgreSQL database username to connect to
+- `LISK_DB_PASSWORD` - PostgreSQL database password to connect to
+- `PORT` - Binds and listens for connections on the specified port - default: 3000
 
 ### Suggest changes / ask for a feature
 
