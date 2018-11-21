@@ -1,13 +1,13 @@
-const SqlString = require('sqlstring');
+import * as SqlString from 'sqlstring';
+import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
+import { DelegateQueryArgs } from '@app/types/graphql';
+import { monster as AccountMonster } from '../account';
 
-const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
-const { monster: AccountMonster } = require('../account');
-
-exports.monster = {
+export const monster = {
   Query: {
     fields: {
       delegates: {
-        where: table => `${table}."isDelegate" = 1`,
+        where: (table: string) => `${table}."isDelegate" = 1`,
         orderBy: {
           vote: 'desc',
           publicKey: 'asc',
@@ -18,7 +18,7 @@ exports.monster = {
         // TODO other args filters
       },
       delegate: {
-        where: (table, args) => {
+        where: (table: string, args: DelegateQueryArgs) => {
           if (args.username) {
             return `${table}."username" = ${SqlString.escape(args.username)}`;
           }
@@ -64,10 +64,10 @@ exports.monster = {
           sqlTable: 'mem_accounts2delegates',
           sqlJoins: [
             // first the parent table to the junction
-            (followerTable, junctionTable) =>
+            (followerTable: string, junctionTable: string) =>
               `ENCODE(${followerTable}."publicKey", 'hex') = ${junctionTable}."dependentId"`,
             // then the junction to the child
-            (junctionTable, followeeTable) =>
+            (junctionTable: string, followeeTable: string) =>
               `${junctionTable}."accountId" = ${followeeTable}."address"`,
           ],
         },
@@ -81,10 +81,10 @@ exports.monster = {
           sqlTable: 'mem_accounts2delegates',
           sqlJoins: [
             // first the parent table to the junction
-            (followerTable, junctionTable) =>
+            (followerTable: string, junctionTable: string) =>
               `${followerTable}."address" = ${junctionTable}."accountId"`,
             // then the junction to the child
-            (junctionTable, followeeTable) =>
+            (junctionTable: string, followeeTable: string) =>
               `${junctionTable}."dependentId" = ENCODE(${followeeTable}."publicKey", 'hex')`,
           ],
         },

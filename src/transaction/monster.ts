@@ -1,14 +1,17 @@
-const SqlString = require('sqlstring');
+import * as SqlString from 'sqlstring';
+import { fromRawLsk } from '@app/helpers/lisk';
+import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
+import { epochTime } from '@app/lisk/helpers/constants';
+import {
+  TransactionQueryArgs,
+  TransactionsQueryArgs,
+} from '@app/types/graphql';
 
-const { limitFromArgs, offsetFromArgs } = require('../helpers/monster');
-const { epochTime } = require('../lisk/helpers/constants');
-const { fromRawLsk } = require('../helpers/lisk');
-
-exports.monster = {
+export const monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: args => {
+        orderBy: (args: TransactionsQueryArgs) => {
           if (args.sort === 'AMOUNT_DESC') {
             return { t_amount: 'desc', t_rowId: 'desc' };
           }
@@ -23,7 +26,8 @@ exports.monster = {
         // TODO other args filters
       },
       transaction: {
-        where: (table, args) => `${table}.t_id = ${SqlString.escape(args.id)}`,
+        where: (table: string, args: TransactionQueryArgs) =>
+          `${table}.t_id = ${SqlString.escape(args.id)}`,
       },
     },
   },
@@ -45,7 +49,7 @@ exports.monster = {
       },
       timestamp: {
         sqlColumn: 't_timestamp',
-        resolve: row =>
+        resolve: (row: any) =>
           new Date(row.timestamp * 1000 + epochTime.getTime()).getTime(),
       },
       senderId: {
@@ -59,21 +63,21 @@ exports.monster = {
       },
       amount: {
         sqlColumn: 't_amount',
-        resolve: row => fromRawLsk(row.amount),
+        resolve: (row: any) => fromRawLsk(row.amount),
       },
       fee: {
         sqlColumn: 't_fee',
       },
       block: {
-        sqlJoin: (transactionTable, accountTable) =>
+        sqlJoin: (transactionTable: string, accountTable: string) =>
           `${transactionTable}."t_blockId" = ${accountTable}."b_id"`,
       },
       sender: {
-        sqlJoin: (transactionTable, accountTable) =>
+        sqlJoin: (transactionTable: string, accountTable: string) =>
           `${transactionTable}."t_senderId" = ${accountTable}."address"`,
       },
       recipient: {
-        sqlJoin: (transactionTable, accountTable) =>
+        sqlJoin: (transactionTable: string, accountTable: string) =>
           `${transactionTable}."t_recipientId" = ${accountTable}."address"`,
       },
     },
