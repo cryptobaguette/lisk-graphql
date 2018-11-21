@@ -5,6 +5,7 @@ export const config = {
     password: process.env.LISK_DB_PASSWORD,
     database: process.env.LISK_DB_DATABASE,
   },
+  port: process.env.PORT || 3000,
 };
 
 // TODO check nothing is missing in config otherwise throw
