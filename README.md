@@ -1,5 +1,5 @@
 <h1 align="center">lisk-graphql</h1>
-<h2 align="center">Graphql api for lisk</h1>
+<h3 align="center">Graphql api for lisk</h1>
 
 <p align="center">
   <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png" height="200">
@@ -65,11 +65,11 @@ Lisk-graphql can be customised using env variables.
 | PORT             | 3000    | Binds and listens for connections on the specified port.                                                 |
 | AUTH_TOKEN       |         | Protect the graphql server with a token. We check if the token is present in the `authorization` header. |
 
-### ☝️ Suggest changes / ask for a feature
+## ☝️ Suggest changes / ask for a feature
 
 Open an issue on this repo :)
 
-### 🤝 Contributing
+## 🤝 Contributing
 
 Do you have an idea or want to contribute?
 Pull requests are very welcome!
