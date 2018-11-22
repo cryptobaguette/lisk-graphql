@@ -17,6 +17,7 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 - Clone the repo on your server: `git clone https://github.com/cryptobaguette/lisk-graphql`.
 - Install dependencies: `yarn install` or `npm install`.
 - Set environment variables in `.env` file.
+- Build the project: `yarn build`.
 - Start the app: `yarn start` or `node build/index.js`.
 - Open your browser and go to `http://your-server:3000` to open the graphql playground.
 
