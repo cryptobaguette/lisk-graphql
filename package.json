@@ -10,7 +10,7 @@
     "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
     "prettier": "prettier --write '**/*.{js,ts,md}'",
     "generate-typings": "gql-gen",
-    "lint": "eslint 'src' '__tests__'",
+    "lint": "tslint -c tslint.json '{src,__tests__}/**/*.ts' --exclude 'src/types/graphql.ts'",
     "test": "yarn lint && yarn testonly",
     "testonly": "jest",
     "postinstall": "patch-package"
@@ -65,13 +65,6 @@
     "@types/node": "10.12.10",
     "@types/sqlstring": "2.2.0",
     "@types/validator": "9.4.3",
-    "eslint": "4.19.1",
-    "eslint-config-airbnb": "16.1.0",
-    "eslint-config-prettier": "2.9.0",
-    "eslint-plugin-import": "2.12.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-react": "7.9.1",
     "graphql-code-generator": "0.14.1",
     "graphql-codegen-typescript-resolvers-template": "0.14.1",
     "graphql-request": "1.8.2",
@@ -86,6 +79,8 @@
     "ts-node": "7.0.1",
     "tsconfig-paths": "3.7.0",
     "tscpaths": "0.0.6",
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "1.16.0",
     "typescript": "3.1.6"
   }
 }
