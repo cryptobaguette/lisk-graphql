@@ -41,6 +41,7 @@
     ]
   },
   "dependencies": {
+    "@liskhq/lisk-constants": "1.1.2",
     "apollo-server": "2.2.2",
     "bignumber.js": "=4.0.2",
     "dotenv": "^6.1.0",
