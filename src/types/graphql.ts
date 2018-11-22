@@ -1,49 +1,19 @@
-/* tslint:disable */
-import { GraphQLResolveInfo } from 'graphql';
-
-export type Resolver<Result, Parent = any, Context = any, Args = never> = (
-  parent: Parent,
-  args: Args,
-  context: Context,
-  info: GraphQLResolveInfo
-) => Promise<Result> | Result;
-
-export interface ISubscriptionResolverObject<Result, Parent, Context, Args> {
-  subscribe<R = Result, P = Parent>(
-    parent: P,
-    args: Args,
-    context: Context,
-    info: GraphQLResolveInfo
-  ): AsyncIterator<R | Result>;
-  resolve?<R = Result, P = Parent>(
-    parent: P,
-    args: Args,
-    context: Context,
-    info: GraphQLResolveInfo
-  ): R | Result | Promise<R | Result>;
+export enum SortAccounts {
+  BALANCE_ASC = 'BALANCE_ASC',
+  BALANCE_DESC = 'BALANCE_DESC',
 }
 
-export type SubscriptionResolver<
-  Result,
-  Parent = any,
-  Context = any,
-  Args = never
-> =
-  | ((
-      ...args: any[]
-    ) => ISubscriptionResolverObject<Result, Parent, Context, Args>)
-  | ISubscriptionResolverObject<Result, Parent, Context, Args>;
+export enum SortTransactions {
+  AMOUNT_ASC = 'AMOUNT_ASC',
+  AMOUNT_DESC = 'AMOUNT_DESC',
+}
 
-// ====================================================
-// START: Typescript template
-// ====================================================
+/** The `BigInt` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text. */
+export type BigInt = any;
 
 // ====================================================
 // Scalars
 // ====================================================
-
-/** The `BigInt` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text. */
-export type BigInt = any;
 
 // ====================================================
 // Types
@@ -114,15 +84,13 @@ export interface Block {
   /** The number of transactions processed in the block. */
   numberOfTransactions: number;
   /** The total amount of Lisk transferred. */
-  totalAmount: number;
+  totalAmount: BigInt;
   /** The total amount of fees associated with the block. */
-  totalFee: number;
+  totalFee: BigInt;
   /** The Lisk reward for the delegate. */
-  reward: number;
+  reward: BigInt;
   /** Total amount of LSK that have been forged in this Block. Consists of fees and the reward. */
   totalForged: BigInt;
-
-  generatorId: string;
 }
 
 export interface Delegate {
@@ -254,31 +222,44 @@ export interface TransactionQueryArgs {
   id: string;
 }
 
-// ====================================================
-// Enums
-// ====================================================
+import { GraphQLResolveInfo } from 'graphql';
 
-export enum SortAccounts {
-  BALANCE_ASC = 'BALANCE_ASC',
-  BALANCE_DESC = 'BALANCE_DESC',
+export type Resolver<Result, Parent = {}, Context = {}, Args = {}> = (
+  parent: Parent,
+  args: Args,
+  context: Context,
+  info: GraphQLResolveInfo
+) => Promise<Result> | Result;
+
+export interface ISubscriptionResolverObject<Result, Parent, Context, Args> {
+  subscribe<R = Result, P = Parent>(
+    parent: P,
+    args: Args,
+    context: Context,
+    info: GraphQLResolveInfo
+  ): AsyncIterator<R | Result> | Promise<AsyncIterator<R | Result>>;
+  resolve?<R = Result, P = Parent>(
+    parent: P,
+    args: Args,
+    context: Context,
+    info: GraphQLResolveInfo
+  ): R | Result | Promise<R | Result>;
 }
 
-export enum SortTransactions {
-  AMOUNT_ASC = 'AMOUNT_ASC',
-  AMOUNT_DESC = 'AMOUNT_DESC',
-}
-
-// ====================================================
-// END: Typescript template
-// ====================================================
-
-// ====================================================
-// Resolvers
-// ====================================================
+export type SubscriptionResolver<
+  Result,
+  Parent = {},
+  Context = {},
+  Args = {}
+> =
+  | ((
+      ...args: any[]
+    ) => ISubscriptionResolverObject<Result, Parent, Context, Args>)
+  | ISubscriptionResolverObject<Result, Parent, Context, Args>;
 
 export namespace QueryResolvers {
-  export interface Resolvers<Context = any, TypeParent = never> {
-    _?: Resolver<string | null, TypeParent, Context>;
+  export interface Resolvers<Context = {}, TypeParent = {}> {
+    _?: _Resolver<string | null, TypeParent, Context>;
     /** Gets all accounts by provided filter(s). */
     accounts?: AccountsResolver<Account[], TypeParent, Context>;
     /** Returns account information of an address. */
@@ -297,15 +278,15 @@ export namespace QueryResolvers {
     transaction?: TransactionResolver<Transaction | null, TypeParent, Context>;
   }
 
-  // export type Resolver<
-  //   R = string | null,
-  //   Parent = never,
-  //   Context = any
-  // > = Resolver<R, Parent, Context>;
+  export type _Resolver<
+    R = string | null,
+    Parent = {},
+    Context = {}
+  > = Resolver<R, Parent, Context>;
   export type AccountsResolver<
     R = Account[],
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, AccountsArgs>;
   export interface AccountsArgs {
     /** Limit of accounts to add to response. Default to 10. */
@@ -318,8 +299,8 @@ export namespace QueryResolvers {
 
   export type AccountResolver<
     R = Account | null,
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, AccountArgs>;
   export interface AccountArgs {
     /** Address of account. */
@@ -328,11 +309,12 @@ export namespace QueryResolvers {
     publicKey?: string | null;
   }
 
-  export type BlocksResolver<
-    R = Block[],
-    Parent = never,
-    Context = any
-  > = Resolver<R, Parent, Context, BlocksArgs>;
+  export type BlocksResolver<R = Block[], Parent = {}, Context = {}> = Resolver<
+    R,
+    Parent,
+    Context,
+    BlocksArgs
+  >;
   export interface BlocksArgs {
     /** Limit of blocks to add to response. Default to 100. */
     limit?: number | null;
@@ -342,8 +324,8 @@ export namespace QueryResolvers {
 
   export type BlockResolver<
     R = Block | null,
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, BlockArgs>;
   export interface BlockArgs {
     /** Id of block. */
@@ -352,8 +334,8 @@ export namespace QueryResolvers {
 
   export type DelegatesResolver<
     R = Delegate[],
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, DelegatesArgs>;
   export interface DelegatesArgs {
     /** Limit of delegates to add to response. Default to 100. */
@@ -364,8 +346,8 @@ export namespace QueryResolvers {
 
   export type DelegateResolver<
     R = Delegate | null,
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, DelegateArgs>;
   export interface DelegateArgs {
     /** Address of account. */
@@ -378,8 +360,8 @@ export namespace QueryResolvers {
 
   export type TransactionsResolver<
     R = Transaction[],
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, TransactionsArgs>;
   export interface TransactionsArgs {
     /** Limit of transactions to add to response. Default to 100. */
@@ -392,8 +374,8 @@ export namespace QueryResolvers {
 
   export type TransactionResolver<
     R = Transaction | null,
-    Parent = never,
-    Context = any
+    Parent = {},
+    Context = {}
   > = Resolver<R, Parent, Context, TransactionArgs>;
   export interface TransactionArgs {
     /** Id of transaction. */
@@ -402,7 +384,7 @@ export namespace QueryResolvers {
 }
 
 export namespace AccountResolvers {
-  export interface Resolvers<Context = any, TypeParent = Account> {
+  export interface Resolvers<Context = {}, TypeParent = Account> {
     /** The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end. */
     address?: AddressResolver<string, TypeParent, Context>;
     /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
@@ -436,47 +418,47 @@ export namespace AccountResolvers {
   export type AddressResolver<
     R = string,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type NameResolver<
     R = string | null,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type PublicKeyResolver<
     R = string,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BalanceResolver<
     R = BigInt,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BalanceRawResolver<
     R = BigInt,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type UnconfirmedBalanceResolver<
     R = BigInt,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type UnconfirmedSignatureResolver<
     R = boolean,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type SecondPublicKeyResolver<
     R = boolean | null,
     Parent = Account,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
 }
 
 export namespace BlockResolvers {
-  export interface Resolvers<Context = any, TypeParent = Block> {
+  export interface Resolvers<Context = {}, TypeParent = Block> {
     /** Unique identifier of the block. Derived from the block signature. */
     id?: IdResolver<string, TypeParent, Context>;
     /** Versioning for future upgrades of the lisk protocol. */
@@ -518,18 +500,16 @@ export namespace BlockResolvers {
       Context
     >;
     /** The total amount of Lisk transferred. */
-    totalAmount?: TotalAmountResolver<number, TypeParent, Context>;
+    totalAmount?: TotalAmountResolver<BigInt, TypeParent, Context>;
     /** The total amount of fees associated with the block. */
-    totalFee?: TotalFeeResolver<number, TypeParent, Context>;
+    totalFee?: TotalFeeResolver<BigInt, TypeParent, Context>;
     /** The Lisk reward for the delegate. */
-    reward?: RewardResolver<number, TypeParent, Context>;
+    reward?: RewardResolver<BigInt, TypeParent, Context>;
     /** Total amount of LSK that have been forged in this Block. Consists of fees and the reward. */
     totalForged?: TotalForgedResolver<BigInt, TypeParent, Context>;
-
-    generatorId?: GeneratorIdResolver<string, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = Block, Context = any> = Resolver<
+  export type IdResolver<R = string, Parent = Block, Context = {}> = Resolver<
     R,
     Parent,
     Context
@@ -537,87 +517,82 @@ export namespace BlockResolvers {
   export type VersionResolver<
     R = number | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type HeightResolver<
     R = number,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TimestampResolver<
     R = number,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type GeneratorAddressResolver<
     R = string | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type GeneratorPublicKeyResolver<
     R = string,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type PayloadLengthResolver<
     R = number | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type PayloadHashResolver<
     R = string | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BlockSignatureResolver<
     R = string | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type ConfirmationsResolver<
     R = number | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type PreviousBlockIdResolver<
     R = string | null,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type NumberOfTransactionsResolver<
     R = number,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TotalAmountResolver<
-    R = number,
+    R = BigInt,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TotalFeeResolver<
-    R = number,
+    R = BigInt,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type RewardResolver<
-    R = number,
+    R = BigInt,
     Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TotalForgedResolver<
     R = BigInt,
     Parent = Block,
-    Context = any
-  > = Resolver<R, Parent, Context>;
-  export type GeneratorIdResolver<
-    R = string,
-    Parent = Block,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
 }
 
 export namespace DelegateResolvers {
-  export interface Resolvers<Context = any, TypeParent = Delegate> {
+  export interface Resolvers<Context = {}, TypeParent = Delegate> {
     /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
     username?: UsernameResolver<string, TypeParent, Context>;
     /** The voters weight of the delegate. Represents the total amount of Lisk (in Beddows) that the delegates’ voters own. The voters weight decides which rank the delegate gets in relation to the other delegates and their voters weights. */
@@ -673,102 +648,102 @@ export namespace DelegateResolvers {
   export type UsernameResolver<
     R = string,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VoteResolver<
     R = BigInt,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type RewardsResolver<
     R = string | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type ProducedBlocksResolver<
     R = number | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type MissedBlocksResolver<
     R = number | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type ProductivityResolver<
     R = number | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VotersResolver<
     R = Account[],
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VotesResolver<
     R = Account[],
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VotesUsedResolver<
     R = number,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VotesAvailableResolver<
     R = number,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type AddressResolver<
     R = string,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type NameResolver<
     R = string | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type PublicKeyResolver<
     R = string,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BalanceResolver<
     R = BigInt,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BalanceRawResolver<
     R = BigInt,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type UnconfirmedBalanceResolver<
     R = BigInt,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type UnconfirmedSignatureResolver<
     R = boolean,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type SecondPublicKeyResolver<
     R = boolean | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type VoteWeightResolver<
     R = BigInt | null,
     Parent = Delegate,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
 }
 
 export namespace TransactionResolvers {
-  export interface Resolvers<Context = any, TypeParent = Transaction> {
+  export interface Resolvers<Context = {}, TypeParent = Transaction> {
     /** Unique identifier of the transaction. Derived from the transaction signature. */
     id?: IdResolver<string, TypeParent, Context>;
     /** Amount of Lisk to be transferred in this transaction in readable format. */
@@ -804,76 +779,76 @@ export namespace TransactionResolvers {
   export type IdResolver<
     R = string,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type AmountResolver<
     R = string,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type AmountRawResolver<
     R = BigInt,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type FeeResolver<
     R = string,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TypeResolver<
     R = number,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type HeightResolver<
     R = number | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BlockIdResolver<
     R = string | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type BlockResolver<
     R = Block | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TimestampResolver<
     R = string,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type TimestampRawResolver<
     R = string,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type SenderIdResolver<
     R = string | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type SenderResolver<
     R = Account | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type RecipientIdResolver<
     R = string | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type RecipientResolver<
     R = Account | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
   export type ConfirmationsResolver<
     R = number | null,
     Parent = Transaction,
-    Context = any
+    Context = {}
   > = Resolver<R, Parent, Context>;
 }
