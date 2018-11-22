@@ -4,7 +4,7 @@
     "outDir": "build",
     "target": "esnext",
     "module": "commonjs",
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
