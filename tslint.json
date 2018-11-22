@@ -1,0 +1,15 @@
+{
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "rules": {
+    "object-literal-sort-keys": false,
+    "no-submodule-imports": false,
+    "ordered-imports": false,
+    "no-console": false,
+    // change once this pr is merged https://github.com/palantir/tslint/pull/4192
+    "no-implicit-dependencies": [
+      true,
+      "dev",
+      ["@app/helpers", "@app/types", "@app/knex", "@app/lisk"]
+    ]
+  }
+}

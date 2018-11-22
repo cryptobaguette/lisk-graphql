@@ -1,3 +1,4 @@
+// tslint:disable-next-line
 require('dotenv').config();
 
 import { ApolloServer, ForbiddenError } from 'apollo-server';

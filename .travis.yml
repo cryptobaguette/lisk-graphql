@@ -20,7 +20,7 @@ before_install:
 install:
   - yarn install --pure-lockfile
 
-script: "yarn testonly"
+script: "yarn test"
 
 notifications:
   email: false
