@@ -1,5 +1,5 @@
 import * as SqlString from 'sqlstring';
-import constants from '@liskhq/lisk-constants';
+import * as constants from '@liskhq/lisk-constants';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import {
