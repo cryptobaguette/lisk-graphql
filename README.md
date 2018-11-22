@@ -1,7 +1,7 @@
 <h1 align="center">lisk-graphql</h1>
 
 <p align="center">
-  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png">
+  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png" height="200">
 </p>
 
 [![Build Status](https://travis-ci.org/cryptobaguette/lisk-graphql.svg?branch=master)](https://travis-ci.org/cryptobaguette/lisk-graphql)
