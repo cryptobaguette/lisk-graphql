@@ -1,5 +1,5 @@
-const constants = require('../lisk/helpers/constants');
-const Bignum = require('../lisk/helpers/bignum');
+const { maxVotesPerAccount } = require('../lisk/constants');
+const { BigNumber } = require('bignumber.js');
 
 const { resolver: AccountResolver } = require('../account');
 const { knex } = require('../knex');
@@ -34,7 +34,7 @@ exports.resolver = {
     votesUsed: getVotersCountForDelegates,
     votesAvailable: async delegate => {
       const votesCount = await getVotersCountForDelegates(delegate);
-      return constants.maxVotesPerAccount - votesCount;
+      return maxVotesPerAccount - votesCount;
     },
   },
 };

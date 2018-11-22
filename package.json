@@ -43,7 +43,7 @@
   "dependencies": {
     "@liskhq/lisk-constants": "1.1.2",
     "apollo-server": "2.2.2",
-    "bignumber.js": "=4.0.2",
+    "bignumber.js": "8.0.1",
     "dotenv": "^6.1.0",
     "graphql": "0.13.2",
     "graphql-tools": "^3.0.2",
@@ -55,10 +55,12 @@
     "lodash": "4.17.11",
     "patch-package": "5.1.1",
     "pg": "7.6.1",
+    "remove": "^0.1.5",
     "sqlstring": "2.3.1",
     "validator": "10.9.0"
   },
   "devDependencies": {
+    "@types/bignumber.js": "^5.0.0",
     "@types/graphql": "14.0.3",
     "@types/jest": "23.3.9",
     "@types/knex": "0.15.1",
