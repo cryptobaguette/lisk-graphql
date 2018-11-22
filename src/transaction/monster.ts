@@ -1,7 +1,7 @@
 import * as SqlString from 'sqlstring';
+import * as constants from '@liskhq/lisk-constants';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
-import { epochTime } from '@app/lisk/helpers/constants';
 import {
   TransactionQueryArgs,
   TransactionsQueryArgs,
@@ -50,7 +50,9 @@ export const monster = {
       timestamp: {
         sqlColumn: 't_timestamp',
         resolve: (row: any) =>
-          new Date(row.timestamp * 1000 + epochTime.getTime()).getTime(),
+          new Date(
+            row.timestamp * 1000 + constants.EPOCH_TIME.getTime()
+          ).getTime(),
       },
       senderId: {
         sqlColumn: 't_senderId',
