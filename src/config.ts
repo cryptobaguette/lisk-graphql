@@ -6,6 +6,7 @@ export const config = {
     database: process.env.LISK_DB_DATABASE,
   },
   port: process.env.PORT || 3000,
+  authToken: process.env.AUTH_TOKEN,
 };
 
 // TODO check nothing is missing in config otherwise throw

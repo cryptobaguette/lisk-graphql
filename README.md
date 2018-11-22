@@ -24,11 +24,12 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 
 ## Options
 
-- `LISK_DB_DATABASE`- PostgreSQL database name to connect to
-- `LISK_DB_HOST` - PostgreSQL database host name
-- `LISK_DB_USER` - PostgreSQL database username to connect to
-- `LISK_DB_PASSWORD` - PostgreSQL database password to connect to
-- `PORT` - Binds and listens for connections on the specified port - default: 3000
+- `LISK_DB_DATABASE`- PostgreSQL database name to connect to.
+- `LISK_DB_HOST` - PostgreSQL database host name.
+- `LISK_DB_USER` - PostgreSQL database username to connect to.
+- `LISK_DB_PASSWORD` - PostgreSQL database password to connect to.
+- `PORT` - Binds and listens for connections on the specified port. _default: 3000_
+- `AUTH_TOKEN` - Protect the graphql server with a token. We check if the token is present in the `authorization` header.
 
 ### Suggest changes / ask for a feature
 
