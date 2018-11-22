@@ -1,7 +1,7 @@
 <h1 align="center">lisk-graphql</h1>
 
 <p align="center">
-  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png">
+  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png" height="200">
 </p>
 
 [![Build Status](https://travis-ci.org/cryptobaguette/lisk-graphql.svg?branch=master)](https://travis-ci.org/cryptobaguette/lisk-graphql)
@@ -17,6 +17,7 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 - Clone the repo on your server: `git clone https://github.com/cryptobaguette/lisk-graphql`.
 - Install dependencies: `yarn install` or `npm install`.
 - Set environment variables in `.env` file.
+- Build the project: `yarn build`.
 - Start the app: `yarn start` or `node build/index.js`.
 - Open your browser and go to `http://your-server:3000` to open the graphql playground.
 
@@ -24,11 +25,12 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 
 ## Options
 
-- `LISK_DB_DATABASE`- PostgreSQL database name to connect to
-- `LISK_DB_HOST` - PostgreSQL database host name
-- `LISK_DB_USER` - PostgreSQL database username to connect to
-- `LISK_DB_PASSWORD` - PostgreSQL database password to connect to
-- `PORT` - Binds and listens for connections on the specified port - default: 3000
+- `LISK_DB_DATABASE`- PostgreSQL database name to connect to.
+- `LISK_DB_HOST` - PostgreSQL database host name.
+- `LISK_DB_USER` - PostgreSQL database username to connect to.
+- `LISK_DB_PASSWORD` - PostgreSQL database password to connect to.
+- `PORT` - Binds and listens for connections on the specified port. _default: 3000_
+- `AUTH_TOKEN` - Protect the graphql server with a token. We check if the token is present in the `authorization` header.
 
 ### Suggest changes / ask for a feature
 

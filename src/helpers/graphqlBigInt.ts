@@ -1,15 +1,15 @@
 // This file is just a copy paste of the String implementation
 
-const { GraphQLScalarType, Kind } = require('graphql');
+import { GraphQLScalarType, Kind } from 'graphql';
 
-function coerceString(value) {
+function coerceString(value: any) {
   if (Array.isArray(value)) {
     throw new TypeError(`String cannot represent an array value: ${value}`);
   }
   return String(value);
 }
 
-exports.GraphQLBigInt = new GraphQLScalarType({
+export const GraphQLBigInt = new GraphQLScalarType({
   name: 'BigInt',
   description:
     'The `BigInt` scalar type represents textual data, represented as UTF-8 ' +
