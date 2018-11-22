@@ -17,8 +17,5 @@ install:
 
 script: "yarn testonly"
 
-after_script:
-  - make mrproper
-
 notifications:
   email: false
