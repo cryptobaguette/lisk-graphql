@@ -87,6 +87,13 @@
   dependencies:
     babel-runtime "6.26.0"
 
+"@liskhq/lisk-constants@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@liskhq/lisk-constants/-/lisk-constants-1.2.0.tgz#90f072764d170d790dff9d7dd7665d108389101b"
+  integrity sha512-B/1Si1eT4wOe7AaInklfT2SLenLm7U9CyfNnjaZs423Hi5Vw5xjP7KkM2nJTkqd6EUF/SJARKU/eK1R/qq0uDw==
+  dependencies:
+    "@types/node" "10.10.1"
+
 "@liskhq/lisk-cryptography@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@liskhq/lisk-cryptography/-/lisk-cryptography-1.1.2.tgz#ed90b71ac942f47eb70ac209e00f6aaa9570fb23"
@@ -321,6 +328,11 @@
   version "10.12.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.5.tgz#7e7ea1a9b34d2c8d704cb0b755dffbcda34741ad"
   integrity sha512-GzdHjq3t3eGLMv92Al90Iq+EoLL+86mPfQhuglbBFO7HiLdC/rkt+zrzJJumAiBF6nsrBWhou22rPW663AAyFw==
+
+"@types/node@10.10.1":
+  version "10.10.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.10.1.tgz#d5c96ca246a418404914d180b7fdd625ad18eca6"
+  integrity sha512-nzsx28VwfaIykfzMAG9TB3jxF5Nn+1/WMKnmVZc8TsB+LMIVvwUscVn7PAq+LFaY5ng5u4jp5mRROSswo76PPA==
 
 "@types/node@10.12.10":
   version "10.12.10"
