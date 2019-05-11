@@ -1,4 +1,4 @@
-import * as lisk from 'lisk-elements';
+import lisk from 'lisk-elements';
 import { BigNumber } from 'bignumber.js';
 
 export const resolver = {

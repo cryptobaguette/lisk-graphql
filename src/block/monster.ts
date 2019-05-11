@@ -1,4 +1,4 @@
-import * as SqlString from 'sqlstring';
+import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import { BlockQueryArgs } from '@app/types/graphql';
 

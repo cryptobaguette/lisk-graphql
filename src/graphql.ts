@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import * as joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
+import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
 import { merge } from 'lodash';
 import { GraphQLBigInt } from './helpers/graphqlBigInt';
 

@@ -1,4 +1,4 @@
-import * as SqlString from 'sqlstring';
+import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import { DelegateQueryArgs } from '@app/types/graphql';
 import { monster as AccountMonster } from '../account';

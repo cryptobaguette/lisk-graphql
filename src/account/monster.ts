@@ -1,4 +1,4 @@
-import * as SqlString from 'sqlstring';
+import SqlString from 'sqlstring';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import { AccountQueryArgs, AccountsQueryArgs } from '@app/types/graphql';

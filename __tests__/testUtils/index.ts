@@ -1,5 +1,5 @@
-import * as lisk from 'lisk-elements';
-import * as isCi from 'is-ci';
+import lisk from 'lisk-elements';
+import isCi from 'is-ci';
 import { GraphQLClient } from 'graphql-request';
 
 // Tests are running on testnet
