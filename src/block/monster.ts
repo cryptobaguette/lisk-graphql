@@ -6,7 +6,7 @@ export const monster = {
   Query: {
     fields: {
       blocks: {
-        orderBy: { b_height: 'desc' },
+        orderBy: { height: 'desc' },
         limit: limitFromArgs,
         offset: offsetFromArgs,
         // TODO args order by enum
@@ -14,55 +14,63 @@ export const monster = {
       },
       block: {
         where: (table: string, args: BlockQueryArgs) =>
-          `${table}.b_id = ${SqlString.escape(args.id)}`,
+          `${table}.id = ${SqlString.escape(args.id)}`,
       },
     },
   },
   Block: {
-    sqlTable: 'blocks_list',
-    uniqueKey: 'b_id',
+    sqlTable: 'blocks',
+    uniqueKey: 'id',
     fields: {
       id: {
-        sqlColumn: 'b_id',
+        sqlColumn: 'id',
       },
       version: {
-        sqlColumn: 'b_version',
+        sqlColumn: 'version',
       },
       timestamp: {
-        sqlColumn: 'b_timestamp',
+        sqlColumn: 'timestamp',
       },
       height: {
-        sqlColumn: 'b_height',
+        sqlColumn: 'height',
       },
       previousBlockId: {
-        sqlColumn: 'b_previousBlock',
+        sqlColumn: 'previousBlock',
       },
       numberOfTransactions: {
-        sqlColumn: 'b_numberOfTransactions',
+        sqlColumn: 'numberOfTransactions',
       },
       totalAmount: {
-        sqlColumn: 'b_totalAmount',
+        sqlColumn: 'totalAmount',
       },
       totalFee: {
-        sqlColumn: 'b_totalFee',
+        sqlColumn: 'totalFee',
       },
       reward: {
-        sqlColumn: 'b_reward',
+        sqlColumn: 'reward',
+      },
+      totalForged: {
+        sqlDeps: ['totalFee', 'reward'],
       },
       payloadLength: {
-        sqlColumn: 'b_payloadLength',
+        sqlColumn: 'payloadLength',
       },
       payloadHash: {
-        sqlColumn: 'b_payloadHash',
+        sqlColumn: 'payloadHash',
+        sqlExpr: (table: string) => `ENCODE(${table}."payloadHash", 'hex')`,
       },
       generatorPublicKey: {
-        sqlColumn: 'b_generatorPublicKey',
+        sqlColumn: 'generatorPublicKey',
+        sqlExpr: (table: string) =>
+          `ENCODE(${table}."generatorPublicKey", 'hex')`,
       },
       blockSignature: {
-        sqlColumn: 'b_blockSignature',
+        sqlColumn: 'blockSignature',
+        sqlExpr: (table: string) => `ENCODE(${table}."blockSignature", 'hex')`,
       },
       confirmations: {
-        sqlColumn: 'b_confirmations',
+        sqlExpr: (table: string) =>
+          `( SELECT max("b"."height") + 1 FROM ${table} AS "b" ) - ${table}."height"`,
       },
     },
   },
