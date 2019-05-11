@@ -3,7 +3,7 @@ import { knex } from '@app/knex';
 import { QueryResolvers } from '@app/types/graphql';
 import { isPublicKeyValid } from '@app/helpers/validators';
 
-export const Query: QueryResolvers.Resolvers = {
+export const Query: QueryResolvers = {
   accounts(_, __, ctx, resolveInfo) {
     return joinMonster(resolveInfo, ctx, (sql: string) => knex.raw(sql), {
       dialect: 'pg',

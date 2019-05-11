@@ -3,15 +3,15 @@ import constants from '@liskhq/lisk-constants';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import {
-  TransactionQueryArgs,
-  TransactionsQueryArgs,
+  QueryTransactionArgs,
+  QueryTransactionsArgs,
 } from '@app/types/graphql';
 
 export const monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: (args: TransactionsQueryArgs) => {
+        orderBy: (args: QueryTransactionsArgs) => {
           if (args.sort === 'AMOUNT_DESC') {
             return { amount: 'desc', rowId: 'desc' };
           }
@@ -26,7 +26,7 @@ export const monster = {
         // TODO other args filters
       },
       transaction: {
-        where: (table: string, args: TransactionQueryArgs) =>
+        where: (table: string, args: QueryTransactionArgs) =>
           `${table}.id = ${SqlString.escape(args.id)}`,
       },
     },

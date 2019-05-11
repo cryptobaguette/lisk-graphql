@@ -1,6 +1,6 @@
 import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
-import { BlockQueryArgs } from '@app/types/graphql';
+import { QueryBlockArgs } from '@app/types/graphql';
 
 export const monster = {
   Query: {
@@ -13,7 +13,7 @@ export const monster = {
         // TODO other args filters
       },
       block: {
-        where: (table: string, args: BlockQueryArgs) =>
+        where: (table: string, args: QueryBlockArgs) =>
           `${table}.id = ${SqlString.escape(args.id)}`,
       },
     },

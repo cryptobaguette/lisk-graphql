@@ -4,6 +4,5 @@ overwrite: true
 generates:
   ./src/types/graphql.ts:
     plugins:
-      - typescript-common
-      - typescript-server
+      - typescript
       - typescript-resolvers

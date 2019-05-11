@@ -7,7 +7,7 @@ import { config } from './config';
 
 const server = new ApolloServer({
   schema,
-  context: ({ req }: any) => {
+  context: ({ req }) => {
     /**
      * Protext the server with a token
      */
