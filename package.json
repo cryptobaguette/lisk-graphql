@@ -12,7 +12,7 @@
     "prettier": "prettier --write '**/*.{js,ts,md}'",
     "generate-typings": "gql-gen",
     "lint": "tslint -c tslint.json '{src,__tests__}/**/*.ts' --exclude 'src/types/graphql.ts'",
-    "test": "yarn lint && yarn testonly",
+    "test": "yarn lint && yarn check-types && yarn build && yarn testonly",
     "testonly": "jest",
     "postinstall": "patch-package"
   },
@@ -74,6 +74,7 @@
     "@types/node": "10.12.10",
     "@types/sqlstring": "2.2.1",
     "@types/validator": "9.4.3",
+    "babel-plugin-module-resolver": "3.2.0",
     "graphql-request": "1.8.2",
     "husky": "2.2.0",
     "is-ci": "2.0.0",
