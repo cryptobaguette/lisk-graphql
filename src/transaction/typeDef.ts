@@ -15,9 +15,6 @@ export const typeDef = `
     # Describes the Transaction type.
     type: Int!
 
-    # The height of the network, at the moment where this transaction was included in the blockchain.
-    height: Int
-
     # The Id of the block, this transaction is included in.
     blockId: String
 
@@ -49,9 +46,6 @@ export const typeDef = `
     # TODO signSignature: String
 
     # TODO signatures
-
-    # Number of times that this transaction has been confirmed by the network. By forging a new block on a chain, all former blocks and their contained transactions in the chain get confirmed by the forging delegate.
-    confirmations: Int
 
     # The timestamp of the moment, where a node discovered a transaction for the first time.
     # TODO receivedAt: String

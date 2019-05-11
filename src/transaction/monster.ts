@@ -13,12 +13,12 @@ export const monster = {
       transactions: {
         orderBy: (args: TransactionsQueryArgs) => {
           if (args.sort === 'AMOUNT_DESC') {
-            return { t_amount: 'desc', t_rowId: 'desc' };
+            return { amount: 'desc', rowId: 'desc' };
           }
           if (args.sort === 'AMOUNT_ASC') {
-            return { t_amount: 'asc', t_rowId: 'desc' };
+            return { amount: 'asc', rowId: 'desc' };
           }
-          return { t_rowId: 'desc' };
+          return { rowId: 'desc' };
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
@@ -27,60 +27,54 @@ export const monster = {
       },
       transaction: {
         where: (table: string, args: TransactionQueryArgs) =>
-          `${table}.t_id = ${SqlString.escape(args.id)}`,
+          `${table}.id = ${SqlString.escape(args.id)}`,
       },
     },
   },
   Transaction: {
-    sqlTable: 'trs_list',
-    uniqueKey: 't_id',
+    sqlTable: 'trs',
+    uniqueKey: 'id',
     fields: {
       id: {
-        sqlColumn: 't_id',
-      },
-      height: {
-        sqlColumn: 'b_height',
+        sqlColumn: 'id',
       },
       blockId: {
-        sqlColumn: 't_blockId',
+        sqlColumn: 'blockId',
       },
       type: {
-        sqlColumn: 't_type',
+        sqlColumn: 'type',
       },
       timestamp: {
-        sqlColumn: 't_timestamp',
+        sqlColumn: 'timestamp',
         resolve: (row: any) =>
           new Date(
             row.timestamp * 1000 + constants.EPOCH_TIME.getTime()
           ).getTime(),
       },
       senderId: {
-        sqlColumn: 't_senderId',
+        sqlColumn: 'senderId',
       },
       recipientId: {
-        sqlColumn: 't_recipientId',
-      },
-      confirmations: {
-        sqlColumn: 'confirmations',
+        sqlColumn: 'recipientId',
       },
       amount: {
-        sqlColumn: 't_amount',
+        sqlColumn: 'amount',
         resolve: (row: any) => fromRawLsk(row.amount),
       },
       fee: {
-        sqlColumn: 't_fee',
+        sqlColumn: 'fee',
       },
       block: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_blockId" = ${accountTable}."b_id"`,
+          `${transactionTable}."blockId" = ${accountTable}."b_id"`,
       },
       sender: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_senderId" = ${accountTable}."address"`,
+          `${transactionTable}."senderId" = ${accountTable}."address"`,
       },
       recipient: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_recipientId" = ${accountTable}."address"`,
+          `${transactionTable}."recipientId" = ${accountTable}."address"`,
       },
     },
   },

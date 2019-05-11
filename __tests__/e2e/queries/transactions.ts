@@ -10,7 +10,6 @@ describe('transactions', () => {
       query transactions {
         transactions {
           id
-          height
           blockId
           type
           timestamp
@@ -18,14 +17,12 @@ describe('transactions', () => {
           recipientId
           amount
           fee
-          confirmations
         }
       }
     `;
     const data = await graphqlClient.request<{ transactions: any[] }>(query);
     const transaction = data.transactions[0];
     expect(transaction.id).toBeTruthy();
-    expect(transaction.height).toBeTruthy();
     expect(transaction.blockId).toBeTruthy();
     expect(transaction.type >= 0 && transaction.type <= 7).toBeTruthy();
     expect(transaction.timestamp).toBeTruthy();
@@ -33,7 +30,6 @@ describe('transactions', () => {
     expect(transaction.recipientId).toBeTruthy();
     expect(transaction.amount).toBeTruthy();
     expect(transaction.fee).toBeTruthy();
-    expect(transaction.confirmations).toBeTruthy();
   });
 
   it('should fetch 10 transactions', async () => {

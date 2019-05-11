@@ -16,6 +16,7 @@ describe('account', () => {
           }
         `;
         const data = await graphqlClient.request<{ account: any }>(query);
+        // TODO check no errors for all the responses
         expect(data.account).toBeNull();
       });
 
