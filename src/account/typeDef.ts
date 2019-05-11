@@ -18,9 +18,6 @@ export const typeDef = `
     # The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions.
     unconfirmedBalance: BigInt!
 
-    # If account enabled second signature, but it's still not confirmed.
-    unconfirmedSignature: Boolean!
-
     # The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account.
     secondPublicKey: Boolean
   }
