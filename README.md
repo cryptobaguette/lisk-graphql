@@ -14,11 +14,16 @@
   </a>
 </p>
 
+![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png 'Playground')
+
 ## 🙋 Why
 
 The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
 
-![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png 'Playground')
+### Features
+
+- Optimized sql requests (we use [join-monster](https://github.com/acarl005/join-monster) to create the sql requests based on the graphql query)
+- Feature parity with the lisk api
 
 ## 📚 How to use
 
@@ -33,7 +38,7 @@ yarn install
 npm install
 ```
 
-Edit the `.env` file and setup the environment variables.
+Copy the example environment file `cp .env.example .env` and then edit the file and setup the environment variables.
 
 Then build the project.
 
@@ -64,6 +69,12 @@ Lisk-graphql can be customised using env variables.
 | LISK_DB_PASSWORD |         | PostgreSQL database password to connect to.                                                              |
 | PORT             | 3000    | Binds and listens for connections on the specified port.                                                 |
 | AUTH_TOKEN       |         | Protect the graphql server with a token. We check if the token is present in the `authorization` header. |
+
+## 🛣️ Roadmap
+
+- Improve delegates api support
+- Dapps api #3
+- Support Graphql subscriptions #30
 
 ## ☝️ Suggest changes / ask for a feature
 
