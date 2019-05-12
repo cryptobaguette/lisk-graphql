@@ -1,4 +1,4 @@
-import { graphqlClient, liskClient } from '../../testUtils';
+import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
@@ -20,7 +20,8 @@ describe('transactions', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ transactions: any[] }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     const transaction = data.transactions[0];
     expect(transaction.id).toBeTruthy();
     expect(transaction.blockId).toBeTruthy();
@@ -47,9 +48,9 @@ describe('transactions', () => {
         }
       }
     `;
-    const transaction = await graphqlClient
-      .request<{ transactions: any[] }>(query)
-      .then(data => data.transactions[0]);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const transaction = data.transactions[0];
     const liskTransaction = await liskClient.transactions
       .get({
         id: transaction.id,
@@ -85,7 +86,8 @@ describe('transactions', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ transactions: any }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     expect(data.transactions.length).toBe(10);
   });
 
@@ -99,9 +101,8 @@ describe('transactions', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ transactions: any[] }>(
-          query
-        );
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.transactions.length).toBe(50);
       });
     });
@@ -123,14 +124,16 @@ describe('transactions', () => {
           }
         `;
         const [compareData, data] = await Promise.all([
-          graphqlClient.request<{ transactions: any[] }>(compareQuery),
-          graphqlClient.request<{ transactions: any[] }>(query),
+          makeGraphqlRequest({ query: compareQuery }),
+          makeGraphqlRequest({ query }),
         ]);
-        expect(data.transactions[0].id).not.toBe(
-          compareData.transactions[0].id
+        expect(compareData.errors).not.toBeTruthy();
+        expect(data.errors).not.toBeTruthy();
+        expect(data.data.transactions[0].id).not.toBe(
+          compareData.data.transactions[0].id
         );
-        expect(data.transactions[4].id).not.toBe(
-          compareData.transactions[4].id
+        expect(data.data.transactions[4].id).not.toBe(
+          compareData.data.transactions[4].id
         );
       });
     });

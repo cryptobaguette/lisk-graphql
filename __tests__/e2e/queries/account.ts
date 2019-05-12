@@ -1,4 +1,4 @@
-import { graphqlClient, liskNetwork } from '../../testUtils';
+import { makeGraphqlRequest, liskNetwork } from '../../testUtils';
 
 const address =
   liskNetwork === 'testnet' ? '6238004142195673234L' : '6687808873757044786L';
@@ -18,7 +18,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account).toBeNull();
       });
 
@@ -30,7 +31,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account.address).toBe(address);
       });
     });
@@ -44,12 +46,8 @@ describe('account', () => {
             }
           }
         `;
-        try {
-          await graphqlClient.request<{ account: any }>(query);
-          throw new Error();
-        } catch (error) {
-          expect(error.message).toMatch('Invalid public key');
-        }
+        const { errors } = await makeGraphqlRequest({ query });
+        expect(errors[0].message).toBe('Invalid public key');
       });
 
       it('should return null if account not found', async () => {
@@ -60,7 +58,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account).toBeNull();
       });
 
@@ -73,7 +72,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account.address).toBeTruthy();
         expect(data.account.publicKey).toBe(publicKey);
       });

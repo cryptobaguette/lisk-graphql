@@ -1,4 +1,4 @@
-import { graphqlClient, liskClient } from '../../testUtils';
+import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('accounts', () => {
   it('should match the lisk api response', async () => {
@@ -13,9 +13,9 @@ describe('accounts', () => {
         }
       }
     `;
-    const account = await graphqlClient
-      .request<{ accounts: any[] }>(query)
-      .then(data => data.accounts[1]);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const account = data.accounts[1];
     const liskBlock = await liskClient.accounts
       .get({
         address: account.address,
@@ -41,7 +41,8 @@ describe('accounts', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ accounts: any[] }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     expect(data.accounts.length).toBe(10);
   });
 
@@ -55,7 +56,8 @@ describe('accounts', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ accounts: any[] }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.accounts.length).toBe(50);
       });
     });
@@ -77,14 +79,16 @@ describe('accounts', () => {
           }
         `;
         const [compareData, data] = await Promise.all([
-          graphqlClient.request<{ accounts: any[] }>(compareQuery),
-          graphqlClient.request<{ accounts: any[] }>(query),
+          makeGraphqlRequest({ query: compareQuery }),
+          makeGraphqlRequest({ query }),
         ]);
-        expect(data.accounts[0].address).not.toBe(
-          compareData.accounts[0].address
+        expect(compareData.errors).not.toBeTruthy();
+        expect(data.errors).not.toBeTruthy();
+        expect(data.data.accounts[0].address).not.toBe(
+          compareData.data.accounts[0].address
         );
-        expect(data.accounts[4].address).not.toBe(
-          compareData.accounts[4].address
+        expect(data.data.accounts[4].address).not.toBe(
+          compareData.data.accounts[4].address
         );
       });
     });
@@ -99,7 +103,8 @@ describe('accounts', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ accounts: any[] }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         // We skip the 0 index because it is "-100000000"
         expect(data.accounts[1].balance).toBe('0');
         expect(data.accounts[2].balance).toBe('0');
@@ -115,7 +120,8 @@ describe('accounts', () => {
           }
         }
       `;
-      const data = await graphqlClient.request<{ accounts: any[] }>(query);
+      const { errors, data } = await makeGraphqlRequest({ query });
+      expect(errors).not.toBeTruthy();
       expect(data.accounts[0].balance).not.toBe('0');
       expect(data.accounts[0].balance).not.toBe(data.accounts[1].balance);
     });

@@ -1,5 +1,5 @@
 import { APIClient } from '@liskhq/lisk-api-client';
-import { GraphQLClient } from 'graphql-request';
+import got from 'got';
 
 export const liskNetwork = (process.env.LISK_NETWORK || 'testnet') as
   | 'mainnet'
@@ -11,4 +11,20 @@ export const liskClient = new APIClient([
   }`,
 ]);
 
-export const graphqlClient = new GraphQLClient('http://localhost:3000/graphql');
+const graphqlUrl = 'http://localhost:3000/graphql';
+
+export const makeGraphqlRequest = ({
+  query,
+  variables = {},
+}: {
+  query: string;
+  variables?: any;
+}) =>
+  got
+    .post(graphqlUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables, operationName: null }),
+    })
+    .then(data => data.body)
+    .then(data => JSON.parse(data)) as Promise<{ data: any; errors: any }>;

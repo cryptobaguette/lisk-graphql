@@ -1,4 +1,4 @@
-import { graphqlClient, liskClient } from '../../testUtils';
+import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('blocks', () => {
   it('should expose the blocks fields', async () => {
@@ -24,7 +24,8 @@ describe('blocks', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ blocks: any[] }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     const block = data.blocks[0];
     expect(block).toEqual({
       id: expect.any(String),
@@ -69,9 +70,9 @@ describe('blocks', () => {
         }
       }
     `;
-    const block = await graphqlClient
-      .request<{ blocks: any[] }>(query)
-      .then(data => data.blocks[0]);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const block = data.blocks[0];
     const liskBlock = await liskClient.blocks
       .get({
         blockId: block.id,
@@ -105,7 +106,8 @@ describe('blocks', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ blocks: any[] }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     expect(data.blocks.length).toBe(10);
   });
 
@@ -119,7 +121,8 @@ describe('blocks', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ blocks: any[] }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.blocks.length).toBe(50);
       });
     });
@@ -141,11 +144,13 @@ describe('blocks', () => {
           }
         `;
         const [compareData, data] = await Promise.all([
-          graphqlClient.request<{ blocks: any[] }>(compareQuery),
-          graphqlClient.request<{ blocks: any[] }>(query),
+          makeGraphqlRequest({ query: compareQuery }),
+          makeGraphqlRequest({ query }),
         ]);
-        expect(data.blocks[0].id).not.toBe(compareData.blocks[0].id);
-        expect(data.blocks[4].id).not.toBe(compareData.blocks[4].id);
+        expect(compareData.errors).not.toBeTruthy();
+        expect(data.errors).not.toBeTruthy();
+        expect(data.data.blocks[0].id).not.toBe(compareData.data.blocks[0].id);
+        expect(data.data.blocks[4].id).not.toBe(compareData.data.blocks[4].id);
       });
     });
   });
