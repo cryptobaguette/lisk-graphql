@@ -1,6 +1,7 @@
-import { graphqlClient } from '../../testUtils';
+import { graphqlClient, liskNetwork } from '../../testUtils';
 
-const blockId = '7669527049214991477';
+const blockId =
+  liskNetwork === 'testnet' ? '7669527049214991477' : '12015517279138151384';
 
 describe('block', () => {
   describe('args', () => {
