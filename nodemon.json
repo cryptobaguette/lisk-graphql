@@ -1,6 +1,6 @@
 {
   "watch": ["src/**/*.{js,ts}"],
   "execMap": {
-    "ts": "babel-node --extensions \".ts\""
+    "ts": "babel-node -r node_modules/dotenv/config --extensions \".ts\""
   }
 }

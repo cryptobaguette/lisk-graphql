@@ -1,6 +1,3 @@
-// tslint:disable-next-line
-require('dotenv').config();
-
 import { ApolloServer, ForbiddenError } from 'apollo-server';
 import { schema } from './graphql';
 import { config } from './config';
