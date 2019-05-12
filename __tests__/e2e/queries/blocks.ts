@@ -1,4 +1,4 @@
-import { graphqlClient } from '../../testUtils';
+import { graphqlClient, liskClient } from '../../testUtils';
 
 describe('blocks', () => {
   it('should expose the blocks fields', async () => {
@@ -26,22 +26,75 @@ describe('blocks', () => {
     `;
     const data = await graphqlClient.request<{ blocks: any[] }>(query);
     const block = data.blocks[0];
-    expect(block.id).toBeTruthy();
-    expect(block.version).toBe(1);
-    expect(block.timestamp).toBeTruthy();
-    expect(block.height).toBeTruthy();
-    expect(block.numberOfTransactions >= 0).toBeTruthy();
-    expect(block.totalAmount).toBeTruthy();
-    expect(block.totalFee).toBeTruthy();
-    expect(block.reward).toBeTruthy();
-    expect(block.payloadLength >= 0).toBeTruthy();
-    expect(block.payloadHash).toBeTruthy();
-    expect(block.generatorPublicKey).toBeTruthy();
-    expect(block.blockSignature).toBeTruthy();
-    expect(block.confirmations).toBeTruthy();
-    expect(block.totalForged).toBeTruthy();
-    expect(block.generatorAddress).toBeTruthy();
-    expect(block.previousBlockId).toBeTruthy();
+    expect(block).toEqual({
+      id: expect.any(String),
+      version: expect.any(Number),
+      timestamp: expect.any(Number),
+      height: expect.any(Number),
+      numberOfTransactions: expect.any(Number),
+      totalAmount: expect.any(String),
+      totalFee: expect.any(String),
+      reward: expect.any(String),
+      payloadLength: expect.any(Number),
+      payloadHash: expect.any(String),
+      generatorPublicKey: expect.any(String),
+      blockSignature: expect.any(String),
+      confirmations: expect.any(Number),
+      totalForged: expect.any(String),
+      generatorAddress: expect.any(String),
+      previousBlockId: expect.any(String),
+    });
+  });
+
+  it('should match the lisk api response', async () => {
+    const query = `
+      query blocks {
+        blocks {
+          id
+          version
+          timestamp
+          height
+          numberOfTransactions
+          totalAmount
+          totalFee
+          reward
+          payloadLength
+          payloadHash
+          generatorPublicKey
+          blockSignature
+          confirmations
+          totalForged
+          generatorAddress
+          previousBlockId
+        }
+      }
+    `;
+    const block = await graphqlClient
+      .request<{ blocks: any[] }>(query)
+      .then(data => data.blocks[0]);
+    const liskBlock = await liskClient.blocks
+      .get({
+        blockId: block.id,
+      })
+      .then((data: any) => data.data[0]);
+    expect(liskBlock).toEqual({
+      blockSignature: liskBlock.blockSignature,
+      confirmations: liskBlock.confirmations,
+      generatorAddress: liskBlock.generatorAddress,
+      generatorPublicKey: liskBlock.generatorPublicKey,
+      height: liskBlock.height,
+      id: liskBlock.id,
+      numberOfTransactions: liskBlock.numberOfTransactions,
+      payloadHash: liskBlock.payloadHash,
+      payloadLength: liskBlock.payloadLength,
+      previousBlockId: liskBlock.previousBlockId,
+      reward: liskBlock.reward,
+      timestamp: liskBlock.timestamp,
+      totalAmount: liskBlock.totalAmount,
+      totalFee: liskBlock.totalFee,
+      totalForged: liskBlock.totalForged,
+      version: liskBlock.version,
+    });
   });
 
   it('should fetch 10 blocks', async () => {

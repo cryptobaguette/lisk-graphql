@@ -5,6 +5,6 @@ import { GraphQLClient } from 'graphql-request';
 // Tests are running on testnet
 export const liskClient = isCi
   ? APIClient.createTestnetAPIClient()
-  : new APIClient(['http://localhost:8000']);
+  : new APIClient([`http://${process.env.LISK_HOST || 'localhost'}:8000`]);
 
 export const graphqlClient = new GraphQLClient('http://localhost:3000/graphql');
