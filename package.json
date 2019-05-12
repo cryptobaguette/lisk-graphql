@@ -54,7 +54,7 @@
     "ip": "1.1.5",
     "join-monster": "2.1.0",
     "join-monster-graphql-tools-adapter": "0.0.3",
-    "knex": "0.16.5",
+    "knex": "0.16.7",
     "lodash": "4.17.11",
     "patch-package": "6.1.2",
     "pg": "7.11.0",
