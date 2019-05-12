@@ -24,6 +24,7 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 
 - Optimized sql requests (we use [join-monster](https://github.com/acarl005/join-monster) to create the sql requests based on the graphql query)
 - Feature parity with the lisk api
+- Filters and pagination
 
 ## 📚 How to use
 
