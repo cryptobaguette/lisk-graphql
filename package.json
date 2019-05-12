@@ -14,6 +14,7 @@
     "lint": "eslint '{src,__tests__}/**/*.ts'",
     "test": "yarn lint && yarn check-types && yarn build && yarn testonly",
     "testonly": "jest",
+    "deploy": "now --target production",
     "postinstall": "patch-package"
   },
   "prettier": {

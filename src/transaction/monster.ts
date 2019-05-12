@@ -69,8 +69,8 @@ export const monster = {
         sqlColumn: 'fee',
       },
       block: {
-        sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."blockId" = ${accountTable}."b_id"`,
+        sqlJoin: (transactionTable: string, blockTable: string) =>
+          `${transactionTable}."blockId" = ${blockTable}."id"`,
       },
       sender: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
