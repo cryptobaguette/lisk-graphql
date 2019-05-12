@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`account args publicKey should throw an error if publicKey is malformed 1`] = `"Invalid public key: {\\"response\\":{\\"errors\\":[{\\"message\\":\\"Invalid public key\\",\\"locations\\":[{\\"line\\":3,\\"column\\":13}],\\"path\\":[\\"account\\"],\\"extensions\\":{\\"code\\":\\"INTERNAL_SERVER_ERROR\\"}}],\\"data\\":{\\"account\\":null},\\"status\\":200},\\"request\\":{\\"query\\":\\"\\\\n          query account {\\\\n            account(publicKey: \\\\\\"test\\\\\\") {\\\\n              address\\\\n            }\\\\n          }\\\\n        \\"}}"`;
