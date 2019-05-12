@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-server';
 import SqlString from 'sqlstring';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
@@ -14,7 +15,7 @@ export const monster = {
           if (args.sort === 'BALANCE_ASC') {
             return { balance: 'asc' };
           }
-          throw new Error('Invalid orderBy params');
+          throw new ApolloError('Invalid orderBy params');
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
@@ -29,7 +30,7 @@ export const monster = {
               args.publicKey
             )}, 'hex')`;
           }
-          throw new Error('Invalid where params');
+          throw new ApolloError('Invalid where params');
         },
       },
     },

@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-server';
 import joinMonster from 'join-monster';
 import { knex } from '@app/knex';
 import { QueryResolvers } from '@app/types/graphql';
@@ -10,7 +11,7 @@ export const Query: QueryResolvers = {
   },
   delegate(_, args, ctx, resolveInfo) {
     if (!args.username && !args.address && !args.publicKey) {
-      throw new Error(
+      throw new ApolloError(
         'Missing required property: username, address or publicKey'
       );
     }

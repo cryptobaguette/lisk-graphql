@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-server';
 import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import { QueryDelegateArgs } from '@app/types/graphql';
@@ -30,7 +31,7 @@ export const monster = {
               args.publicKey
             )}, 'hex')`;
           }
-          throw new Error('Invalid params');
+          throw new ApolloError('Invalid params');
         },
       },
     },

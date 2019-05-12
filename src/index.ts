@@ -1,4 +1,4 @@
-import { ApolloServer, ForbiddenError } from 'apollo-server';
+import { ApolloServer, ForbiddenError, ApolloError } from 'apollo-server';
 import { schema } from './graphql';
 import { config } from './config';
 
@@ -16,6 +16,18 @@ const server = new ApolloServer({
     }
 
     return {};
+  },
+  /**
+   * The goal of this middleware is to only return whitelisted errors
+   * This way we won't leak database or other internal errors
+   */
+  formatError: error => {
+    const originalError = error.originalError;
+    if (originalError instanceof ApolloError) {
+      return error;
+    }
+    console.error(error);
+    throw new Error('Internal server error');
   },
 });
 
