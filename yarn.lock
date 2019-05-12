@@ -954,21 +954,15 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@liskhq/lisk-api-client@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@liskhq/lisk-api-client/-/lisk-api-client-1.1.2.tgz#4ecdf68847c47febbec55478c386f696270c891b"
-  integrity sha512-1zIuJ25PInMZGJBJarnoCJUGnxcfnzfGUxeF6aKAO7kNQ6hbK+myOV7Qgf4ZKa5FuTdtes/vHIc4bQtMOPFgTA==
+"@liskhq/lisk-api-client@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@liskhq/lisk-api-client/-/lisk-api-client-2.0.0.tgz#02caadd720365fb3974de3e67137561ac73a2021"
+  integrity sha512-HmIaV6tsEsedHGrgrn9vU6rTZ6pwpE5XylxkUPPRkeNVV3/vTfPWEzoKcyp9TrWBnsnpebmn56GsGzxQ8EA0EQ==
   dependencies:
-    "@liskhq/lisk-constants" "1.1.2"
+    "@types/node" "10.10.1"
+    "@types/verror" "1.10.3"
     axios "0.18.0"
-    babel-runtime "6.26.0"
-
-"@liskhq/lisk-constants@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@liskhq/lisk-constants/-/lisk-constants-1.1.2.tgz#4b206860ae8a76094dc9e3102032f103264ddc95"
-  integrity sha512-7lx8oytvUyTJVhsMlD+Ldq3E6bLu4oTS+fH2HCqI98Q3qRPXFkitAXyBsVn0YwEa6GOATNoowoacAfh3WC7KQQ==
-  dependencies:
-    babel-runtime "6.26.0"
+    verror "1.10.0"
 
 "@liskhq/lisk-constants@1.2.0":
   version "1.2.0"
@@ -977,37 +971,39 @@
   dependencies:
     "@types/node" "10.10.1"
 
-"@liskhq/lisk-cryptography@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@liskhq/lisk-cryptography/-/lisk-cryptography-1.1.2.tgz#ed90b71ac942f47eb70ac209e00f6aaa9570fb23"
-  integrity sha512-Tt4uYkuPubY6F1ZGrp6N2v1vK3lz2wasxsEshSUdnWH3tNuzgPzp5wiGerms9X3IyMMquuTIiViG7u7k3iKEzw==
+"@liskhq/lisk-cryptography@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@liskhq/lisk-cryptography/-/lisk-cryptography-2.0.0.tgz#eadbb343e2d2a5001125b358ea68790a9f678db9"
+  integrity sha512-ytW7dLebHjnOr3jsCe8asoTGencsRVPncwh+JTn+rrEl3k0UVEx3WrPdKnAfU0mHnWc3CWBf9kh2huyYnHlcdw==
   dependencies:
-    "@liskhq/lisk-constants" "1.1.2"
-    babel-runtime "6.26.0"
+    "@types/ed2curve" "0.2.2"
+    "@types/node" "10.12.0"
     browserify-bignum "1.3.0-2"
     buffer-reverse "1.0.1"
     ed2curve "0.2.1"
     tweetnacl "1.0.0"
     varuint-bitcoin "1.1.0"
+  optionalDependencies:
+    sodium-native "2.2.1"
 
-"@liskhq/lisk-passphrase@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@liskhq/lisk-passphrase/-/lisk-passphrase-1.1.2.tgz#0068f40d9a19399622cf6e2a573c32f6e8f2e207"
-  integrity sha512-x77wcujvxYOPWKw30yt04v8tLE+mgQ59g97iAdKc8INcJERt0+3wUpwi3UW/KyE1DoVR0C9BoXD9t82gd7CAxA==
+"@liskhq/lisk-passphrase@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@liskhq/lisk-passphrase/-/lisk-passphrase-2.0.0.tgz#e847459d68c35038803a0390409c3825480f150f"
+  integrity sha512-2PKboQPq75fuP/9jlAU4GJFfbz4hD9vkwqmZfScMCu7mUdaTcLF77J+nvFkf5T/CApQZU125oCGY+9loo5FqLw==
   dependencies:
-    babel-runtime "6.26.0"
+    "@types/bip39" "2.4.0"
+    "@types/node" "10.10.1"
     bip39 "2.5.0"
 
-"@liskhq/lisk-transactions@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@liskhq/lisk-transactions/-/lisk-transactions-1.1.2.tgz#c7d03d96ae7f2f8f7ed2054ff0153e3b975435c2"
-  integrity sha512-sszCnNfOaPQKzKQ3eKyy9Fw/OR7dcklSyh9eHvfM5sryZkSaVUjk5jZ3F2xFZpoVUuhoZT0UgLh2jqrH2TV3zQ==
+"@liskhq/lisk-transactions@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@liskhq/lisk-transactions/-/lisk-transactions-2.0.0.tgz#661ef1fe88fb5b3e58fd3a00caed0c2f9b4ea43c"
+  integrity sha512-usUn3PbDN9R8FjhAmhl8ZKX72vGYzurmXYn5Qa4ekH2QKlgIhysPDs4yFuvcPR8BwqRNeYR1zOwPFzaWeXH8Bg==
   dependencies:
-    "@liskhq/lisk-constants" "1.1.2"
-    "@liskhq/lisk-cryptography" "1.1.2"
+    "@liskhq/lisk-cryptography" "2.0.0"
+    "@types/node" "10.10.1"
     ajv "6.5.3"
     ajv-merge-patch "4.1.0"
-    babel-runtime "6.26.0"
     browserify-bignum "1.3.0-2"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
@@ -1129,6 +1125,13 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/bip39@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@types/bip39/-/bip39-2.4.0.tgz#eee31a14abc8ebbb41a1ff14575c447b18346cbc"
+  integrity sha512-qxJBGh55SPbSGv+91D6H3WOR8vKdA/p8Oc58oK/DTbORgjO6Ebuo8MRzdy2OWi+dw/lxtX4VWJkkCUTSQvhAnw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/bluebird@^3.5.26":
   version "3.5.26"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.26.tgz#a38c438ae84fa02431d6892edf86e46edcbca291"
@@ -1155,6 +1158,13 @@
   integrity sha512-ipZjBVsm2tF/n8qFGOuGBkUij9X9ZswVi9G3bx/6dz7POpVa6gVHcj1wsX/LVEn9MMF41fxK/PnZPPoTD1UFPw==
   dependencies:
     "@types/express" "*"
+
+"@types/ed2curve@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@types/ed2curve/-/ed2curve-0.2.2.tgz#8f8bc7e2c9a5895a941c63a4f7acd7a6a62a5b15"
+  integrity sha512-G1sTX5xo91ydevQPINbL2nfgVAj/s1ZiqZxC8OCWduwu+edoNGUm5JXtTkg9F3LsBZbRI46/0HES4CPUE2wc9g==
+  dependencies:
+    tweetnacl "^1.0.0"
 
 "@types/events@*":
   version "1.2.0"
@@ -1269,6 +1279,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.10.1.tgz#d5c96ca246a418404914d180b7fdd625ad18eca6"
   integrity sha512-nzsx28VwfaIykfzMAG9TB3jxF5Nn+1/WMKnmVZc8TsB+LMIVvwUscVn7PAq+LFaY5ng5u4jp5mRROSswo76PPA==
 
+"@types/node@10.12.0":
+  version "10.12.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
+  integrity sha512-3TUHC3jsBAB7qVRGxT6lWyYo2v96BMmD2PTcl47H25Lu7UXtFH/2qqmKiVrnel6Ne//0TFYf6uvNX+HW2FRkLQ==
+
 "@types/node@12.0.0":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
@@ -1321,6 +1336,11 @@
   version "10.11.0"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-10.11.0.tgz#aae9009ce28cc4f878e32c34d3900a81193c98d5"
   integrity sha512-i1aY7RKb6HmQIEnK0cBmUZUp1URx0riIHw/GYNoZ46Su0GWfLiDmMI8zMRmaauMnOTg2bQag0qfwcyUFC9Tn+A==
+
+"@types/verror@1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@types/verror/-/verror-1.10.3.tgz#8be16b0e750018fd4e2e4a766b8f2351d8b5df6a"
+  integrity sha512-7Jz0MPsW2pWg5dJfEp9nJYI0RDCYfgjg2wIo5HfQ8vOJvUq0/BxT7Mv2wNQvkKBmV9uT++6KF3reMnLmh/0HrA==
 
 "@types/ws@^6.0.0":
   version "6.0.1"
@@ -1866,7 +1886,7 @@ babel-preset-jest@^24.6.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.6.0"
 
-babel-runtime@6.26.0, babel-runtime@^6.26.0:
+babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
@@ -3946,7 +3966,7 @@ inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
-ini@^1.3.4, ini@~1.3.0:
+ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
@@ -5048,17 +5068,17 @@ lint-staged@8.1.6:
     stringify-object "^3.2.2"
     yup "^0.27.0"
 
-lisk-elements@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/lisk-elements/-/lisk-elements-1.1.3.tgz#b4ed9b2683e158b350cd73cf83cc74a505054a0a"
-  integrity sha512-JJhn1aJy/zWKSzjRvYcVAmQhzXRoK1d9x26OSy1dxzg6Nm1qtz2McoHycQ1AN8avLh3T0gecLhHpWypxYicBOw==
+lisk-elements@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/lisk-elements/-/lisk-elements-2.0.0.tgz#3f21c6216471d41c8f8d48e12da1963d9715e2de"
+  integrity sha512-a66BEomSpL+Z/SxZZ42aR2gzNRSYaIo/xK/S4pve2dK5evsxpLVy4DUtD2tgGyB1hxZdCp5Ej0ch/hYNdogo/w==
   dependencies:
-    "@liskhq/lisk-api-client" "1.1.2"
-    "@liskhq/lisk-constants" "1.1.2"
-    "@liskhq/lisk-cryptography" "1.1.2"
-    "@liskhq/lisk-passphrase" "1.1.2"
-    "@liskhq/lisk-transactions" "1.1.2"
-    babel-runtime "6.26.0"
+    "@liskhq/lisk-api-client" "2.0.0"
+    "@liskhq/lisk-constants" "1.2.0"
+    "@liskhq/lisk-cryptography" "2.0.0"
+    "@liskhq/lisk-passphrase" "2.0.0"
+    "@liskhq/lisk-transactions" "2.0.0"
+    "@types/node" "10.10.1"
 
 listr-silent-renderer@^1.1.1:
   version "1.1.1"
@@ -5474,7 +5494,7 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.12.1:
+nan@^2.12.1, nan@^2.4.0:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
   integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
@@ -5541,6 +5561,11 @@ node-fetch@^2.1.2, node-fetch@^2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.2.1.tgz#1fe551e0ded6c45b3b3b937d0fb46f76df718d1e"
   integrity sha512-ObXBpNCD3A/vYQiQtEWl7DuqjAXjfptYFuGHLdPl5U19/6kJuZV+8uMHLrkj3wJrJoyfg4nhgyFixZdaZoAiEQ==
+
+node-gyp-build@^3.0.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-3.9.0.tgz#53a350187dd4d5276750da21605d1cb681d09e25"
+  integrity sha512-zLcTg6P4AbcHPq465ZMFNXx7XpKKJh+7kkN699NiQWisR2uWYOWNWqRHAmbnmKiL4e9aLSlmy5U7rEMUXV59+A==
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -7004,6 +7029,15 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+sodium-native@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-2.2.1.tgz#5bed5f908dc9264c9cb4e0183652ad7a64ff084b"
+  integrity sha512-3CfftYV2ATXQFMIkLOvcNUk/Ma+lran0855j5Z/HEjUkSTzjLZi16CK362udOoNVrwn/TwGV8bKEt5OylsFrQA==
+  dependencies:
+    ini "^1.3.5"
+    nan "^2.4.0"
+    node-gyp-build "^3.0.0"
+
 source-map-resolve@^0.5.0:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.2.tgz#72e2cc34095543e43b2c62b2c4c10d4a9054f259"
@@ -7501,6 +7535,11 @@ tweetnacl@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.0.tgz#713d8b818da42068740bf68386d0479e66fc8a7b"
   integrity sha1-cT2LgY2kIGh0C/aDhtBHnmb8ins=
+
+tweetnacl@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.1.tgz#2594d42da73cd036bd0d2a54683dd35a6b55ca17"
+  integrity sha512-kcoMoKTPYnoeS50tzoqjPY3Uv9axeuuFAZY9M/9zFnhoVvRfxz9K29IMPD7jGmt2c8SW7i3gT9WqDl2+nV7p4A==
 
 type-check@~0.3.2:
   version "0.3.2"
