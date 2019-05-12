@@ -49,6 +49,9 @@ export const monster = {
         resolve: (row: any) =>
           new Date(row.timestamp * 1000 + EPOCH_TIME.getTime()).getTime(),
       },
+      timestampRaw: {
+        sqlDeps: ['timestamp'],
+      },
       senderId: {
         sqlColumn: 'senderId',
       },
@@ -58,6 +61,9 @@ export const monster = {
       amount: {
         sqlColumn: 'amount',
         resolve: (row: any) => fromRawLsk(row.amount),
+      },
+      amountRaw: {
+        sqlDeps: ['amount'],
       },
       fee: {
         sqlColumn: 'fee',

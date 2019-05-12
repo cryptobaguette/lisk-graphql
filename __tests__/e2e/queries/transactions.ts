@@ -1,4 +1,4 @@
-import { graphqlClient } from '../../testUtils';
+import { graphqlClient, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
@@ -30,6 +30,51 @@ describe('transactions', () => {
     expect(transaction.recipientId).toBeTruthy();
     expect(transaction.amount).toBeTruthy();
     expect(transaction.fee).toBeTruthy();
+  });
+
+  it('should match the lisk api response', async () => {
+    const query = `
+      query transactions {
+        transactions {
+          amountRaw
+          blockId
+          fee
+          id
+          recipientId
+          senderId
+          timestampRaw
+          type
+        }
+      }
+    `;
+    const transaction = await graphqlClient
+      .request<{ transactions: any[] }>(query)
+      .then(data => data.transactions[0]);
+    const liskTransaction = await liskClient.transactions
+      .get({
+        id: transaction.id,
+      })
+      .then((data: any) => data.data[0]);
+    // We delete the asset field
+    delete liskTransaction.asset;
+    // TODO
+    delete liskTransaction.signature;
+    delete liskTransaction.signatures;
+    expect(liskTransaction).toEqual({
+      amount: transaction.amountRaw,
+      blockId: transaction.blockId,
+      fee: transaction.fee,
+      id: transaction.id,
+      recipientId: transaction.recipientId,
+      senderId: transaction.senderId,
+      timestamp: Number(transaction.timestampRaw),
+      type: transaction.type,
+      // Next fields are not relevant to test here (relations)
+      confirmations: expect.any(Number),
+      height: expect.any(Number),
+      recipientPublicKey: expect.any(String),
+      senderPublicKey: expect.any(String),
+    });
   });
 
   it('should fetch 10 transactions', async () => {
