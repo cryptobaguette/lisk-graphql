@@ -6,7 +6,7 @@ const server = new ApolloServer({
   schema,
   context: ({ req }) => {
     /**
-     * Protext the server with a token
+     * Protect the server with a token
      */
     if (config.authToken) {
       const token = req.headers.authorization || '';
