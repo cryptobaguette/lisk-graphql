@@ -1,6 +1,38 @@
-import { graphqlClient } from '../../testUtils';
+import { graphqlClient, liskClient } from '../../testUtils';
 
 describe('accounts', () => {
+  it('should match the lisk api response', async () => {
+    const query = `
+      query accounts {
+        accounts {
+          address
+          balance
+          publicKey
+          secondPublicKey
+          unconfirmedBalance
+        }
+      }
+    `;
+    const account = await graphqlClient
+      .request<{ accounts: any[] }>(query)
+      .then(data => data.accounts[1]);
+    const liskBlock = await liskClient.accounts
+      .get({
+        address: account.address,
+      })
+      .then((data: any) => data.data[0]);
+    // Delete the delegate fields since we don't want to check it there
+    delete liskBlock.delegate;
+    expect(liskBlock).toEqual({
+      address: account.address,
+      balance: account.balance,
+      publicKey: account.publicKey,
+      // If the graphql server return null we cast it to an empty string to match the lisk api
+      secondPublicKey: account.secondPublicKey || '',
+      unconfirmedBalance: account.unconfirmedBalance,
+    });
+  });
+
   it('should fetch 10 accounts', async () => {
     const query = `
       query accounts {
