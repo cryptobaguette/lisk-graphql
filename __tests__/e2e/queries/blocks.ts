@@ -78,22 +78,22 @@ describe('blocks', () => {
       })
       .then((data: any) => data.data[0]);
     expect(liskBlock).toEqual({
-      blockSignature: liskBlock.blockSignature,
-      confirmations: liskBlock.confirmations,
-      generatorAddress: liskBlock.generatorAddress,
-      generatorPublicKey: liskBlock.generatorPublicKey,
-      height: liskBlock.height,
-      id: liskBlock.id,
-      numberOfTransactions: liskBlock.numberOfTransactions,
-      payloadHash: liskBlock.payloadHash,
-      payloadLength: liskBlock.payloadLength,
-      previousBlockId: liskBlock.previousBlockId,
-      reward: liskBlock.reward,
-      timestamp: liskBlock.timestamp,
-      totalAmount: liskBlock.totalAmount,
-      totalFee: liskBlock.totalFee,
-      totalForged: liskBlock.totalForged,
-      version: liskBlock.version,
+      blockSignature: block.blockSignature,
+      confirmations: block.confirmations,
+      generatorAddress: block.generatorAddress,
+      generatorPublicKey: block.generatorPublicKey,
+      height: block.height,
+      id: block.id,
+      numberOfTransactions: block.numberOfTransactions,
+      payloadHash: block.payloadHash,
+      payloadLength: block.payloadLength,
+      previousBlockId: block.previousBlockId,
+      reward: block.reward,
+      timestamp: block.timestamp,
+      totalAmount: block.totalAmount,
+      totalFee: block.totalFee,
+      totalForged: block.totalForged,
+      version: block.version,
     });
   });
 
