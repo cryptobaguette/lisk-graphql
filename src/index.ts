@@ -22,7 +22,6 @@ const server = new ApolloServer({
    * This way we won't leak database or other internal errors
    */
   formatError: error => {
-    console.error(error);
     const originalError = error.originalError;
     if (originalError instanceof ApolloError) {
       return error;
