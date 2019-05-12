@@ -1,26 +1,27 @@
-import * as SqlString from 'sqlstring';
+import { ApolloError } from 'apollo-server';
+import SqlString from 'sqlstring';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
-import { AccountQueryArgs, AccountsQueryArgs } from '@app/types/graphql';
+import { QueryAccountArgs, QueryAccountsArgs } from '@app/types/graphql';
 
 export const monster = {
   Query: {
     fields: {
       accounts: {
-        orderBy: (args: AccountsQueryArgs) => {
+        orderBy: (args: QueryAccountsArgs) => {
           if (args.sort === 'BALANCE_DESC') {
             return { balance: 'desc' };
           }
           if (args.sort === 'BALANCE_ASC') {
             return { balance: 'asc' };
           }
-          throw new Error('Invalid orderBy params');
+          throw new ApolloError('Invalid orderBy params');
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
       },
       account: {
-        where: (table: string, args: AccountQueryArgs) => {
+        where: (table: string, args: QueryAccountArgs) => {
           if (args.address) {
             return `${table}."address" = ${SqlString.escape(args.address)}`;
           }
@@ -29,7 +30,7 @@ export const monster = {
               args.publicKey
             )}, 'hex')`;
           }
-          throw new Error('Invalid where params');
+          throw new ApolloError('Invalid where params');
         },
       },
     },

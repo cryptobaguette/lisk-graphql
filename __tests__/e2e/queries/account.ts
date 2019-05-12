@@ -1,8 +1,11 @@
-import { graphqlClient } from '../../testUtils';
+import { makeGraphqlRequest, liskNetwork } from '../../testUtils';
 
-const address = '6238004142195673234L';
+const address =
+  liskNetwork === 'testnet' ? '6238004142195673234L' : '6687808873757044786L';
 const publicKey =
-  'd85d2106558fa3946c9b67fa7a8984f1b8d6e58e9ca559055555f5aee6aa280c';
+  liskNetwork === 'testnet'
+    ? 'd85d2106558fa3946c9b67fa7a8984f1b8d6e58e9ca559055555f5aee6aa280c'
+    : '3a0ca5c44a51bc2076a749a492dc335cd1f8aff7624ae6b8e595c20f727e4952';
 
 describe('account', () => {
   describe('args', () => {
@@ -15,7 +18,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account).toBeNull();
       });
 
@@ -27,7 +31,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account.address).toBe(address);
       });
     });
@@ -41,9 +46,8 @@ describe('account', () => {
             }
           }
         `;
-        await expect(
-          graphqlClient.request<{ account: any }>(query)
-        ).rejects.toThrowErrorMatchingSnapshot();
+        const { errors } = await makeGraphqlRequest({ query });
+        expect(errors[0].message).toBe('Invalid public key');
       });
 
       it('should return null if account not found', async () => {
@@ -54,7 +58,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account).toBeNull();
       });
 
@@ -67,7 +72,8 @@ describe('account', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ account: any }>(query);
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.account.address).toBeTruthy();
         expect(data.account.publicKey).toBe(publicKey);
       });

@@ -1,4 +1,4 @@
-import * as validator from 'validator';
+import { isHexadecimal } from 'validator';
 
 export const isPublicKeyValid = (publicKey: string) =>
-  publicKey.length === 64 && validator.isHexadecimal(publicKey);
+  publicKey.length === 64 && isHexadecimal(publicKey);

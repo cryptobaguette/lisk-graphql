@@ -1,6 +1,7 @@
-import * as SqlString from 'sqlstring';
+import { ApolloError } from 'apollo-server';
+import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
-import { DelegateQueryArgs } from '@app/types/graphql';
+import { QueryDelegateArgs } from '@app/types/graphql';
 import { monster as AccountMonster } from '../account';
 
 export const monster = {
@@ -18,7 +19,7 @@ export const monster = {
         // TODO other args filters
       },
       delegate: {
-        where: (table: string, args: DelegateQueryArgs) => {
+        where: (table: string, args: QueryDelegateArgs) => {
           if (args.username) {
             return `${table}."username" = ${SqlString.escape(args.username)}`;
           }
@@ -30,7 +31,7 @@ export const monster = {
               args.publicKey
             )}, 'hex')`;
           }
-          throw new Error('Invalid params');
+          throw new ApolloError('Invalid params');
         },
       },
     },

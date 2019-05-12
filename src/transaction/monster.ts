@@ -1,24 +1,24 @@
-import * as SqlString from 'sqlstring';
-import * as constants from '@liskhq/lisk-constants';
+import SqlString from 'sqlstring';
+import { EPOCH_TIME } from '@liskhq/lisk-constants';
 import { fromRawLsk } from '@app/helpers/lisk';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
 import {
-  TransactionQueryArgs,
-  TransactionsQueryArgs,
+  QueryTransactionArgs,
+  QueryTransactionsArgs,
 } from '@app/types/graphql';
 
 export const monster = {
   Query: {
     fields: {
       transactions: {
-        orderBy: (args: TransactionsQueryArgs) => {
+        orderBy: (args: QueryTransactionsArgs) => {
           if (args.sort === 'AMOUNT_DESC') {
-            return { t_amount: 'desc', t_rowId: 'desc' };
+            return { amount: 'desc', rowId: 'desc' };
           }
           if (args.sort === 'AMOUNT_ASC') {
-            return { t_amount: 'asc', t_rowId: 'desc' };
+            return { amount: 'asc', rowId: 'desc' };
           }
-          return { t_rowId: 'desc' };
+          return { rowId: 'desc' };
         },
         limit: limitFromArgs,
         offset: offsetFromArgs,
@@ -26,61 +26,59 @@ export const monster = {
         // TODO other args filters
       },
       transaction: {
-        where: (table: string, args: TransactionQueryArgs) =>
-          `${table}.t_id = ${SqlString.escape(args.id)}`,
+        where: (table: string, args: QueryTransactionArgs) =>
+          `${table}.id = ${SqlString.escape(args.id)}`,
       },
     },
   },
   Transaction: {
-    sqlTable: 'trs_list',
-    uniqueKey: 't_id',
+    sqlTable: 'trs',
+    uniqueKey: 'id',
     fields: {
       id: {
-        sqlColumn: 't_id',
-      },
-      height: {
-        sqlColumn: 'b_height',
+        sqlColumn: 'id',
       },
       blockId: {
-        sqlColumn: 't_blockId',
+        sqlColumn: 'blockId',
       },
       type: {
-        sqlColumn: 't_type',
+        sqlColumn: 'type',
       },
       timestamp: {
-        sqlColumn: 't_timestamp',
+        sqlColumn: 'timestamp',
         resolve: (row: any) =>
-          new Date(
-            row.timestamp * 1000 + constants.EPOCH_TIME.getTime()
-          ).getTime(),
+          new Date(row.timestamp * 1000 + EPOCH_TIME.getTime()).getTime(),
+      },
+      timestampRaw: {
+        sqlDeps: ['timestamp'],
       },
       senderId: {
-        sqlColumn: 't_senderId',
+        sqlColumn: 'senderId',
       },
       recipientId: {
-        sqlColumn: 't_recipientId',
-      },
-      confirmations: {
-        sqlColumn: 'confirmations',
+        sqlColumn: 'recipientId',
       },
       amount: {
-        sqlColumn: 't_amount',
+        sqlColumn: 'amount',
         resolve: (row: any) => fromRawLsk(row.amount),
       },
+      amountRaw: {
+        sqlDeps: ['amount'],
+      },
       fee: {
-        sqlColumn: 't_fee',
+        sqlColumn: 'fee',
       },
       block: {
-        sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_blockId" = ${accountTable}."b_id"`,
+        sqlJoin: (transactionTable: string, blockTable: string) =>
+          `${transactionTable}."blockId" = ${blockTable}."id"`,
       },
       sender: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_senderId" = ${accountTable}."address"`,
+          `${transactionTable}."senderId" = ${accountTable}."address"`,
       },
       recipient: {
         sqlJoin: (transactionTable: string, accountTable: string) =>
-          `${transactionTable}."t_recipientId" = ${accountTable}."address"`,
+          `${transactionTable}."recipientId" = ${accountTable}."address"`,
       },
     },
   },

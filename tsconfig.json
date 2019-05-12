@@ -1,24 +1,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "build",
     "target": "esnext",
     "module": "commonjs",
+    "noEmit": true,
     "allowJs": false,
-    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
-    "baseUrl": ".",
     "lib": ["es2015", "es2016", "esnext.asynciterable"],
     "paths": {
       "@app/*": ["src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": ["build"]
 }

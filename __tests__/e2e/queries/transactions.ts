@@ -1,4 +1,4 @@
-import { graphqlClient } from '../../testUtils';
+import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
@@ -10,7 +10,6 @@ describe('transactions', () => {
       query transactions {
         transactions {
           id
-          height
           blockId
           type
           timestamp
@@ -18,14 +17,13 @@ describe('transactions', () => {
           recipientId
           amount
           fee
-          confirmations
         }
       }
     `;
-    const data = await graphqlClient.request<{ transactions: any[] }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     const transaction = data.transactions[0];
     expect(transaction.id).toBeTruthy();
-    expect(transaction.height).toBeTruthy();
     expect(transaction.blockId).toBeTruthy();
     expect(transaction.type >= 0 && transaction.type <= 7).toBeTruthy();
     expect(transaction.timestamp).toBeTruthy();
@@ -33,7 +31,51 @@ describe('transactions', () => {
     expect(transaction.recipientId).toBeTruthy();
     expect(transaction.amount).toBeTruthy();
     expect(transaction.fee).toBeTruthy();
-    expect(transaction.confirmations).toBeTruthy();
+  });
+
+  it('should match the lisk api response', async () => {
+    const query = `
+      query transactions {
+        transactions {
+          amountRaw
+          blockId
+          fee
+          id
+          recipientId
+          senderId
+          timestampRaw
+          type
+        }
+      }
+    `;
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const transaction = data.transactions[0];
+    const liskTransaction = await liskClient.transactions
+      .get({
+        id: transaction.id,
+      })
+      .then((data: any) => data.data[0]);
+    // We delete the asset field
+    delete liskTransaction.asset;
+    // TODO
+    delete liskTransaction.signature;
+    delete liskTransaction.signatures;
+    expect(liskTransaction).toEqual({
+      amount: transaction.amountRaw,
+      blockId: transaction.blockId,
+      fee: transaction.fee,
+      id: transaction.id,
+      recipientId: transaction.recipientId,
+      senderId: transaction.senderId,
+      timestamp: Number(transaction.timestampRaw),
+      type: transaction.type,
+      // Next fields are not relevant to test here (relations)
+      confirmations: expect.any(Number),
+      height: expect.any(Number),
+      recipientPublicKey: expect.any(String),
+      senderPublicKey: expect.any(String),
+    });
   });
 
   it('should fetch 10 transactions', async () => {
@@ -44,7 +86,8 @@ describe('transactions', () => {
         }
       }
     `;
-    const data = await graphqlClient.request<{ transactions: any }>(query);
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
     expect(data.transactions.length).toBe(10);
   });
 
@@ -58,9 +101,8 @@ describe('transactions', () => {
             }
           }
         `;
-        const data = await graphqlClient.request<{ transactions: any[] }>(
-          query
-        );
+        const { errors, data } = await makeGraphqlRequest({ query });
+        expect(errors).not.toBeTruthy();
         expect(data.transactions.length).toBe(50);
       });
     });
@@ -82,14 +124,16 @@ describe('transactions', () => {
           }
         `;
         const [compareData, data] = await Promise.all([
-          graphqlClient.request<{ transactions: any[] }>(compareQuery),
-          graphqlClient.request<{ transactions: any[] }>(query),
+          makeGraphqlRequest({ query: compareQuery }),
+          makeGraphqlRequest({ query }),
         ]);
-        expect(data.transactions[0].id).not.toBe(
-          compareData.transactions[0].id
+        expect(compareData.errors).not.toBeTruthy();
+        expect(data.errors).not.toBeTruthy();
+        expect(data.data.transactions[0].id).not.toBe(
+          compareData.data.transactions[0].id
         );
-        expect(data.transactions[4].id).not.toBe(
-          compareData.transactions[4].id
+        expect(data.data.transactions[4].id).not.toBe(
+          compareData.data.transactions[4].id
         );
       });
     });

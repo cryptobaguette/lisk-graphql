@@ -3,3 +3,6 @@ config.json
 !ci/config.json
 build/
 package-lock.json
+*.db.gz
+*.log
+.env

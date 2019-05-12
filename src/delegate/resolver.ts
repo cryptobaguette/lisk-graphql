@@ -36,7 +36,7 @@ export const resolver = {
     votesUsed: getVotersCountForDelegates,
     votesAvailable: async (delegate: any) => {
       const votesCount = await getVotersCountForDelegates(delegate);
-      return maxVotesPerAccount - votesCount;
+      return maxVotesPerAccount - Number(votesCount);
     },
   },
 };

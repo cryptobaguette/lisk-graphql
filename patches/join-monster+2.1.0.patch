@@ -1,4 +1,5 @@
-patch-package
+diff --git a/node_modules/join-monster/dist/query-ast-to-sql-ast/index.js b/node_modules/join-monster/dist/query-ast-to-sql-ast/index.js
+index b8c0f40..c2d9009 100644
 --- a/node_modules/join-monster/dist/query-ast-to-sql-ast/index.js
 +++ b/node_modules/join-monster/dist/query-ast-to-sql-ast/index.js
 @@ -242,6 +242,11 @@ function handleTable(sqlASTNode, queryASTNode, field, gqlType, namespace, grabMa
@@ -13,6 +14,8 @@ patch-package
    if (sqlASTNode.paginate) {
      getSortColumns(field, sqlASTNode, context);
    }
+diff --git a/node_modules/join-monster/dist/stringifiers/shared.js b/node_modules/join-monster/dist/stringifiers/shared.js
+index 0b36417..5d1b2b0 100644
 --- a/node_modules/join-monster/dist/stringifiers/shared.js
 +++ b/node_modules/join-monster/dist/stringifiers/shared.js
 @@ -130,7 +130,7 @@ function interpretForOffsetPaging(node, dialect) {

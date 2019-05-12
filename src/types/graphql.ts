@@ -1,854 +1,553 @@
+export type Maybe<T> = T | null;
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /** The `BigInt` scalar type represents textual data, represented as UTF-8 character
+   * sequences. The String type is most often used by GraphQL to represent free-form
+   * human-readable text.
+   */
+  BigInt: any;
+};
+
+export type Account = {
+  /** The Lisk Address is the human readable representation of the accounts owners’
+   * public key. It consists of 21 numbers followed by a big ‘L’ at the end.
+   */
+  address: Scalars['String'];
+  /** The delegates’ username. A delegate chooses the username by registering a
+   * delegate on the Lisk network. It is unique and cannot be changed later.
+   */
+  name?: Maybe<Scalars['String']>;
+  /** The public key is derived from the private key of the owner of the account. It
+   * can be used to validate that the private key belongs to the owner, but does
+   * not provide access to the owners private key.
+   */
+  publicKey: Scalars['String'];
+  /** The current balance of the account in readable format. */
+  balance: Scalars['BigInt'];
+  /** The current balance of the account in Beddows. */
+  balanceRaw: Scalars['BigInt'];
+  /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
+  unconfirmedBalance: Scalars['BigInt'];
+  /** The second public key is derived from the second private key of an account, if
+   * the owner activated a second passphrase for her/his account.
+   */
+  secondPublicKey?: Maybe<Scalars['Boolean']>;
+};
+
+export type Block = {
+  /** Unique identifier of the block. Derived from the block signature. */
+  id: Scalars['ID'];
+  /** Versioning for future upgrades of the lisk protocol. */
+  version?: Maybe<Scalars['Int']>;
+  /** Height of the network, when the block got forged. The height of the networks
+   * represents the number of blocks, that have been forged on the network since Genesis Block.
+   */
+  height: Scalars['Int'];
+  timestamp: Scalars['Int'];
+  /** Lisk Address of the delegate who forged the block. */
+  generatorAddress?: Maybe<Scalars['String']>;
+  /** Public key of th edelagte who forged the block. */
+  generatorPublicKey: Scalars['String'];
+  /** Bytesize of the payload hash. */
+  payloadLength?: Maybe<Scalars['Int']>;
+  /** Hash of the payload of the block. The payload of a block is comprised of the
+   * transactions the block contains. For each type of transaction exists a
+   * different maximum size for the payload.
+   */
+  payloadHash?: Maybe<Scalars['String']>;
+  /** Derived from a SHA-256 hash of the block header, that is signed by the private key of the delegate who forged the block. */
+  blockSignature?: Maybe<Scalars['String']>;
+  /** Number of times that this Block has been confirmed by the network. By forging
+   * a new block on a chain, all former blocks in the chain get confirmed by the
+   * forging delegate.
+   */
+  confirmations?: Maybe<Scalars['Int']>;
+  /** The id of the previous block of the chain. */
+  previousBlockId?: Maybe<Scalars['String']>;
+  /** The number of transactions processed in the block. */
+  numberOfTransactions: Scalars['Int'];
+  /** The total amount of Lisk transferred. */
+  totalAmount: Scalars['BigInt'];
+  /** The total amount of fees associated with the block. */
+  totalFee: Scalars['BigInt'];
+  /** The Lisk reward for the delegate. */
+  reward: Scalars['BigInt'];
+  /** Total amount of LSK that have been forged in this Block. Consists of fees and the reward. */
+  totalForged: Scalars['BigInt'];
+};
+
+export type Delegate = {
+  /** The delegates’ username. A delegate chooses the username by registering a
+   * delegate on the Lisk network. It is unique and cannot be changed later.
+   */
+  username: Scalars['String'];
+  /** The voters weight of the delegate. Represents the total amount of Lisk (in
+   * Beddows) that the delegates’ voters own. The voters weight decides which rank
+   * the delegate gets in relation to the other delegates and their voters weights.
+   */
+  vote: Scalars['BigInt'];
+  /** Total sum of block rewards that the delegate has forged. */
+  rewards?: Maybe<Scalars['String']>;
+  /** Total number of blocks the delegate has forged. */
+  producedBlocks?: Maybe<Scalars['Int']>;
+  /** Total number of blocks the delegate has missed. */
+  missedBlocks?: Maybe<Scalars['Int']>;
+  /** Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate. */
+  productivity?: Maybe<Scalars['Float']>;
+  /** Returns all votes received by a delegate. */
+  voters: Array<Account>;
+  /** Returns all votes placed by an account. */
+  votes: Array<Account>;
+  /** Number of votes that are already placed by the queried account. */
+  votesUsed: Scalars['Int'];
+  /** Number of votes that are available for the queried account. Derives from
+   * 101(max possible votes) - votesUsed(already used votes)
+   */
+  votesAvailable: Scalars['Int'];
+  /** The Lisk Address is the human readable representation of the accounts owners’
+   * public key. It consists of 21 numbers followed by a big ‘L’ at the end.
+   */
+  address: Scalars['String'];
+  /** The delegates’ username. A delegate chooses the username by registering a
+   * delegate on the Lisk network. It is unique and cannot be changed later.
+   */
+  name?: Maybe<Scalars['String']>;
+  /** The public key is derived from the private key of the owner of the account. It
+   * can be used to validate that the private key belongs to the owner, but does
+   * not provide access to the owners private key.
+   */
+  publicKey: Scalars['String'];
+  /** The current balance of the account in readable format. */
+  balance: Scalars['BigInt'];
+  /** The current balance of the account in Beddows. */
+  balanceRaw: Scalars['BigInt'];
+  /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
+  unconfirmedBalance: Scalars['BigInt'];
+  /** The second public key is derived from the second private key of an account, if
+   * the owner activated a second passphrase for her/his account.
+   */
+  secondPublicKey?: Maybe<Scalars['Boolean']>;
+  voteWeight?: Maybe<Scalars['BigInt']>;
+};
+
+export type Query = {
+  _?: Maybe<Scalars['String']>;
+  /** Gets all accounts by provided filter(s). */
+  accounts: Array<Account>;
+  /** Returns account information of an address. */
+  account?: Maybe<Account>;
+  /** Gets all blocks by provided filter(s). */
+  blocks: Array<Block>;
+  /** Gets block by provided id. */
+  block?: Maybe<Block>;
+  /** Gets list of delegates by provided filter. */
+  delegates: Array<Delegate>;
+  /** Returns account information of a delegate. */
+  delegate?: Maybe<Delegate>;
+  /** Gets all transactions by provided filter(s). */
+  transactions: Array<Transaction>;
+  /** Gets transaction by provided id. */
+  transaction?: Maybe<Transaction>;
+};
+
+export type QueryAccountsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  sort: SortAccounts;
+};
+
+export type QueryAccountArgs = {
+  address?: Maybe<Scalars['String']>;
+  publicKey?: Maybe<Scalars['String']>;
+};
+
+export type QueryBlocksArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+};
+
+export type QueryBlockArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryDelegatesArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+};
+
+export type QueryDelegateArgs = {
+  address?: Maybe<Scalars['String']>;
+  publicKey?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type QueryTransactionsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  sort?: Maybe<SortTransactions>;
+};
+
+export type QueryTransactionArgs = {
+  id: Scalars['ID'];
+};
+
 export enum SortAccounts {
-  BALANCE_ASC = 'BALANCE_ASC',
-  BALANCE_DESC = 'BALANCE_DESC',
+  BalanceAsc = 'BALANCE_ASC',
+  BalanceDesc = 'BALANCE_DESC',
 }
 
 export enum SortTransactions {
-  AMOUNT_ASC = 'AMOUNT_ASC',
-  AMOUNT_DESC = 'AMOUNT_DESC',
+  AmountAsc = 'AMOUNT_ASC',
+  AmountDesc = 'AMOUNT_DESC',
 }
 
-/** The `BigInt` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text. */
-export type BigInt = any;
-
-// ====================================================
-// Scalars
-// ====================================================
-
-// ====================================================
-// Types
-// ====================================================
-
-export interface Query {
-  _?: string | null;
-  /** Gets all accounts by provided filter(s). */
-  accounts: Account[];
-  /** Returns account information of an address. */
-  account?: Account | null;
-  /** Gets all blocks by provided filter(s). */
-  blocks: Block[];
-  /** Gets block by provided id. */
-  block?: Block | null;
-  /** Gets list of delegates by provided filter. */
-  delegates: Delegate[];
-  /** Returns account information of a delegate. */
-  delegate?: Delegate | null;
-  /** Gets all transactions by provided filter(s). */
-  transactions: Transaction[];
-  /** Gets transaction by provided id. */
-  transaction?: Transaction | null;
-}
-
-export interface Account {
-  /** The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end. */
-  address: string;
-  /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-  name?: string | null;
-  /** The public key is derived from the private key of the owner of the account. It can be used to validate that the private key belongs to the owner, but does not provide access to the owners private key. */
-  publicKey: string;
-  /** The current balance of the account in readable format. */
-  balance: BigInt;
-  /** The current balance of the account in Beddows. */
-  balanceRaw: BigInt;
-  /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
-  unconfirmedBalance: BigInt;
-  /** If account enabled second signature, but it's still not confirmed. */
-  unconfirmedSignature: boolean;
-  /** The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account. */
-  secondPublicKey?: boolean | null;
-}
-
-export interface Block {
-  /** Unique identifier of the block. Derived from the block signature. */
-  id: string;
-  /** Versioning for future upgrades of the lisk protocol. */
-  version?: number | null;
-  /** Height of the network, when the block got forged. The height of the networks represents the number of blocks, that have been forged on the network since Genesis Block. */
-  height: number;
-
-  timestamp: number;
-  /** Lisk Address of the delegate who forged the block. */
-  generatorAddress?: string | null;
-  /** Public key of th edelagte who forged the block. */
-  generatorPublicKey: string;
-  /** Bytesize of the payload hash. */
-  payloadLength?: number | null;
-  /** Hash of the payload of the block. The payload of a block is comprised of the transactions the block contains. For each type of transaction exists a different maximum size for the payload. */
-  payloadHash?: string | null;
-  /** Derived from a SHA-256 hash of the block header, that is signed by the private key of the delegate who forged the block. */
-  blockSignature?: string | null;
-  /** Number of times that this Block has been confirmed by the network. By forging a new block on a chain, all former blocks in the chain get confirmed by the forging delegate. */
-  confirmations?: number | null;
-  /** The id of the previous block of the chain. */
-  previousBlockId?: string | null;
-  /** The number of transactions processed in the block. */
-  numberOfTransactions: number;
-  /** The total amount of Lisk transferred. */
-  totalAmount: BigInt;
-  /** The total amount of fees associated with the block. */
-  totalFee: BigInt;
-  /** The Lisk reward for the delegate. */
-  reward: BigInt;
-  /** Total amount of LSK that have been forged in this Block. Consists of fees and the reward. */
-  totalForged: BigInt;
-}
-
-export interface Delegate {
-  /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-  username: string;
-  /** The voters weight of the delegate. Represents the total amount of Lisk (in Beddows) that the delegates’ voters own. The voters weight decides which rank the delegate gets in relation to the other delegates and their voters weights. */
-  vote: BigInt;
-  /** Total sum of block rewards that the delegate has forged. */
-  rewards?: string | null;
-  /** Total number of blocks the delegate has forged. */
-  producedBlocks?: number | null;
-  /** Total number of blocks the delegate has missed. */
-  missedBlocks?: number | null;
-  /** Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate. */
-  productivity?: number | null;
-  /** Returns all votes received by a delegate. */
-  voters: Account[];
-  /** Returns all votes placed by an account. */
-  votes: Account[];
-  /** Number of votes that are already placed by the queried account. */
-  votesUsed: number;
-  /** Number of votes that are available for the queried account. Derives from 101(max possible votes) - votesUsed(already used votes) */
-  votesAvailable: number;
-  /** The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end. */
-  address: string;
-  /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-  name?: string | null;
-  /** The public key is derived from the private key of the owner of the account. It can be used to validate that the private key belongs to the owner, but does not provide access to the owners private key. */
-  publicKey: string;
-  /** The current balance of the account in readable format. */
-  balance: BigInt;
-  /** The current balance of the account in Beddows. */
-  balanceRaw: BigInt;
-  /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
-  unconfirmedBalance: BigInt;
-  /** If account enabled second signature, but it's still not confirmed. */
-  unconfirmedSignature: boolean;
-  /** The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account. */
-  secondPublicKey?: boolean | null;
-
-  voteWeight?: BigInt | null;
-}
-
-export interface Transaction {
+export type Transaction = {
   /** Unique identifier of the transaction. Derived from the transaction signature. */
-  id: string;
+  id: Scalars['String'];
   /** Amount of Lisk to be transferred in this transaction in readable format. */
-  amount: string;
+  amount: Scalars['String'];
   /** Amount of Lisk to be transferred in this transaction in Beddows. */
-  amountRaw: BigInt;
+  amountRaw: Scalars['BigInt'];
   /** Transaction fee associated with this transaction. */
-  fee: string;
+  fee: Scalars['String'];
   /** Describes the Transaction type. */
-  type: number;
-  /** The height of the network, at the moment where this transaction was included in the blockchain. */
-  height?: number | null;
+  type: Scalars['Int'];
   /** The Id of the block, this transaction is included in. */
-  blockId?: string | null;
+  blockId?: Maybe<Scalars['String']>;
   /** The transaction block where the transaction is included. */
-  block?: Block | null;
+  block?: Maybe<Block>;
   /** Time when the transaction was created. Unix Timestamp. */
-  timestamp: string;
+  timestamp: Scalars['String'];
   /** Time when the transaction was created. Lisk Unix Timestamp. */
-  timestampRaw: string;
+  timestampRaw: Scalars['String'];
   /** Lisk Address of the Senders’ account. */
-  senderId?: string | null;
+  senderId?: Maybe<Scalars['String']>;
   /** Lisk Senders’ account. */
-  sender?: Account | null;
+  sender?: Maybe<Account>;
   /** Lisk Address of the Recipients’ account. */
-  recipientId?: string | null;
+  recipientId?: Maybe<Scalars['String']>;
   /** Lisk Recipients’ account. */
-  recipient?: Account | null;
-  /** Number of times that this transaction has been confirmed by the network. By forging a new block on a chain, all former blocks and their contained transactions in the chain get confirmed by the forging delegate. */
-  confirmations?: number | null;
-}
+  recipient?: Maybe<Account>;
+};
 
-// ====================================================
-// Arguments
-// ====================================================
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
 
-export interface AccountsQueryArgs {
-  /** Limit of accounts to add to response. Default to 10. */
-  limit?: number | null;
-  /** Offset of accounts. */
-  offset?: number | null;
-  /** Fields to sort results by, default to BALANCE_ASC */
-  sort?: SortAccounts | null;
-}
-export interface AccountQueryArgs {
-  /** Address of account. */
-  address?: string | null;
-  /** Public key of account. */
-  publicKey?: string | null;
-}
-export interface BlocksQueryArgs {
-  /** Limit of blocks to add to response. Default to 100. */
-  limit?: number | null;
-  /** Offset of blocks. */
-  offset?: number | null;
-}
-export interface BlockQueryArgs {
-  /** Id of block. */
-  id: string;
-}
-export interface DelegatesQueryArgs {
-  /** Limit of delegates to add to response. Default to 100. */
-  limit?: number | null;
-  /** Offset of delegates. */
-  offset?: number | null;
-}
-export interface DelegateQueryArgs {
-  /** Address of account. */
-  address?: string | null;
-  /** Public key of account. */
-  publicKey?: string | null;
-  /** Username of account. */
-  username?: string | null;
-}
-export interface TransactionsQueryArgs {
-  /** Limit of transactions to add to response. Default to 100. */
-  limit?: number | null;
-  /** Offset of transactions. */
-  offset?: number | null;
-  /** Fields to sort results by, default to BALANCE_ASC */
-  sort?: SortTransactions | null;
-}
-export interface TransactionQueryArgs {
-  /** Id of transaction. */
-  id: string;
-}
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-import { GraphQLResolveInfo } from 'graphql';
-
-export type Resolver<Result, Parent = {}, Context = {}, Args = {}> = (
-  parent: Parent,
-  args: Args,
-  context: Context,
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
   info: GraphQLResolveInfo
-) => Promise<Result> | Result;
+) => Promise<TResult> | TResult;
 
-export interface ISubscriptionResolverObject<Result, Parent, Context, Args> {
-  subscribe<R = Result, P = Parent>(
-    parent: P,
-    args: Args,
-    context: Context,
-    info: GraphQLResolveInfo
-  ): AsyncIterator<R | Result> | Promise<AsyncIterator<R | Result>>;
-  resolve?<R = Result, P = Parent>(
-    parent: P,
-    args: Args,
-    context: Context,
-    info: GraphQLResolveInfo
-  ): R | Result | Promise<R | Result>;
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, TParent, TContext, TArgs>;
 }
 
 export type SubscriptionResolver<
-  Result,
-  Parent = {},
-  Context = {},
-  Args = {}
+  TResult,
+  TParent = {},
+  TContext = {},
+  TArgs = {}
 > =
   | ((
       ...args: any[]
-    ) => ISubscriptionResolverObject<Result, Parent, Context, Args>)
-  | ISubscriptionResolverObject<Result, Parent, Context, Args>;
+    ) => SubscriptionResolverObject<TResult, TParent, TContext, TArgs>)
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export namespace QueryResolvers {
-  export interface Resolvers<Context = {}, TypeParent = {}> {
-    _?: _Resolver<string | null, TypeParent, Context>;
-    /** Gets all accounts by provided filter(s). */
-    accounts?: AccountsResolver<Account[], TypeParent, Context>;
-    /** Returns account information of an address. */
-    account?: AccountResolver<Account | null, TypeParent, Context>;
-    /** Gets all blocks by provided filter(s). */
-    blocks?: BlocksResolver<Block[], TypeParent, Context>;
-    /** Gets block by provided id. */
-    block?: BlockResolver<Block | null, TypeParent, Context>;
-    /** Gets list of delegates by provided filter. */
-    delegates?: DelegatesResolver<Delegate[], TypeParent, Context>;
-    /** Returns account information of a delegate. */
-    delegate?: DelegateResolver<Delegate | null, TypeParent, Context>;
-    /** Gets all transactions by provided filter(s). */
-    transactions?: TransactionsResolver<Transaction[], TypeParent, Context>;
-    /** Gets transaction by provided id. */
-    transaction?: TransactionResolver<Transaction | null, TypeParent, Context>;
-  }
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes>;
 
-  export type _Resolver<
-    R = string | null,
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type AccountsResolver<
-    R = Account[],
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, AccountsArgs>;
-  export interface AccountsArgs {
-    /** Limit of accounts to add to response. Default to 10. */
-    limit?: number | null;
-    /** Offset of accounts. */
-    offset?: number | null;
-    /** Fields to sort results by, default to BALANCE_ASC */
-    sort?: SortAccounts | null;
-  }
+export type NextResolverFn<T> = () => Promise<T>;
 
-  export type AccountResolver<
-    R = Account | null,
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, AccountArgs>;
-  export interface AccountArgs {
-    /** Address of account. */
-    address?: string | null;
-    /** Public key of account. */
-    publicKey?: string | null;
-  }
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
 
-  export type BlocksResolver<R = Block[], Parent = {}, Context = {}> = Resolver<
-    R,
-    Parent,
-    Context,
-    BlocksArgs
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Query: {};
+  String: Scalars['String'];
+  Int: Scalars['Int'];
+  SortAccounts: SortAccounts;
+  Account: Account;
+  BigInt: Scalars['BigInt'];
+  Boolean: Scalars['Boolean'];
+  Block: Block;
+  ID: Scalars['ID'];
+  Delegate: Delegate;
+  Float: Scalars['Float'];
+  SortTransactions: SortTransactions;
+  Transaction: Transaction;
+};
+
+export type AccountResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes['Account']
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publicKey?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  balance?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  balanceRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  unconfirmedBalance?: Resolver<
+    ResolversTypes['BigInt'],
+    ParentType,
+    ContextType
   >;
-  export interface BlocksArgs {
-    /** Limit of blocks to add to response. Default to 100. */
-    limit?: number | null;
-    /** Offset of blocks. */
-    offset?: number | null;
-  }
-
-  export type BlockResolver<
-    R = Block | null,
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, BlockArgs>;
-  export interface BlockArgs {
-    /** Id of block. */
-    id: string;
-  }
-
-  export type DelegatesResolver<
-    R = Delegate[],
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, DelegatesArgs>;
-  export interface DelegatesArgs {
-    /** Limit of delegates to add to response. Default to 100. */
-    limit?: number | null;
-    /** Offset of delegates. */
-    offset?: number | null;
-  }
-
-  export type DelegateResolver<
-    R = Delegate | null,
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, DelegateArgs>;
-  export interface DelegateArgs {
-    /** Address of account. */
-    address?: string | null;
-    /** Public key of account. */
-    publicKey?: string | null;
-    /** Username of account. */
-    username?: string | null;
-  }
-
-  export type TransactionsResolver<
-    R = Transaction[],
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, TransactionsArgs>;
-  export interface TransactionsArgs {
-    /** Limit of transactions to add to response. Default to 100. */
-    limit?: number | null;
-    /** Offset of transactions. */
-    offset?: number | null;
-    /** Fields to sort results by, default to BALANCE_ASC */
-    sort?: SortTransactions | null;
-  }
-
-  export type TransactionResolver<
-    R = Transaction | null,
-    Parent = {},
-    Context = {}
-  > = Resolver<R, Parent, Context, TransactionArgs>;
-  export interface TransactionArgs {
-    /** Id of transaction. */
-    id: string;
-  }
-}
-
-export namespace AccountResolvers {
-  export interface Resolvers<Context = {}, TypeParent = Account> {
-    /** The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end. */
-    address?: AddressResolver<string, TypeParent, Context>;
-    /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-    name?: NameResolver<string | null, TypeParent, Context>;
-    /** The public key is derived from the private key of the owner of the account. It can be used to validate that the private key belongs to the owner, but does not provide access to the owners private key. */
-    publicKey?: PublicKeyResolver<string, TypeParent, Context>;
-    /** The current balance of the account in readable format. */
-    balance?: BalanceResolver<BigInt, TypeParent, Context>;
-    /** The current balance of the account in Beddows. */
-    balanceRaw?: BalanceRawResolver<BigInt, TypeParent, Context>;
-    /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
-    unconfirmedBalance?: UnconfirmedBalanceResolver<
-      BigInt,
-      TypeParent,
-      Context
-    >;
-    /** If account enabled second signature, but it's still not confirmed. */
-    unconfirmedSignature?: UnconfirmedSignatureResolver<
-      boolean,
-      TypeParent,
-      Context
-    >;
-    /** The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account. */
-    secondPublicKey?: SecondPublicKeyResolver<
-      boolean | null,
-      TypeParent,
-      Context
-    >;
-  }
-
-  export type AddressResolver<
-    R = string,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type NameResolver<
-    R = string | null,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type PublicKeyResolver<
-    R = string,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BalanceResolver<
-    R = BigInt,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BalanceRawResolver<
-    R = BigInt,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type UnconfirmedBalanceResolver<
-    R = BigInt,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type UnconfirmedSignatureResolver<
-    R = boolean,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type SecondPublicKeyResolver<
-    R = boolean | null,
-    Parent = Account,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-}
-
-export namespace BlockResolvers {
-  export interface Resolvers<Context = {}, TypeParent = Block> {
-    /** Unique identifier of the block. Derived from the block signature. */
-    id?: IdResolver<string, TypeParent, Context>;
-    /** Versioning for future upgrades of the lisk protocol. */
-    version?: VersionResolver<number | null, TypeParent, Context>;
-    /** Height of the network, when the block got forged. The height of the networks represents the number of blocks, that have been forged on the network since Genesis Block. */
-    height?: HeightResolver<number, TypeParent, Context>;
-
-    timestamp?: TimestampResolver<number, TypeParent, Context>;
-    /** Lisk Address of the delegate who forged the block. */
-    generatorAddress?: GeneratorAddressResolver<
-      string | null,
-      TypeParent,
-      Context
-    >;
-    /** Public key of th edelagte who forged the block. */
-    generatorPublicKey?: GeneratorPublicKeyResolver<
-      string,
-      TypeParent,
-      Context
-    >;
-    /** Bytesize of the payload hash. */
-    payloadLength?: PayloadLengthResolver<number | null, TypeParent, Context>;
-    /** Hash of the payload of the block. The payload of a block is comprised of the transactions the block contains. For each type of transaction exists a different maximum size for the payload. */
-    payloadHash?: PayloadHashResolver<string | null, TypeParent, Context>;
-    /** Derived from a SHA-256 hash of the block header, that is signed by the private key of the delegate who forged the block. */
-    blockSignature?: BlockSignatureResolver<string | null, TypeParent, Context>;
-    /** Number of times that this Block has been confirmed by the network. By forging a new block on a chain, all former blocks in the chain get confirmed by the forging delegate. */
-    confirmations?: ConfirmationsResolver<number | null, TypeParent, Context>;
-    /** The id of the previous block of the chain. */
-    previousBlockId?: PreviousBlockIdResolver<
-      string | null,
-      TypeParent,
-      Context
-    >;
-    /** The number of transactions processed in the block. */
-    numberOfTransactions?: NumberOfTransactionsResolver<
-      number,
-      TypeParent,
-      Context
-    >;
-    /** The total amount of Lisk transferred. */
-    totalAmount?: TotalAmountResolver<BigInt, TypeParent, Context>;
-    /** The total amount of fees associated with the block. */
-    totalFee?: TotalFeeResolver<BigInt, TypeParent, Context>;
-    /** The Lisk reward for the delegate. */
-    reward?: RewardResolver<BigInt, TypeParent, Context>;
-    /** Total amount of LSK that have been forged in this Block. Consists of fees and the reward. */
-    totalForged?: TotalForgedResolver<BigInt, TypeParent, Context>;
-  }
-
-  export type IdResolver<R = string, Parent = Block, Context = {}> = Resolver<
-    R,
-    Parent,
-    Context
+  secondPublicKey?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
   >;
-  export type VersionResolver<
-    R = number | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type HeightResolver<
-    R = number,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TimestampResolver<
-    R = number,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type GeneratorAddressResolver<
-    R = string | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type GeneratorPublicKeyResolver<
-    R = string,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type PayloadLengthResolver<
-    R = number | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type PayloadHashResolver<
-    R = string | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BlockSignatureResolver<
-    R = string | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type ConfirmationsResolver<
-    R = number | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type PreviousBlockIdResolver<
-    R = string | null,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type NumberOfTransactionsResolver<
-    R = number,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TotalAmountResolver<
-    R = BigInt,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TotalFeeResolver<
-    R = BigInt,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type RewardResolver<
-    R = BigInt,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TotalForgedResolver<
-    R = BigInt,
-    Parent = Block,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
+};
+
+export interface BigIntScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
+  name: 'BigInt';
 }
 
-export namespace DelegateResolvers {
-  export interface Resolvers<Context = {}, TypeParent = Delegate> {
-    /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-    username?: UsernameResolver<string, TypeParent, Context>;
-    /** The voters weight of the delegate. Represents the total amount of Lisk (in Beddows) that the delegates’ voters own. The voters weight decides which rank the delegate gets in relation to the other delegates and their voters weights. */
-    vote?: VoteResolver<BigInt, TypeParent, Context>;
-    /** Total sum of block rewards that the delegate has forged. */
-    rewards?: RewardsResolver<string | null, TypeParent, Context>;
-    /** Total number of blocks the delegate has forged. */
-    producedBlocks?: ProducedBlocksResolver<number | null, TypeParent, Context>;
-    /** Total number of blocks the delegate has missed. */
-    missedBlocks?: MissedBlocksResolver<number | null, TypeParent, Context>;
-    /** Productivity rate. Percentage of successfully forged blocks (not missed) by the delegate. */
-    productivity?: ProductivityResolver<number | null, TypeParent, Context>;
-    /** Returns all votes received by a delegate. */
-    voters?: VotersResolver<Account[], TypeParent, Context>;
-    /** Returns all votes placed by an account. */
-    votes?: VotesResolver<Account[], TypeParent, Context>;
-    /** Number of votes that are already placed by the queried account. */
-    votesUsed?: VotesUsedResolver<number, TypeParent, Context>;
-    /** Number of votes that are available for the queried account. Derives from 101(max possible votes) - votesUsed(already used votes) */
-    votesAvailable?: VotesAvailableResolver<number, TypeParent, Context>;
-    /** The Lisk Address is the human readable representation of the accounts owners’ public key. It consists of 21 numbers followed by a big ‘L’ at the end. */
-    address?: AddressResolver<string, TypeParent, Context>;
-    /** The delegates’ username. A delegate chooses the username by registering a delegate on the Lisk network. It is unique and cannot be changed later. */
-    name?: NameResolver<string | null, TypeParent, Context>;
-    /** The public key is derived from the private key of the owner of the account. It can be used to validate that the private key belongs to the owner, but does not provide access to the owners private key. */
-    publicKey?: PublicKeyResolver<string, TypeParent, Context>;
-    /** The current balance of the account in readable format. */
-    balance?: BalanceResolver<BigInt, TypeParent, Context>;
-    /** The current balance of the account in Beddows. */
-    balanceRaw?: BalanceRawResolver<BigInt, TypeParent, Context>;
-    /** The current unconfirmed balance of the account in Beddows. Includes unconfirmed transactions. */
-    unconfirmedBalance?: UnconfirmedBalanceResolver<
-      BigInt,
-      TypeParent,
-      Context
-    >;
-    /** If account enabled second signature, but it's still not confirmed. */
-    unconfirmedSignature?: UnconfirmedSignatureResolver<
-      boolean,
-      TypeParent,
-      Context
-    >;
-    /** The second public key is derived from the second private key of an account, if the owner activated a second passphrase for her/his account. */
-    secondPublicKey?: SecondPublicKeyResolver<
-      boolean | null,
-      TypeParent,
-      Context
-    >;
+export type BlockResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes['Block']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  generatorAddress?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  generatorPublicKey?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  payloadLength?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  payloadHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  blockSignature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  confirmations?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  previousBlockId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  numberOfTransactions?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  totalAmount?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  totalFee?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  reward?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  totalForged?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+};
 
-    voteWeight?: VoteWeightResolver<BigInt | null, TypeParent, Context>;
-  }
+export type DelegateResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes['Delegate']
+> = {
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vote?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  rewards?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  producedBlocks?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  missedBlocks?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  productivity?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  voters?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType>;
+  votes?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType>;
+  votesUsed?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  votesAvailable?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publicKey?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  balance?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  balanceRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  unconfirmedBalance?: Resolver<
+    ResolversTypes['BigInt'],
+    ParentType,
+    ContextType
+  >;
+  secondPublicKey?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
+  voteWeight?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+};
 
-  export type UsernameResolver<
-    R = string,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VoteResolver<
-    R = BigInt,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type RewardsResolver<
-    R = string | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type ProducedBlocksResolver<
-    R = number | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type MissedBlocksResolver<
-    R = number | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type ProductivityResolver<
-    R = number | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VotersResolver<
-    R = Account[],
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VotesResolver<
-    R = Account[],
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VotesUsedResolver<
-    R = number,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VotesAvailableResolver<
-    R = number,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type AddressResolver<
-    R = string,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type NameResolver<
-    R = string | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type PublicKeyResolver<
-    R = string,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BalanceResolver<
-    R = BigInt,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BalanceRawResolver<
-    R = BigInt,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type UnconfirmedBalanceResolver<
-    R = BigInt,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type UnconfirmedSignatureResolver<
-    R = boolean,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type SecondPublicKeyResolver<
-    R = boolean | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type VoteWeightResolver<
-    R = BigInt | null,
-    Parent = Delegate,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-}
+export type QueryResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes['Query']
+> = {
+  _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  accounts?: Resolver<
+    Array<ResolversTypes['Account']>,
+    ParentType,
+    ContextType,
+    QueryAccountsArgs
+  >;
+  account?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType,
+    QueryAccountArgs
+  >;
+  blocks?: Resolver<
+    Array<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    QueryBlocksArgs
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    QueryBlockArgs
+  >;
+  delegates?: Resolver<
+    Array<ResolversTypes['Delegate']>,
+    ParentType,
+    ContextType,
+    QueryDelegatesArgs
+  >;
+  delegate?: Resolver<
+    Maybe<ResolversTypes['Delegate']>,
+    ParentType,
+    ContextType,
+    QueryDelegateArgs
+  >;
+  transactions?: Resolver<
+    Array<ResolversTypes['Transaction']>,
+    ParentType,
+    ContextType,
+    QueryTransactionsArgs
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['Transaction']>,
+    ParentType,
+    ContextType,
+    QueryTransactionArgs
+  >;
+};
 
-export namespace TransactionResolvers {
-  export interface Resolvers<Context = {}, TypeParent = Transaction> {
-    /** Unique identifier of the transaction. Derived from the transaction signature. */
-    id?: IdResolver<string, TypeParent, Context>;
-    /** Amount of Lisk to be transferred in this transaction in readable format. */
-    amount?: AmountResolver<string, TypeParent, Context>;
-    /** Amount of Lisk to be transferred in this transaction in Beddows. */
-    amountRaw?: AmountRawResolver<BigInt, TypeParent, Context>;
-    /** Transaction fee associated with this transaction. */
-    fee?: FeeResolver<string, TypeParent, Context>;
-    /** Describes the Transaction type. */
-    type?: TypeResolver<number, TypeParent, Context>;
-    /** The height of the network, at the moment where this transaction was included in the blockchain. */
-    height?: HeightResolver<number | null, TypeParent, Context>;
-    /** The Id of the block, this transaction is included in. */
-    blockId?: BlockIdResolver<string | null, TypeParent, Context>;
-    /** The transaction block where the transaction is included. */
-    block?: BlockResolver<Block | null, TypeParent, Context>;
-    /** Time when the transaction was created. Unix Timestamp. */
-    timestamp?: TimestampResolver<string, TypeParent, Context>;
-    /** Time when the transaction was created. Lisk Unix Timestamp. */
-    timestampRaw?: TimestampRawResolver<string, TypeParent, Context>;
-    /** Lisk Address of the Senders’ account. */
-    senderId?: SenderIdResolver<string | null, TypeParent, Context>;
-    /** Lisk Senders’ account. */
-    sender?: SenderResolver<Account | null, TypeParent, Context>;
-    /** Lisk Address of the Recipients’ account. */
-    recipientId?: RecipientIdResolver<string | null, TypeParent, Context>;
-    /** Lisk Recipients’ account. */
-    recipient?: RecipientResolver<Account | null, TypeParent, Context>;
-    /** Number of times that this transaction has been confirmed by the network. By forging a new block on a chain, all former blocks and their contained transactions in the chain get confirmed by the forging delegate. */
-    confirmations?: ConfirmationsResolver<number | null, TypeParent, Context>;
-  }
+export type TransactionResolvers<
+  ContextType = any,
+  ParentType = ResolversTypes['Transaction']
+> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  amountRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  fee?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  blockId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  timestampRaw?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  senderId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  sender?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  recipientId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  recipient?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+};
 
-  export type IdResolver<
-    R = string,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type AmountResolver<
-    R = string,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type AmountRawResolver<
-    R = BigInt,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type FeeResolver<
-    R = string,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TypeResolver<
-    R = number,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type HeightResolver<
-    R = number | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BlockIdResolver<
-    R = string | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type BlockResolver<
-    R = Block | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TimestampResolver<
-    R = string,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type TimestampRawResolver<
-    R = string,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type SenderIdResolver<
-    R = string | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type SenderResolver<
-    R = Account | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type RecipientIdResolver<
-    R = string | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type RecipientResolver<
-    R = Account | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-  export type ConfirmationsResolver<
-    R = number | null,
-    Parent = Transaction,
-    Context = {}
-  > = Resolver<R, Parent, Context>;
-}
+export type Resolvers<ContextType = any> = {
+  Account?: AccountResolvers<ContextType>;
+  BigInt?: GraphQLScalarType;
+  Block?: BlockResolvers<ContextType>;
+  Delegate?: DelegateResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  Transaction?: TransactionResolvers<ContextType>;
+};
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+ */
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;

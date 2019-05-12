@@ -1,0 +1,19 @@
+{
+  "name": "cryptobaguette-lisk-graphql",
+  "version": 2,
+  "alias": ["cryptobaguette-lisk-graphql"],
+  "builds": [
+    {
+      "src": "build/micro.js",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "12mb" }
+    }
+  ],
+  "routes": [{ "src": "/.*", "dest": "build/micro.js" }],
+  "env": {
+    "LISK_DB_HOST": "@lisk-graphql-lisk-db-host",
+    "LISK_DB_USER": "@lisk-graphql-lisk-db-user",
+    "LISK_DB_PASSWORD": "@lisk-graphql-lisk-db-password",
+    "LISK_DB_DATABASE": "@lisk-graphql-lisk-db-database"
+  }
+}
