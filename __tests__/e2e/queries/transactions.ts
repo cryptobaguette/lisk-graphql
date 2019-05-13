@@ -2,8 +2,6 @@ import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
-    // TODO senderPublicKey
-    // TODO recipientPublicKey
     // TODO signature
     // TODO signatures
     const query = `

@@ -70,7 +70,7 @@ export const monster = {
       },
       confirmations: {
         sqlExpr: (table: string) =>
-          `( SELECT max("b"."height") + 1 FROM ${table} AS "b" ) - ${table}."height"`,
+          `( SELECT max("b"."height") + 1 FROM "blocks" AS "b" ) - ${table}."height"`,
       },
     },
   },
