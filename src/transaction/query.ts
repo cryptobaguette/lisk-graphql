@@ -8,7 +8,7 @@ export const Query: QueryResolvers = {
       dialect: 'pg',
     });
   },
-  block(_, __, ctx, resolveInfo) {
+  transaction(_, __, ctx, resolveInfo) {
     return joinMonster(resolveInfo, ctx, (sql: string) => knex.raw(sql), {
       dialect: 'pg',
     });
