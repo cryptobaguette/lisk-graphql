@@ -164,6 +164,7 @@ export type QueryAccountsArgs = {
 export type QueryAccountArgs = {
   address?: Maybe<Scalars['String']>;
   publicKey?: Maybe<Scalars['String']>;
+  secondPublicKey?: Maybe<Scalars['String']>;
 };
 
 export type QueryBlocksArgs = {
@@ -233,6 +234,16 @@ export type Transaction = {
   recipientId?: Maybe<Scalars['String']>;
   /** Lisk Recipients’ account. */
   recipient?: Maybe<Account>;
+  /** Derived from a SHA-256 hash of the transaction object, that is signed by the
+   * private key of the account who created the transaction.
+   */
+  signature: Scalars['String'];
+  /** Contains the second signature, if the transaction is sent from an account with second passphrase activated. */
+  signSignature?: Maybe<Scalars['String']>;
+  /** If the transaction is a multisignature transaction, all signatures of the
+   * members of the corresponding multisignature group will be listed here.
+   */
+  signatures?: Maybe<Array<Scalars['String']>>;
 };
 
 import {
@@ -532,6 +543,17 @@ export type TransactionResolvers<
   >;
   recipient?: Resolver<
     Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signSignature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatures?: Resolver<
+    Maybe<Array<ResolversTypes['String']>>,
     ParentType,
     ContextType
   >;

@@ -37,8 +37,10 @@ export const typeDef = `
     account(
       # Address of account.
       address: String
-      # Public key of account.
+      # Public key to query
       publicKey: String
+      # Second public key to query
+      secondPublicKey: String
     ): Account
   }
 

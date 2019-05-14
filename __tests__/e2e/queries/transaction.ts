@@ -1,6 +1,5 @@
 import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
-// TODO testnet config
 const transaction = {
   id: '9164476042848216525',
   blockId: '4595402514813331795',
