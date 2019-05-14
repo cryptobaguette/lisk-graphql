@@ -30,26 +30,26 @@ describe('transaction', () => {
     expect(data.transaction.signSignature).toBe(liskTransaction.signSignature);
   });
 
-  // it('should contain all the signatures for a multisignature transaction', async () => {
-  //   const transactionId = '1341110619248769738';
-  //   const query = `
-  //     query transaction {
-  //       transaction(id: "${transactionId}") {
-  //         id
-  //         signatures
-  //       }
-  //     }
-  //   `;
-  //   const { errors, data } = await makeGraphqlRequest({ query });
-  //   expect(errors).not.toBeTruthy();
-  //   const liskTransaction = await liskClient.transactions
-  //     .get({
-  //       id: transactionId,
-  //     })
-  //     .then((data: any) => data.data[0]);
-  //   expect(data.transaction.signatures).toBeTruthy();
-  //   expect(data.transaction.signatures).toBe(liskTransaction.signSignature);
-  // });
+  it('should contain all the signatures for a multisignature transaction', async () => {
+    const transactionId = '1341110619248769738';
+    const query = `
+      query transaction {
+        transaction(id: "${transactionId}") {
+          id
+          signatures
+        }
+      }
+    `;
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const liskTransaction = await liskClient.transactions
+      .get({
+        id: transactionId,
+      })
+      .then((data: any) => data.data[0]);
+    expect(data.transaction.signatures).toBeTruthy();
+    expect(data.transaction.signatures).toEqual(liskTransaction.signatures);
+  });
 
   describe('args', () => {
     describe('id', () => {
