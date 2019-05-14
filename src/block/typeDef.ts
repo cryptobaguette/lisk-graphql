@@ -48,6 +48,13 @@ export const typeDef = `
     totalForged: BigInt!
   }
 
+  enum SortBlocks {
+    HEIGHT_ASC
+    HEIGHT_DESC
+    TOTAL_AMOUNT_ASC
+    TOTAL_AMOUNT_DESC
+  }
+
   extend type Query {
     # Gets all blocks by provided filter(s).
     blocks(
@@ -55,6 +62,8 @@ export const typeDef = `
       limit: Int
       # Offset of blocks.
       offset: Int
+      # Fields to sort results by, default to BALANCE_ASC
+      sort: SortBlocks = HEIGHT_DESC
     ): [Block!]!
 
     # Gets block by provided id.

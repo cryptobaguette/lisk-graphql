@@ -22,6 +22,11 @@ export const typeDef = `
     secondPublicKey: Boolean
   }
 
+  enum SortAccounts {
+    BALANCE_ASC
+    BALANCE_DESC
+  }
+
   extend type Query {
     # Gets all accounts by provided filter(s).
     accounts(
@@ -42,10 +47,5 @@ export const typeDef = `
       # Second public key to query
       secondPublicKey: String
     ): Account
-  }
-
-  enum SortAccounts {
-    BALANCE_ASC
-    BALANCE_DESC
   }
 `;

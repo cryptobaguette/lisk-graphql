@@ -170,6 +170,7 @@ export type QueryAccountArgs = {
 export type QueryBlocksArgs = {
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
+  sort: SortBlocks;
 };
 
 export type QueryBlockArgs = {
@@ -200,6 +201,13 @@ export type QueryTransactionArgs = {
 export enum SortAccounts {
   BalanceAsc = 'BALANCE_ASC',
   BalanceDesc = 'BALANCE_DESC',
+}
+
+export enum SortBlocks {
+  HeightAsc = 'HEIGHT_ASC',
+  HeightDesc = 'HEIGHT_DESC',
+  TotalAmountAsc = 'TOTAL_AMOUNT_ASC',
+  TotalAmountDesc = 'TOTAL_AMOUNT_DESC',
 }
 
 export enum SortTransactions {
@@ -330,6 +338,7 @@ export type ResolversTypes = {
   Account: Account;
   BigInt: Scalars['BigInt'];
   Boolean: Scalars['Boolean'];
+  SortBlocks: SortBlocks;
   Block: Block;
   ID: Scalars['ID'];
   Delegate: Delegate;
