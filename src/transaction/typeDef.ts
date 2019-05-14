@@ -48,9 +48,6 @@ export const typeDef = `
     # If the transaction is a multisignature transaction, all signatures of the members of the corresponding multisignature group will be listed here.
     # TODO signatures: [String!]
 
-    # The timestamp of the moment, where a node discovered a transaction for the first time.
-    # TODO receivedAt: String
-
     # Only present in transactions sent from a multisignature account, or transactions type 4 (multisignature registration). False, if the minimum amount of signatures to sign this transaction has not been reached yet. True, if the minimum amount of signatures has been reached.
     # TODO ready: Boolean
   }
