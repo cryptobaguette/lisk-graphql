@@ -52,6 +52,15 @@ export const monster = {
       timestampRaw: {
         sqlDeps: ['timestamp'],
       },
+      signSignature: {
+        sqlExpr: (table: string) => `ENCODE(${table}."signSignature", 'hex')`,
+      },
+      signature: {
+        sqlExpr: (table: string) => `ENCODE(${table}."signature", 'hex')`,
+      },
+      signatures: {
+        sqlExpr: () => `regexp_split_to_array("signatures", ',')`,
+      },
       senderId: {
         sqlColumn: 'senderId',
       },

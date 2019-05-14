@@ -2,7 +2,6 @@ import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
-    // TODO signature
     // TODO signatures
     const query = `
       query transactions {
@@ -15,6 +14,8 @@ describe('transactions', () => {
           recipientId
           amount
           fee
+          signSignature
+          signature
         }
       }
     `;
@@ -29,6 +30,7 @@ describe('transactions', () => {
     expect(transaction.recipientId).toBeTruthy();
     expect(transaction.amount).toBeTruthy();
     expect(transaction.fee).toBeTruthy();
+    expect(transaction.signature).toBeTruthy();
   });
 
   it('should match the lisk api response', async () => {
@@ -41,6 +43,8 @@ describe('transactions', () => {
           id
           recipientId
           senderId
+          signSignature
+          signature
           timestampRaw
           type
         }
@@ -57,7 +61,6 @@ describe('transactions', () => {
     // We delete the asset field
     delete liskTransaction.asset;
     // TODO
-    delete liskTransaction.signature;
     delete liskTransaction.signatures;
     expect(liskTransaction).toEqual({
       amount: transaction.amountRaw,
@@ -66,6 +69,8 @@ describe('transactions', () => {
       id: transaction.id,
       recipientId: transaction.recipientId,
       senderId: transaction.senderId,
+      signSignature: transaction.signSignature || undefined,
+      signature: transaction.signature,
       timestamp: Number(transaction.timestampRaw),
       type: transaction.type,
       // Next fields are not relevant to test here (relations)

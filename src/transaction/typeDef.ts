@@ -40,18 +40,13 @@ export const typeDef = `
     recipient: Account
 
     # Derived from a SHA-256 hash of the transaction object, that is signed by the private key of the account who created the transaction.
-    # TODO signature: String!
+    signature: String!
 
     # Contains the second signature, if the transaction is sent from an account with second passphrase activated.
-    # TODO signSignature: String
+    signSignature: String
 
-    # TODO signatures
-
-    # The timestamp of the moment, where a node discovered a transaction for the first time.
-    # TODO receivedAt: String
-
-    # Number of times, a single transaction object has been broadcasted to another peer.
-    # TODO relays: Int
+    # If the transaction is a multisignature transaction, all signatures of the members of the corresponding multisignature group will be listed here.
+    signatures: [String!]
 
     # Only present in transactions sent from a multisignature account, or transactions type 4 (multisignature registration). False, if the minimum amount of signatures to sign this transaction has not been reached yet. True, if the minimum amount of signatures has been reached.
     # TODO ready: Boolean
