@@ -1,4 +1,4 @@
-import { makeGraphqlRequest, liskNetwork } from '../../testUtils';
+import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 // TODO testnet config
 const transaction = {
@@ -9,6 +9,48 @@ const transaction = {
 };
 
 describe('transaction', () => {
+  it('should contain the second signature', async () => {
+    const transactionId = '9526405830938290772';
+    const query = `
+      query transaction {
+        transaction(id: "${transactionId}") {
+          id
+          signSignature
+        }
+      }
+    `;
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const liskTransaction = await liskClient.transactions
+      .get({
+        id: transactionId,
+      })
+      .then((data: any) => data.data[0]);
+    expect(data.transaction.signSignature).toBeTruthy();
+    expect(data.transaction.signSignature).toBe(liskTransaction.signSignature);
+  });
+
+  it('should contain all the signatures for a multisignature transaction', async () => {
+    const transactionId = '1341110619248769738';
+    const query = `
+      query transaction {
+        transaction(id: "${transactionId}") {
+          id
+          signatures
+        }
+      }
+    `;
+    const { errors, data } = await makeGraphqlRequest({ query });
+    expect(errors).not.toBeTruthy();
+    const liskTransaction = await liskClient.transactions
+      .get({
+        id: transactionId,
+      })
+      .then((data: any) => data.data[0]);
+    expect(data.transaction.signatures).toBeTruthy();
+    expect(data.transaction.signatures).toBe(liskTransaction.signSignature);
+  });
+
   describe('args', () => {
     describe('id', () => {
       it('should return null if transaction not found', async () => {

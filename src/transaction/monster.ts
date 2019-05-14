@@ -56,6 +56,10 @@ export const monster = {
         sqlColumn: 'signature',
         sqlExpr: (table: string) => `ENCODE(${table}."signature", 'hex')`,
       },
+      signSignature: {
+        sqlColumn: 'signSignature',
+        sqlExpr: (table: string) => `ENCODE(${table}."signSignature", 'hex')`,
+      },
       senderId: {
         sqlColumn: 'senderId',
       },
