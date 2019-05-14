@@ -40,7 +40,7 @@ export const typeDef = `
     recipient: Account
 
     # Derived from a SHA-256 hash of the transaction object, that is signed by the private key of the account who created the transaction.
-    # TODO signature: String!
+    signature: String!
 
     # Contains the second signature, if the transaction is sent from an account with second passphrase activated.
     # TODO signSignature: String
