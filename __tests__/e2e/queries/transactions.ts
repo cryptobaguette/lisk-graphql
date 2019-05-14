@@ -2,7 +2,6 @@ import { makeGraphqlRequest, liskClient } from '../../testUtils';
 
 describe('transactions', () => {
   it('should expose the transaction fields', async () => {
-    // TODO signatures
     const query = `
       query transactions {
         transactions {
@@ -16,6 +15,7 @@ describe('transactions', () => {
           fee
           signSignature
           signature
+          signatures
         }
       }
     `;
@@ -45,6 +45,7 @@ describe('transactions', () => {
           senderId
           signSignature
           signature
+          signatures
           timestampRaw
           type
         }
@@ -60,8 +61,6 @@ describe('transactions', () => {
       .then((data: any) => data.data[0]);
     // We delete the asset field
     delete liskTransaction.asset;
-    // TODO
-    delete liskTransaction.signatures;
     expect(liskTransaction).toEqual({
       amount: transaction.amountRaw,
       blockId: transaction.blockId,
@@ -71,6 +70,7 @@ describe('transactions', () => {
       senderId: transaction.senderId,
       signSignature: transaction.signSignature || undefined,
       signature: transaction.signature,
+      signatures: transaction.signatures || [],
       timestamp: Number(transaction.timestampRaw),
       type: transaction.type,
       // Next fields are not relevant to test here (relations)

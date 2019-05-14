@@ -11,12 +11,16 @@ export const Query: QueryResolvers = {
     });
   },
   account(_, args, ctx, resolveInfo) {
-    // TODO allow find one by secondPublicKey
-    if (!args.address && !args.publicKey) {
-      throw new ApolloError('Missing required property: address or publicKey');
+    if (!args.address && !args.publicKey && !args.secondPublicKey) {
+      throw new ApolloError(
+        'Missing required property: address, publicKey or secondPublicKey'
+      );
     }
     if (args.publicKey && !isPublicKeyValid(args.publicKey)) {
       throw new ApolloError('Invalid public key');
+    }
+    if (args.secondPublicKey && !isPublicKeyValid(args.secondPublicKey)) {
+      throw new ApolloError('Invalid second public key');
     }
     return joinMonster(resolveInfo, ctx, (sql: string) => knex.raw(sql), {
       dialect: 'pg',

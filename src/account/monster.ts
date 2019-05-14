@@ -30,6 +30,11 @@ export const monster = {
               args.publicKey
             )}, 'hex')`;
           }
+          if (args.secondPublicKey) {
+            return `${table}."secondPublicKey" = DECODE(${SqlString.escape(
+              args.secondPublicKey
+            )}, 'hex')`;
+          }
           throw new ApolloError('Invalid where params');
         },
       },
