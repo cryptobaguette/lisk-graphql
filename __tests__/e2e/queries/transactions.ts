@@ -14,6 +14,7 @@ describe('transactions', () => {
           recipientId
           amount
           fee
+          signSignature
           signature
         }
       }
@@ -42,6 +43,7 @@ describe('transactions', () => {
           id
           recipientId
           senderId
+          signSignature
           signature
           timestampRaw
           type
@@ -67,6 +69,7 @@ describe('transactions', () => {
       id: transaction.id,
       recipientId: transaction.recipientId,
       senderId: transaction.senderId,
+      signSignature: transaction.signSignature || undefined,
       signature: transaction.signature,
       timestamp: Number(transaction.timestampRaw),
       type: transaction.type,
