@@ -1,15 +1,29 @@
+import { ApolloError } from 'apollo-server';
 import SqlString from 'sqlstring';
 import { limitFromArgs, offsetFromArgs } from '@app/helpers/monster';
-import { QueryBlockArgs } from '@app/types/graphql';
+import { QueryBlockArgs, QueryBlocksArgs } from '@app/types/graphql';
 
 export const monster = {
   Query: {
     fields: {
       blocks: {
-        orderBy: { height: 'desc' },
+        orderBy: (args: QueryBlocksArgs) => {
+          if (args.sort === 'HEIGHT_ASC') {
+            return { height: 'asc' };
+          }
+          if (args.sort === 'HEIGHT_DESC') {
+            return { height: 'desc' };
+          }
+          if (args.sort === 'TOTAL_AMOUNT_ASC') {
+            return { totalAmount: 'asc' };
+          }
+          if (args.sort === 'TOTAL_AMOUNT_DESC') {
+            return { totalAmount: 'desc' };
+          }
+          throw new ApolloError('Invalid orderBy params');
+        },
         limit: limitFromArgs,
         offset: offsetFromArgs,
-        // TODO args order by enum
         // TODO other args filters
       },
       block: {
