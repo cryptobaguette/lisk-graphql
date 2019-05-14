@@ -12,7 +12,9 @@ export const Query: QueryResolvers = {
   },
   account(_, args, ctx, resolveInfo) {
     if (!args.address && !args.publicKey && !args.secondPublicKey) {
-      throw new ApolloError('Missing required property: address or publicKey');
+      throw new ApolloError(
+        'Missing required property: address, publicKey or secondPublicKey'
+      );
     }
     if (args.publicKey && !isPublicKeyValid(args.publicKey)) {
       throw new ApolloError('Invalid public key');
