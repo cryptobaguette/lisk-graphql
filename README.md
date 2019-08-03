@@ -14,7 +14,7 @@
   </a>
 </p>
 
-![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png 'Playground')
+![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png "Playground")
 
 ## 🙋 Why
 
@@ -22,54 +22,28 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 
 ### Features
 
-- Optimized sql requests (we use [join-monster](https://github.com/acarl005/join-monster) to create the sql requests based on the graphql query)
-- Feature parity with the lisk api
+- Realtime subscriptions
+- Optimized sql requests
 - Filters and pagination
+- Built with [hasura](https://github.com/hasura/graphql-engine/)
 
 ## 📚 How to use
 
-First clone the repository and initialize the modules.
+We use docker-compose to run the lisk-graphql and lisk node server.
 
 ```bash
 git clone https://github.com/cryptobaguette/lisk-graphql
 cd lisk-graphql
-# using yarn
-yarn install
-# Using npm
-npm install
 ```
 
-Copy the example environment file `cp .env.example .env` and then edit the file and setup the environment variables.
-
-Then build the project.
+Follow [this guide](https://lisk.io/documentation/lisk-core/setup/docker) to setup the docker configuration for the lisk node.
 
 ```bash
-yarn build
+make            # will run `docker-compose up` for you
+make coldstart  # will download and restore a blockchain snapshot for you
 ```
 
-Start the app.
-
-```bash
-yarn start
-node build/index.js
-# Using pm2
-pm2 start --name lisk-graphql build/index.js
-```
-
-You can now open your browser and go to `http://your-server:3000` to open the graphql playground.
-
-## 🎛️ Options
-
-Lisk-graphql can be customised using env variables.
-
-| ENV Variable     | Default | description                                                                                              |
-| ---------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| LISK_DB_DATABASE |         | PostgreSQL database name to connect to.                                                                  |
-| LISK_DB_HOST     |         | PostgreSQL database host name.                                                                           |
-| LISK_DB_USER     |         | PostgreSQL database username to connect to.                                                              |
-| LISK_DB_PASSWORD |         | PostgreSQL database password to connect to.                                                              |
-| PORT             | 3000    | Binds and listens for connections on the specified port.                                                 |
-| AUTH_TOKEN       |         | Protect the graphql server with a token. We check if the token is present in the `authorization` header. |
+You can now open your browser and go to `http://your-server:8080` to open graphiql.
 
 ## 🛣️ Roadmap
 
