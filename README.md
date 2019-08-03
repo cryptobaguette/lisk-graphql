@@ -6,9 +6,6 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/cryptobaguette/lisk-graphql">
-    <img src="https://badgen.net/travis/cryptobaguette/lisk-graphql" alt="Build status">
-  </a>
   <a href="https://github.com/cryptobaguette/lisk-graphql/blob/master/LICENSE">
     <img src="https://badgen.net/badge/license/MIT/blue" alt="Licence">
   </a>
