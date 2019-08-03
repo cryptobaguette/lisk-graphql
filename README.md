@@ -14,8 +14,6 @@
   </a>
 </p>
 
-![Playground](https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/playground.png "Playground")
-
 ## 🙋 Why
 
 The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
