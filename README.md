@@ -42,9 +42,10 @@ You can now open your browser and go to `http://your-server:8080` to open graphi
 
 ## 🛣️ Roadmap
 
-- Improve delegates api support
-- Dapps api #3
-- Support Graphql subscriptions #30
+- Improve documentation
+- Dapps api
+- Votes api
+- Voters api
 
 ## ☝️ Suggest changes / ask for a feature
 
