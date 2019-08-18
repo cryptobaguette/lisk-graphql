@@ -6,6 +6,8 @@ sidebar_label: Setup with Docker
 
 This guide will explain you how to setup Lisk-GraphQL with docker-compose. In order to follow it you must install [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/) first.
 
+> If you want to get started easily you can take a Docker One click install in the [Digital Ocean Marketplace](https://m.do.co/c/1eae1ae7f0a2).
+
 ### Lisk Core Docker setup
 
 Follow [this guide](https://lisk.io/documentation/lisk-core/setup/docker) to setup the docker configuration for the Lisk node.
@@ -34,6 +36,8 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgres://DB_USERNAME:DB_PASSWORD@db:5432/lisk
       HASURA_GRAPHQL_ACCESS_KEY: myaccesskey
 ```
+
+You can check the [Hasura documentation](https://docs.hasura.io/1.0/graphql/manual/deployment/graphql-engine-flags/reference.html) to see all the options available.
 
 ### Run the migrations
 
