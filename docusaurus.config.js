@@ -9,6 +9,10 @@ module.exports = {
   themeConfig: {
     navbar: {
       title: 'Lisk-GraphQL',
+      logo: {
+        alt: 'Lisk-GraphQL Logo',
+        src: 'img/logo.png',
+      },
       links: [
         { to: 'docs/introduction', label: 'Docs', position: 'left' },
         {
