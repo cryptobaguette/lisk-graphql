@@ -44,8 +44,8 @@ You will first need to install the [Hasura cli](https://docs.hasura.io/1.0/graph
 Then in order to get the migrations you need to clone the git repository.
 
 ```bash
-git clone https://github.com/cryptobaguette/Lisk-GraphQL.git
-cd Lisk-GraphQL
+git clone https://github.com/cryptobaguette/lisk-graphql.git
+cd lisk-graphql
 ```
 
 Now you can run the migrations.
