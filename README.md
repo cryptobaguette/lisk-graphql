@@ -58,7 +58,3 @@ If you like this project and want to support the development please consider mak
 2865185670348234304L
 
 ```
-
-```
-
-```
