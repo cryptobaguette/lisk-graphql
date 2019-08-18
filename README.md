@@ -2,7 +2,7 @@
 <h3 align="center">Graphql api for lisk</h1>
 
 <p align="center">
-  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/assets/logo.png" height="200">
+  <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/static/img/banner.png" height="200">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 ## 🙋 Why
 
-The aim of this project is to provide a graphql api on top of the lisk database to help you build new tools and applications.
+The aim of this project is to provide a GraphQL api on top of the Lisk database to help you build new tools and applications.
 
 ### Features
 
@@ -24,28 +24,7 @@ The aim of this project is to provide a graphql api on top of the lisk database 
 
 ## 📚 How to use
 
-We use docker-compose to run the lisk-graphql and lisk node server.
-
-```bash
-git clone https://github.com/cryptobaguette/lisk-graphql
-cd lisk-graphql
-```
-
-Follow [this guide](https://lisk.io/documentation/lisk-core/setup/docker) to setup the docker configuration for the lisk node.
-
-```bash
-make            # will run `docker-compose up` for you
-make coldstart  # will download and restore a blockchain snapshot for you
-```
-
-You can now open your browser and go to `http://your-server:8080` to open graphiql.
-
-## 🛣️ Roadmap
-
-- Improve documentation
-- Dapps api
-- Votes api
-- Voters api
+Check out the Getting Started guide.
 
 ## ☝️ Suggest changes / ask for a feature
 
