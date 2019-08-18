@@ -39,7 +39,7 @@ subscription newBlocks {
 
 ## 📚 How to use
 
-Check out the Getting Started guide.
+Check out the **[Documentation](https://lisk-graphql.netlify.com)**.
 
 ## ☝️ Suggest changes / ask for a feature
 
