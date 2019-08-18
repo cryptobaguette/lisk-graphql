@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Lisk-GraphQL',
   tagline: 'A GraphQL api on top of the Lisk blockchain',
-  url: 'https://github.com/cryptobaguette/lisk-graphql',
+  url: 'https://lisk-graphql.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'cryptobaguette',
