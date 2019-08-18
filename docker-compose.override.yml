@@ -1,0 +1,18 @@
+version: '3'
+# Add your custom configuration here.
+# See README.md for examples.
+
+services:
+  graphql-engine:
+    image: hasura/graphql-engine:v1.0.0-beta.4
+    ports:
+      - '8080:8080'
+    networks:
+      - lisk
+    depends_on:
+      - db
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://lisk:password@db:5432/lisk
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log

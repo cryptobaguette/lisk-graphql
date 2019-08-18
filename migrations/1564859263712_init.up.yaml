@@ -1,0 +1,59 @@
+- args:
+    allowlist: []
+    functions: []
+    query_collections: []
+    remote_schemas: []
+    tables:
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      object_relationships:
+      - comment: null
+        name: previousBlock
+        using:
+          manual_configuration:
+            column_mapping:
+              previousBlockId: id
+            remote_table: blocks_public
+      select_permissions: []
+      table: blocks_public
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      object_relationships: []
+      select_permissions: []
+      table: accounts_public
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      object_relationships:
+      - comment: null
+        name: block
+        using:
+          manual_configuration:
+            column_mapping:
+              blockId: id
+            remote_table: blocks_public
+      - comment: null
+        name: sender
+        using:
+          manual_configuration:
+            column_mapping:
+              senderId: address
+            remote_table: accounts_public
+      - comment: null
+        name: recipient
+        using:
+          manual_configuration:
+            column_mapping:
+              recipientId: address
+            remote_table: accounts_public
+      select_permissions: []
+      table: transactions_public
+      update_permissions: []
+  type: replace_metadata
