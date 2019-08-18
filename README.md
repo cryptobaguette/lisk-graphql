@@ -15,6 +15,20 @@
 
 The aim of this project is to provide a GraphQL api on top of the Lisk database to help you build new tools and applications.
 
+Using Hasura give us the ability to subscribe and query the database directly. For example a client **can subscribe to the new blocks forged in realtime** like this.
+
+```graphql
+subscription newBlocks {
+  blocks_public(limit: 1, order_by: { height: desc }) {
+    id
+    height
+    timestamp
+    numberOfTransactions
+    totalAmount
+  }
+}
+```
+
 ### Features
 
 - Realtime subscriptions
@@ -40,5 +54,11 @@ Pull requests are very welcome!
 If you like this project and want to support the development please consider making a donation to:
 
 ```
+
 2865185670348234304L
+
+```
+
+```
+
 ```
