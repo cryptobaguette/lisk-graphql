@@ -54,7 +54,5 @@ Pull requests are very welcome!
 If you like this project and want to support the development please consider making a donation to:
 
 ```
-
 2865185670348234304L
-
 ```
