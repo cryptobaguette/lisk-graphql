@@ -55,3 +55,17 @@ hasura migrate apply
 ```
 
 And voila, your Hasura GraphQL server is now ready to accept your queries, mutations and subscriptions 🎉.
+
+For example you can try the following query which will return the last 20 blocks forged.
+
+```graphql
+query getLastBlocks {
+  blocks_public(limit: 20, order_by: { height: desc }) {
+    id
+    height
+    timestamp
+    numberOfTransactions
+    totalAmount
+  }
+}
+```

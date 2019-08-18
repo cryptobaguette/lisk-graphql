@@ -42,7 +42,7 @@ function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description="A Graphql api on top of the Lisk blockchain"
     >
       <header className={classnames('hero', styles.heroBanner)}>
