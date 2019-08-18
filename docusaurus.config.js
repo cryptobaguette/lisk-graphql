@@ -1,14 +1,14 @@
 module.exports = {
-  title: 'lisk-graphql',
+  title: 'Lisk-GraphQL',
   tagline: 'A GraphQL api on top of the Lisk blockchain',
   url: 'https://github.com/cryptobaguette/lisk-graphql',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'cryptobaguette',
-  projectName: 'lisk-graphql',
+  projectName: 'Lisk-GraphQL',
   themeConfig: {
     navbar: {
-      title: 'lisk-graphql',
+      title: 'Lisk-GraphQL',
       links: [
         { to: 'docs/introduction', label: 'Docs', position: 'left' },
         {
