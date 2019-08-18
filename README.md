@@ -1,5 +1,4 @@
 <h1 align="center">lisk-graphql</h1>
-<h3 align="center">Graphql api for lisk</h1>
 
 <p align="center">
   <img src="https://github.com/cryptobaguette/lisk-graphql/raw/master/static/img/banner.png" height="200">
@@ -10,6 +9,8 @@
     <img src="https://badgen.net/badge/license/MIT/blue" alt="Licence">
   </a>
 </p>
+
+<h3 align="center">GraphQL api for Lisk</h1>
 
 ## 🙋 Why
 
